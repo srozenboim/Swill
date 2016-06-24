@@ -13,7 +13,9 @@ import {
   ListView,
 } from 'react-native';
 
-var REQUEST_URL = "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
+const categories = ['Vodka','Tequila', 'Light rum', 'Gin', 'Dark rum', 'Scotch', 'Whiskey', 'Bourbon', 'Mezcal', 'Brandy', 'Champagne', 'Rum', 'Cognac', 'Kahlua', 'Peanut Liqueur', 'Sake', 'Soju', 'Peppermint schnapps', 'Everclear' ]
+
+// var REQUEST_URL = "https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list"
 
 class Swill extends Component {
   constructor(props) {
@@ -28,41 +30,47 @@ class Swill extends Component {
   }
 
   componentWillMount() {
-
+console.log("constructor")
   }
 
   componentDidMount() {
+    console.log("constructor")
     this.fetchData();
   }
 
   fetchData() {
-    fetch(REQUEST_URL)
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData)
-
+  //   fetch(REQUEST_URL)
+  //     .then((response) => response.json())
+  //     .then((responseData) => {
+  //       console.log(responseData)
+  //
         this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.drinks),
+          dataSource: this.state.dataSource.cloneWithRows(categories),
           loaded: true,
         });
-      })
+  //     })
   }
 
   render() {
+    console.log("constructor")
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
 
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>
-          Welcome to Swill!
-        </Text>
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderCategory}
-          style={styles.listView}
-        />
+        <View>
+          <Text style={styles.title}>
+            Welcome to Swill!
+          </Text>
+        </View>
+        <View style={styles.ListView}>
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderCategory}
+            style={styles.ListView}
+          />
+        </View>
       </View>
     );
   }
@@ -81,7 +89,7 @@ class Swill extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.category}>
-          <Text style={styles.title}>{category.strIngredient1}</Text>
+          <Text style={styles.title}>{category}</Text>
         </View>
       </View>
     );
@@ -92,10 +100,9 @@ class Swill extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'stretch',
     backgroundColor: '#F5FCFF',
+    marginTop: 24,
   },
   title: {
     fontSize: 20,
@@ -103,8 +110,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   ListView: {
-    paddingTop: 20,
-    backgroundColor: 'pink',
+    flex: 1,
+    paddingTop: 10,
   },
   category: {
     flex: 1,
