@@ -1,27 +1,15 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
   ListView,
-  TouchableHighlight,
-  Navigator
 } from 'react-native';
 
-import Category from './category-drinks'
+var REQUEST_URL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="
 
-const categories = ['Vodka','Tequila', 'Light rum', 'Gin', 'Dark rum', 'Scotch', 'Whiskey', 'Bourbon', 'Mezcal', 'Brandy', 'Champagne', 'Rum', 'Cognac', 'Kahlua', 'Peanut Liqueur', 'Sake', 'Soju', 'Peppermint schnapps', 'Everclear' ]
-
-class Swill extends Component {
+class Category extends Component {
   constructor(props) {
-    console.log("constructor")
     super(props);
     this.state = {
       dataSource: new ListView.DataSource({
@@ -41,23 +29,17 @@ console.log("constructor")
   }
 
   fetchData() {
-  //   fetch(REQUEST_URL)
-  //     .then((response) => response.json())
-  //     .then((responseData) => {
-  //       console.log(responseData)
-  //
+    var ingredient = this.props.type
+    fetch(REQUEST_URL + ingredient)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData)
+
         this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(categories),
+          dataSource: this.state.dataSource.cloneWithRows(responseData),
           loaded: true,
         });
-  //     })
-  }
-
-  navigate(routeName) {
-    this.props.navigator.push({
-      component: Category,
-      passProps: {name: routeName},
-    })
+      })
   }
 
   render() {
@@ -69,13 +51,13 @@ console.log("constructor")
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>
-            Welcome to Swill!
+            {this.props.type}
           </Text>
         </View>
         <View style={styles.ListView}>
           <ListView
             dataSource={this.state.dataSource}
-            renderRow={this.renderCategory}
+            renderRow={this.renderDrink}
             style={styles.ListView}
           />
         </View>
@@ -87,21 +69,17 @@ console.log("constructor")
     return (
       <View style={styles.container}>
         <Text>
-          Loading categories...
+          Loading drinks...
         </Text>
       </View>
     );
   }
 
-  renderCategory(category) {
+  renderDrink(drink) {
     return (
       <View style={styles.container}>
-        <View style={styles.category}>
-          <TouchableHighlight
-            onPress={this.navigate.bind(this)}
-          >
-            <Text style={styles.title}>{category}</Text>
-          </TouchableHighlight>
+        <View style={styles.drink}>
+          <Text style={styles.title}>{drink}</Text>
         </View>
       </View>
     );
@@ -127,7 +105,10 @@ const styles = StyleSheet.create({
   },
   category: {
     flex: 1,
+  },
+  category: {
+    flex: 1,
   }
 });
 
-AppRegistry.registerComponent('Swill', () => Swill);
+export default Category;
