@@ -16,7 +16,6 @@ class Category extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: 'ChasingDots',
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
@@ -32,12 +31,6 @@ console.log("constructor")
   componentDidMount() {
     console.log("constructor")
     this.fetchData();
-    setTimeout(function(){
-      this.setState({
-        loaded: true,
-        isVisible: false,
-      })
-    }.bind(this), 1000);
 
   }
 
@@ -110,9 +103,6 @@ console.log("constructor")
 }
 
 const styles = StyleSheet.create({
-  spinner: {
-    marginBottom: 50
-  },
   container: {
     flex: 1,
     alignItems: 'stretch',
