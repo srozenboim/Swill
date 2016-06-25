@@ -112,11 +112,12 @@ console.log("constructor")
   }
 
   renderRecipe(recipe) {
+    var ingrMeasHash = this.pairIngredientsMeasurements(recipe)
     return (
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>{recipe.strDrink}</Text>
-          <Text style={styles.text}>{this.pairIngredientsMeasurements(recipe)}</Text>
+          <Text style={styles.text}>{ingrMeasHash}</Text>
         </View>
       </View>
     );
