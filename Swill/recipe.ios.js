@@ -46,7 +46,6 @@ console.log("constructor")
       .done();
   }
 
-
   navigate(routeName, drinkCategory) {
     this.props.navigator.pop({
       name: routeName,
@@ -57,24 +56,13 @@ console.log("constructor")
     });
   }
 
-
-
-
   render() {
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
-
-
-
-
     return (
       <View style={styles.container}>
         <View>
-
-
-
-
           <Text style={styles.title}>
             {this.props.type}
           </Text>
@@ -168,6 +156,9 @@ console.log("constructor")
               imageURL= recipe[key].replace(/http/g, "https")
             }
           }
+        else {
+          ""
+        }
         }
     return imageURL
   }
@@ -175,6 +166,19 @@ console.log("constructor")
 
   renderRecipe(recipe) {
     var url = this.displayImage(recipe);
+    if (url == "") {
+      return (
+        <View style={styles.container}>
+          <View>
+            <Text style={styles.title}>{recipe.strDrink}</Text>
+            <Text style={styles.header}>Ingredients: </Text>
+            <Text style={styles.text}>{this.displayIngredients(recipe)}</Text>
+            <Text style={styles.header}>Instructions: </Text>
+            <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
+            </View>
+          </View>
+        );
+    } else {
     return (
       <View style={styles.container}>
         <View>
@@ -191,34 +195,26 @@ console.log("constructor")
       </View>
     );
   }
+  }
 
 }
 
 const styles = StyleSheet.create({
-  bButton: {
-    backgroundColor: '#5FB760',
-    color: 'white',
-    padding: 3,
-    textAlign: 'left',
-    marginLeft: 19,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius:4,
-    width: 85,
-  },
   container: {
     flex: 1,
     alignItems: 'stretch',
-    backgroundColor: '#6BA5DC',
+    backgroundColor: '#B8D8D8',
     marginTop: 24,
     marginLeft: 8,
     marginRight: 8,
+    marginBottom: 8
   },
   title: {
     fontSize: 20,
     marginBottom: 8,
     textAlign: 'center',
     fontWeight: 'bold',
+    color: '#4F6367'
   },
   ListView: {
     flex: 1,
@@ -240,7 +236,20 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 16,
     fontWeight: 'bold'
-  }
+  },
+  bButton: {
+    backgroundColor: '#FE5F55',
+    color: 'white',
+    padding: 3,
+    textAlign: 'left',
+    marginLeft: 19,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius:4,
+    width: 85,
+    paddingBottom: 10,
+    fontWeight: 'bold',
+  },
 });
 
 export default Recipe;
