@@ -84,6 +84,7 @@ class Main extends Component {
           value={this.state.search}
           onSubmitEditing={(text) => {
             this.navigate('search', this.state.search )
+            this.state.search = ""
             }
           }
         />
