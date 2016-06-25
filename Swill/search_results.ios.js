@@ -115,21 +115,10 @@ console.log("constructor")
 }
 
 const styles = StyleSheet.create({
-  bButton: {
-    backgroundColor: '#5FB760',
-    color: 'white',
-    padding: 3,
-    textAlign: 'left',
-    marginLeft: 19,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius:4,
-    width: 85,
-  },
   container: {
     flex: 1,
     alignItems: 'stretch',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#B8D8D8',
     marginTop: 24,
   },
   title: {
@@ -143,7 +132,28 @@ const styles = StyleSheet.create({
   },
   category: {
     flex: 1,
-  }
+    marginLeft: 40,
+    marginRight: 40,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#FE5F55',
+    backgroundColor: '#EEF5DB',
+    paddingTop: 8,
+    paddingBottom: 8
+  },
+  bButton: {
+    backgroundColor: '#FE5F55',
+    color: 'white',
+    padding: 3,
+    textAlign: 'left',
+    marginLeft: 19,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius:4,
+    width: 85,
+    paddingBottom: 10,
+    fontWeight: 'bold',
+  },
 });
 
 export default Search;
