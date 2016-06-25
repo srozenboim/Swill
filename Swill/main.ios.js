@@ -13,6 +13,7 @@ import {
   ListView,
   TouchableHighlight,
   Navigator,
+  TextInput,
 } from 'react-native';
 
 import Category from './category-drinks'
@@ -29,6 +30,7 @@ class Main extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
+      search: "",
     };
   }
 
@@ -36,28 +38,16 @@ class Main extends Component {
     console.log("constructor")
   }
 
-  // renderScene(route, navigator) {
-  //   if (route.name === 'login') {
-  //     return <Category navigator={navigator} />
-  //   }
-  // }
-
   componentDidMount() {
     console.log("constructor")
     this.fetchData();
   }
 
   fetchData() {
-  //   fetch(REQUEST_URL)
-  //     .then((response) => response.json())
-  //     .then((responseData) => {
-  //       console.log(responseData)
-  //
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(categories),
           loaded: true,
         });
-  //     })
   }
 
   navigate(routeName, drinkCategory) {
@@ -73,11 +63,6 @@ class Main extends Component {
     }
 
     return (
-      //
-      // <Navigator
-      //   initialRoute={{name:'root'}}
-      //   renderScene={this.renderScene.bind(this)}
-      // />
 
       <View style={styles.container}>
         <View>
@@ -85,6 +70,14 @@ class Main extends Component {
             Welcome to Swill!
           </Text>
         </View>
+        <TextInput
+          style={styles.search}
+          onChangeText={(text) => this.setState({text})}
+          placeholder="Search"
+          autoCorrect={false}
+          value={this.state.text}
+          onSubmitEditing={this._sumitForm}
+        />
         <View style={styles.ListView}>
           <ListView
             dataSource={this.state.dataSource}
@@ -94,6 +87,12 @@ class Main extends Component {
         </View>
       </View>
     );
+  }
+
+  _submitForm = () => {
+
+
+
   }
 
   renderLoadingView() {
@@ -142,6 +141,11 @@ const styles = StyleSheet.create({
   },
   category: {
     flex: 1,
+  },
+  search: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
   }
 });
 
