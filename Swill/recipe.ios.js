@@ -108,16 +108,40 @@ console.log("constructor")
         }
       }
     }
-    return JSON.stringify(ingredients);
+    // return JSON.stringify(ingredients);
+    return ingredients
   }
 
+  createJsonObject(recipe) {
+    var ingredients = this.pairIngredientsMeasurements(recipe)
+    console.log("*"*100)
+    console.log(ingredients[1].ingredient)
+
+  }
+
+  // fetchIngredientsMeasurements(recipe) {
+  //   fetch(this.pairIngredientsMeasurements(recipe))
+  //     .then((response) => response.json())
+  //     .then((responseData) => {
+  //       console.log(responseData)
+  //
+  //       this.setState({
+  //         dataSource: this.state.dataSource.cloneWithRows(responseData),
+  //         loaded: true,
+  //       });
+  //     })
+  //     .done();
+  // }
+
+
+
   renderRecipe(recipe) {
-    var ingrMeasHash = this.pairIngredientsMeasurements(recipe)
+    // var ingrMeasHash = this.pairIngredientsMeasurements(recipe)
     return (
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>{recipe.strDrink}</Text>
-          <Text style={styles.text}>{ingrMeasHash}</Text>
+          <Text style={styles.text}>{this.createJsonObject(recipe)}</Text>
         </View>
       </View>
     );
