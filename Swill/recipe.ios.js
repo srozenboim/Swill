@@ -46,17 +46,45 @@ console.log("constructor")
       .done();
   }
 
+
+  navigate(routeName, drinkCategory) {
+    this.props.navigator.pop({
+      name: routeName,
+      passProps: {
+        category: drinkCategory,
+        results: drinkCategory
+      }
+    });
+  }
+
+
+
+
   render() {
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
 
+
+
+
     return (
       <View style={styles.container}>
         <View>
+
+
+
+
           <Text style={styles.title}>
             {this.props.type}
           </Text>
+
+          <TouchableHighlight
+            onPress={this.navigate.bind(this, 'category')}
+          >
+            <Text style={styles.bButton}> &larr; Back</Text>
+          </TouchableHighlight>
+
         </View>
         <View style={styles.ListView}>
           <ListView
@@ -167,10 +195,21 @@ console.log("constructor")
 }
 
 const styles = StyleSheet.create({
+  bButton: {
+    backgroundColor: '#5FB760',
+    color: 'white',
+    padding: 3,
+    textAlign: 'left',
+    marginLeft: 19,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius:4,
+    width: 85,
+  },
   container: {
     flex: 1,
     alignItems: 'stretch',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#6BA5DC',
     marginTop: 24,
     marginLeft: 8,
     marginRight: 8,

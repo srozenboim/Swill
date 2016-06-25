@@ -56,11 +56,19 @@ console.log("constructor")
     return (
       <View style={styles.container}>
         <View>
+
           <Text style={styles.title}>
             {this.props.type}
           </Text>
         </View>
         <View style={styles.ListView}>
+
+        <TouchableHighlight
+          onPress={this.back.bind(this, 'recipe')}
+        >
+          <Text style={styles.bButton}>  &larr; Back </Text>
+        </TouchableHighlight>
+
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this.renderDrink.bind(this)}
@@ -90,9 +98,21 @@ console.log("constructor")
           >
             <Text style={styles.title}>{drink.strDrink}</Text>
           </TouchableHighlight>
+
+
+
+
+
         </View>
       </View>
     );
+  }
+
+  back(routeName, drink) {
+    this.props.navigator.pop({
+      name: routeName,
+      passProps: {drinkId: drink}
+    });
   }
 
   navigate(routeName, drink) {
@@ -105,6 +125,17 @@ console.log("constructor")
 }
 
 const styles = StyleSheet.create({
+  bButton: {
+    backgroundColor: '#5FB760',
+    color: 'white',
+    padding: 3,
+    textAlign: 'left',
+    marginLeft: 19,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius:4,
+    width: 85,
+  },
   container: {
     flex: 1,
     alignItems: 'stretch',
