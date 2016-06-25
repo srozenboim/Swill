@@ -20,7 +20,6 @@ class Category extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
-      isVisible: true,
     };
   }
 
@@ -43,6 +42,7 @@ console.log("constructor")
 
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData.drinks),
+          loaded: true,
         });
       })
       .done();
@@ -73,9 +73,11 @@ console.log("constructor")
 
   renderLoadingView() {
     return (
-      <Text>
-        Loading drinks...
-      </Text>
+      <View style={styles.container}>
+        <Text>
+          Loading drinks...
+        </Text>
+      </View>
     );
   }
 
