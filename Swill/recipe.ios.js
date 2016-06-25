@@ -60,7 +60,7 @@ console.log("constructor")
         <View style={styles.ListView}>
           <ListView
             dataSource={this.state.dataSource}
-            renderRow={this.renderRecipe}
+            renderRow={this.renderRecipe.bind(this)}
             style={styles.ListView}
           />
         </View>
@@ -78,11 +78,45 @@ console.log("constructor")
     );
   }
 
+  pairIngredientsMeasurements(recipe) {
+    var ingredients = {};
+    for (key of Object.keys(recipe)) {
+      if(recipe[key] && recipe[key].trim()){
+        if(key.includes("strIngredient")){
+
+          var i = ingredients[key.slice(13)];
+          if(i === undefined){
+            ingredients[key.slice(13)] = {
+              ingredient: recipe[key]
+            }
+          }
+          else{
+            i.ingredient = recipe[key]
+          }
+        }
+        else if(key.includes("strMeasure")){
+
+          var i = ingredients[key.slice(10)];
+          if(i === undefined){
+            ingredients[key.slice(10)] = {
+              measurement: recipe[key]
+            }
+          }
+          else{
+            i.measurement = recipe[key]
+          }
+        }
+      }
+    }
+    return JSON.stringify(ingredients);
+  }
+
   renderRecipe(recipe) {
     return (
       <View style={styles.container}>
-        <View style={styles.drink}>
+        <View>
           <Text style={styles.title}>{recipe.strDrink}</Text>
+          <Text style={styles.text}>{this.pairIngredientsMeasurements(recipe)}</Text>
         </View>
       </View>
     );
@@ -108,6 +142,9 @@ const styles = StyleSheet.create({
   },
   category: {
     flex: 1,
+  },
+  text: {
+    fontSize: 20,
   }
 });
 
