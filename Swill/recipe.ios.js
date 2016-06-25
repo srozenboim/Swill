@@ -7,11 +7,9 @@ import {
   Navigator
 } from 'react-native';
 
-import Recipe from './recipe'
+var REQUEST_URL = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i="
 
-var REQUEST_URL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="
-
-class Category extends Component {
+class Recipe extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -115,4 +113,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Category;
+export default Recipe;
