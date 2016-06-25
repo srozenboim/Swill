@@ -5,7 +5,8 @@ import {
   View,
   ListView,
   Navigator,
-  TouchableHighlight
+  TouchableHighlight,
+  Image
 } from 'react-native';
 
 var REQUEST_URL = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i="
@@ -131,14 +132,33 @@ console.log("constructor")
     return instructions
   }
 
+  displayImage(recipe) {
+    var imageURL = "";
+    for (key of Object.keys(recipe)) {
+      if(recipe[key] && recipe[key].trim()){
+        if(key.includes("strDrinkThumb")){
+              imageURL= recipe[key].replace(/http/g, "https")
+            }
+          }
+        }
+    return imageURL
+    console.log('hello')
+    console.log(imageURL)
+  }
+
+
   renderRecipe(recipe) {
-    // var ingrMeasHash = this.pairIngredientsMeasurements(recipe)
+    var url = this.displayImage(recipe);
     return (
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>{recipe.strDrink}</Text>
           <Text style={styles.text}>Ingredients: {this.displayIngredients(recipe)}</Text>
           <Text style={styles.text}>Instructions: {this.displayInsructions(recipe)}</Text>
+          <Image
+            style={styles.drinkImage}
+            source={{uri: url}}
+          />
         </View>
       </View>
     );
@@ -167,7 +187,12 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-  }
+  },
+  drinkImage: {
+    width: 70,
+    height: 70,
+    borderWidth: 5,
+  },
 });
 
 export default Recipe;
