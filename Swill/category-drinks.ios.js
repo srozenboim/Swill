@@ -143,6 +143,14 @@ const styles = StyleSheet.create({
   },
   category: {
     flex: 1,
+    marginLeft: 40,
+    marginRight: 40,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: '#FE5F55',
+    backgroundColor: '#EEF5DB',
+    paddingTop: 10,
+    paddingBottom: 10
   },
   bButton: {
     backgroundColor: '#FE5F55',
