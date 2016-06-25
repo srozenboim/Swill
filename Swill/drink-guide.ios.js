@@ -179,6 +179,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     fontWeight: 'bold',
   },
+  
 });
 
 export default Guide;
