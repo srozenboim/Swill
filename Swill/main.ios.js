@@ -82,7 +82,6 @@ class Main extends Component {
           autoCorrect={false}
           value={this.state.search}
           onSubmitEditing={(text) => {
-            console.log("main onsubmit function")
             this.navigate('search', this.state.search )
             }
           }

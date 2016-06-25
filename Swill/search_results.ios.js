@@ -33,7 +33,6 @@ console.log("constructor")
 
   fetchData() {
     var ingredient = this.props.results
-    console.log(ingredient)
     fetch(REQUEST_URL + ingredient)
       .then((response) => response.json())
       .then((responseData) => {
@@ -54,9 +53,6 @@ console.log("constructor")
 
     return (
       <View style={styles.container}>
-      <Text style={styles.title}>
-        THIS IS THE NEW PAGE
-      </Text>
         <View>
           <Text style={styles.title}>
             {this.props.type}

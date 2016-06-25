@@ -36,8 +36,6 @@ class Swill extends Component {
       return <Category navigator={navigator} {...route.passProps} />
     }
     else if (route.name === 'search') {
-      console.log("index route")
-
       return <Search navigator={navigator} {...route.passProps} />
     }
   }
