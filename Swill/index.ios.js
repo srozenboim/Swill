@@ -42,7 +42,7 @@ class Swill extends Component {
       return <Main navigator={navigator} />
     }
     else if (route.name === 'category') {
-      return <Category navigator={navigator} />
+      return <Category navigator={navigator} {...route.passProps} />
     }
   }
 

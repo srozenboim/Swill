@@ -60,10 +60,10 @@ class Main extends Component {
   //     })
   }
 
-  navigate(routeName) {
+  navigate(routeName, drinkCategory) {
     this.props.navigator.push({
       name: routeName,
-      passProps: {name: routeName}
+      passProps: {category: drinkCategory}
     });
   }
 
@@ -112,7 +112,7 @@ class Main extends Component {
       <View style={styles.container}>
         <View style={styles.category}>
           <TouchableHighlight
-            onPress={this.navigate.bind(this, 'category')}
+            onPress={this.navigate.bind(this, 'category', category)}
           >
             <Text style={styles.title}>{category}</Text>
           </TouchableHighlight>
