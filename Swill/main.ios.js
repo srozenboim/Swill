@@ -17,6 +17,8 @@ import {
 } from 'react-native';
 
 import Category from './category-drinks'
+import Search from './search_results'
+
 
 const categories = ['Vodka','Tequila', 'Light rum', 'Gin', 'Dark rum', 'Scotch', 'Whiskey', 'Bourbon', 'Mezcal', 'Brandy', 'Champagne', 'Rum', 'Cognac', 'Kahlua', 'Peanut Liqueur', 'Sake', 'Soju', 'Peppermint schnapps', 'Everclear' ]
 
@@ -53,7 +55,10 @@ class Main extends Component {
   navigate(routeName, drinkCategory) {
     this.props.navigator.push({
       name: routeName,
-      passProps: {category: drinkCategory}
+      passProps: {
+        category: drinkCategory,
+        results: drinkCategory
+      }
     });
   }
 
@@ -76,7 +81,11 @@ class Main extends Component {
           placeholder="Search"
           autoCorrect={false}
           value={this.state.search}
-          onSubmitEditing={(text) => {console.log(this.state.search)}}
+          onSubmitEditing={(text) => {
+            console.log("main onsubmit function")
+            this.navigate('search', this.state.search )
+            }
+          }
         />
         <View style={styles.ListView}>
           <ListView
@@ -89,11 +98,6 @@ class Main extends Component {
     );
   }
 
-  // _submitForm = () => {
-    // const {search} = this.state.search
-    // this.navigate.bind(this, 'category', )
-
-  // }
 
   renderLoadingView() {
     return (

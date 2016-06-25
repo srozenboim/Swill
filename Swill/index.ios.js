@@ -18,6 +18,8 @@ import {
 import Main from './main'
 import Category from './category-drinks'
 import Recipe from './recipe'
+import Search from './search_results'
+
 
 const categories = ['Vodka','Tequila', 'Light rum', 'Gin', 'Dark rum', 'Scotch', 'Whiskey', 'Bourbon', 'Mezcal', 'Brandy', 'Champagne', 'Rum', 'Cognac', 'Kahlua', 'Peanut Liqueur', 'Sake', 'Soju', 'Peppermint schnapps', 'Everclear' ]
 
@@ -32,6 +34,11 @@ class Swill extends Component {
     }
     else if (route.name === 'category') {
       return <Category navigator={navigator} {...route.passProps} />
+    }
+    else if (route.name === 'search') {
+      console.log("index route")
+
+      return <Search navigator={navigator} {...route.passProps} />
     }
   }
 
