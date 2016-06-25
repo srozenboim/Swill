@@ -75,7 +75,7 @@ console.log("constructor")
         <TouchableHighlight
           onPress={this.navigate.bind(this, 'category')}
         >
-          <Text style={styles.title}>Back</Text>
+          <Text style={styles.bButton}> &larr; Back</Text>
         </TouchableHighlight>
 
 
@@ -190,6 +190,17 @@ console.log("constructor")
 }
 
 const styles = StyleSheet.create({
+  bButton: {
+    backgroundColor: '#5FB760',
+    color: 'white',
+    padding: 3,
+    textAlign: 'left',
+    marginLeft: 19,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius:4,
+    width: 85,
+  },
   container: {
     flex: 1,
     alignItems: 'stretch',

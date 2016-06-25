@@ -5,7 +5,7 @@ import {
   View,
   ListView,
   Navigator,
-  TouchableHighlight
+  TouchableHighlight,
 } from 'react-native';
 
 import Recipe from './recipe'
@@ -61,11 +61,11 @@ console.log("constructor")
           </Text>
         </View>
         <View style={styles.ListView}>
-        
+
         <TouchableHighlight
           onPress={this.back.bind(this, 'recipe')}
         >
-          <Text style={styles.title}>Back</Text>
+          <Text style={styles.bButton}>  &larr; Back </Text>
         </TouchableHighlight>
 
           <ListView
@@ -124,6 +124,17 @@ console.log("constructor")
 }
 
 const styles = StyleSheet.create({
+  bButton: {
+    backgroundColor: '#5FB760',
+    color: 'white',
+    padding: 3,
+    textAlign: 'left',
+    marginLeft: 19,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius:4,
+    width: 85,
+  },
   container: {
     flex: 1,
     alignItems: 'stretch',
