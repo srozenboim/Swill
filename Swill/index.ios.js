@@ -17,6 +17,7 @@ import {
 
 import Main from './main'
 import Category from './category-drinks'
+import Recipe from './recipe'
 
 const categories = ['Vodka','Tequila', 'Light rum', 'Gin', 'Dark rum', 'Scotch', 'Whiskey', 'Bourbon', 'Mezcal', 'Brandy', 'Champagne', 'Rum', 'Cognac', 'Kahlua', 'Peanut Liqueur', 'Sake', 'Soju', 'Peppermint schnapps', 'Everclear' ]
 
@@ -40,6 +41,9 @@ class Swill extends Component {
   renderScene(route, navigator) {
     if (route.name === 'main') {
       return <Main navigator={navigator} />
+    }
+    else if (route.name === 'recipe') {
+      return <Recipe navigator={navigator} {...route.passProps} />
     }
     else if (route.name === 'category') {
       return <Category navigator={navigator} {...route.passProps} />
