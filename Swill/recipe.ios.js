@@ -168,6 +168,9 @@ console.log("constructor")
               imageURL= recipe[key].replace(/http/g, "https")
             }
           }
+        else {
+          break
+        }
         }
     return imageURL
   }
