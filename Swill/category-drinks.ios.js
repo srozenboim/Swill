@@ -94,6 +94,8 @@ console.log("constructor")
     );
   }
 
+    
+
   navigate(routeName, drink) {
     this.props.navigator.push({
       name: routeName,

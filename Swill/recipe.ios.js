@@ -46,14 +46,39 @@ console.log("constructor")
       .done();
   }
 
+
+  navigate(routeName, drinkCategory) {
+    this.props.navigator.pop({
+      name: routeName,
+      passProps: {
+        category: drinkCategory,
+        results: drinkCategory
+      }
+    });
+  }
+
+
+
+
   render() {
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
 
+
+
+
     return (
       <View style={styles.container}>
         <View>
+
+        <TouchableHighlight
+          onPress={this.navigate.bind(this, 'category')}
+        >
+          <Text style={styles.title}>Back</Text>
+        </TouchableHighlight>
+
+
           <Text style={styles.title}>
             {this.props.type}
           </Text>
@@ -168,7 +193,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#6BA5DC',
     marginTop: 24,
   },
   title: {
