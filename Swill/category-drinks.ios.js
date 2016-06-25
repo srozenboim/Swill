@@ -5,7 +5,7 @@ import {
   View,
   ListView,
   Navigator,
-  TouchableHighlight
+  TouchableHighlight,
 } from 'react-native';
 
 import Recipe from './recipe'
@@ -30,6 +30,7 @@ console.log("constructor")
   componentDidMount() {
     console.log("constructor")
     this.fetchData();
+
   }
 
   fetchData() {
@@ -114,6 +115,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 8,
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   ListView: {
     flex: 1,

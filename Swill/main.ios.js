@@ -20,7 +20,8 @@ import Category from './category-drinks'
 import Search from './search_results'
 
 
-const categories = ['Vodka','Tequila', 'Light rum', 'Gin', 'Dark rum', 'Scotch', 'Whiskey', 'Bourbon', 'Mezcal', 'Brandy', 'Champagne', 'Rum', 'Cognac', 'Kahlua', 'Peanut Liqueur', 'Sake', 'Soju', 'Peppermint schnapps', 'Everclear']
+
+const categories = ['Vodka','Tequila', 'Light rum', 'Gin', 'Dark rum', 'Scotch', 'Whiskey', 'Bourbon', 'Mezcal', 'Brandy', 'Champagne', 'Rum', 'Cognac', 'Kahlua', 'Peanut Liqueur', 'Sake', 'Peppermint schnapps', 'Everclear', 'Beer' ]
 
 class Main extends Component {
 
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'white',
     marginTop: 24,
   },
   title: {
@@ -141,6 +142,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 8,
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   ListView: {
     flex: 1,
@@ -165,7 +167,7 @@ const styles = StyleSheet.create({
   listContainer: {
     flex: 1,
     alignItems: 'stretch',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'white',
     marginTop: 10,
   }
 });
