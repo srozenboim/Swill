@@ -4,6 +4,7 @@ import {
   Text,
   View,
   ListView,
+  Navigator
 } from 'react-native';
 
 var REQUEST_URL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="
@@ -28,8 +29,10 @@ console.log("constructor")
     this.fetchData();
   }
 
-  fetchData() {
+  fetchData(route) {
     var ingredient = this.props.type
+    // console.log(REQUEST_URL + ingredient)
+    console.log(this.props.passProps)
     fetch(REQUEST_URL + ingredient)
       .then((response) => response.json())
       .then((responseData) => {
