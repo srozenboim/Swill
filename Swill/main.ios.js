@@ -72,11 +72,11 @@ class Main extends Component {
         </View>
         <TextInput
           style={styles.search}
-          onChangeText={(text) => this.setState({text})}
+          onChangeText={(text) => this.setState({search: text})}
           placeholder="Search"
           autoCorrect={false}
-          value={this.state.text}
-          onSubmitEditing={this._sumitForm}
+          value={this.state.search}
+          onSubmitEditing={(text) => {console.log(this.state.search)}}
         />
         <View style={styles.ListView}>
           <ListView
@@ -89,11 +89,11 @@ class Main extends Component {
     );
   }
 
-  _submitForm = () => {
+  // _submitForm = () => {
+    // const {search} = this.state.search
+    // this.navigate.bind(this, 'category', )
 
-
-
-  }
+  // }
 
   renderLoadingView() {
     return (
