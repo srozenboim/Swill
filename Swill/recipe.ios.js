@@ -169,7 +169,7 @@ console.log("constructor")
             }
           }
         else {
-          break
+          ""
         }
         }
     return imageURL
@@ -178,6 +178,19 @@ console.log("constructor")
 
   renderRecipe(recipe) {
     var url = this.displayImage(recipe);
+    if (url == "") {
+      return (
+        <View style={styles.container}>
+          <View>
+            <Text style={styles.title}>{recipe.strDrink}</Text>
+            <Text style={styles.header}>Ingredients: </Text>
+            <Text style={styles.text}>{this.displayIngredients(recipe)}</Text>
+            <Text style={styles.header}>Instructions: </Text>
+            <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
+            </View>
+          </View>
+        );
+    } else {
     return (
       <View style={styles.container}>
         <View>
@@ -193,6 +206,7 @@ console.log("constructor")
         </View>
       </View>
     );
+  }
   }
 
 }
@@ -212,7 +226,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
-    backgroundColor: '#6BA5DC',
+    backgroundColor: 'white',
     marginTop: 24,
     marginLeft: 8,
     marginRight: 8,
