@@ -72,16 +72,19 @@ console.log("constructor")
       <View style={styles.container}>
         <View>
 
-        <TouchableHighlight
-          onPress={this.navigate.bind(this, 'category')}
-        >
-          <Text style={styles.bButton}> &larr; Back</Text>
-        </TouchableHighlight>
+
 
 
           <Text style={styles.title}>
             {this.props.type}
           </Text>
+
+          <TouchableHighlight
+            onPress={this.navigate.bind(this, 'category')}
+          >
+            <Text style={styles.bButton}> &larr; Back</Text>
+          </TouchableHighlight>
+
         </View>
         <View style={styles.ListView}>
           <ListView
