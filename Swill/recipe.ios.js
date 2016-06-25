@@ -112,31 +112,24 @@ console.log("constructor")
     return ingredients
   }
 
-  createJsonObject(recipe) {
+  displayIngredients(recipe) {
     var ingredients = this.pairIngredientsMeasurements(recipe)
     var array = []
     for (var i in ingredients) {
       array += [ingredients[i].measurement, ingredients[i].ingredient];
     }
-    // return [ingredients[1].measurement, ingredients[1].ingredient]
     return array
   }
 
-  // fetchIngredientsMeasurements(recipe) {
-  //   fetch(this.pairIngredientsMeasurements(recipe))
-  //     .then((response) => response.json())
-  //     .then((responseData) => {
-  //       console.log(responseData)
-  //
-  //       this.setState({
-  //         dataSource: this.state.dataSource.cloneWithRows(responseData),
-  //         loaded: true,
-  //       });
-  //     })
-  //     .done();
-  // }
-
-
+  displayInsructions(recipe) {
+    var instructions = "";
+    for (key of Object.keys(recipe)) {
+        if(key.includes("strInstructions")){
+              instructions= recipe[key]
+            }
+          }
+    return instructions
+  }
 
   renderRecipe(recipe) {
     // var ingrMeasHash = this.pairIngredientsMeasurements(recipe)
@@ -144,7 +137,8 @@ console.log("constructor")
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>{recipe.strDrink}</Text>
-          <Text style={styles.text}>{this.createJsonObject(recipe)}</Text>
+          <Text style={styles.text}>Ingredients: {this.displayIngredients(recipe)}</Text>
+          <Text style={styles.text}>Instructions: {this.displayInsructions(recipe)}</Text>
         </View>
       </View>
     );
