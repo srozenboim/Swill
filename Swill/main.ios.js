@@ -13,9 +13,12 @@ import {
   ListView,
   TouchableHighlight,
   Navigator,
+  TextInput,
 } from 'react-native';
 
 import Category from './category-drinks'
+import Search from './search_results'
+
 
 const categories = ['Vodka','Tequila', 'Light rum', 'Gin', 'Dark rum', 'Scotch', 'Whiskey', 'Bourbon', 'Mezcal', 'Brandy', 'Champagne', 'Rum', 'Cognac', 'Kahlua', 'Peanut Liqueur', 'Sake', 'Soju', 'Peppermint schnapps', 'Everclear' ]
 
@@ -29,6 +32,7 @@ class Main extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
+      search: "",
     };
   }
 
@@ -36,34 +40,25 @@ class Main extends Component {
     console.log("constructor")
   }
 
-  // renderScene(route, navigator) {
-  //   if (route.name === 'login') {
-  //     return <Category navigator={navigator} />
-  //   }
-  // }
-
   componentDidMount() {
     console.log("constructor")
     this.fetchData();
   }
 
   fetchData() {
-  //   fetch(REQUEST_URL)
-  //     .then((response) => response.json())
-  //     .then((responseData) => {
-  //       console.log(responseData)
-  //
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(categories),
           loaded: true,
         });
-  //     })
   }
 
   navigate(routeName, drinkCategory) {
     this.props.navigator.push({
       name: routeName,
-      passProps: {category: drinkCategory}
+      passProps: {
+        category: drinkCategory,
+        results: drinkCategory
+      }
     });
   }
 
@@ -73,11 +68,6 @@ class Main extends Component {
     }
 
     return (
-      //
-      // <Navigator
-      //   initialRoute={{name:'root'}}
-      //   renderScene={this.renderScene.bind(this)}
-      // />
 
       <View style={styles.container}>
         <View>
@@ -85,6 +75,17 @@ class Main extends Component {
             Welcome to Swill!
           </Text>
         </View>
+        <TextInput
+          style={styles.search}
+          onChangeText={(text) => this.setState({search: text})}
+          placeholder="Search"
+          autoCorrect={false}
+          value={this.state.search}
+          onSubmitEditing={(text) => {
+            this.navigate('search', this.state.search )
+            }
+          }
+        />
         <View style={styles.ListView}>
           <ListView
             dataSource={this.state.dataSource}
@@ -95,6 +96,7 @@ class Main extends Component {
       </View>
     );
   }
+
 
   renderLoadingView() {
     return (
@@ -142,6 +144,11 @@ const styles = StyleSheet.create({
   },
   category: {
     flex: 1,
+  },
+  search: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
   }
 });
 
