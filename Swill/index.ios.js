@@ -20,9 +20,6 @@ import Category from './category-drinks'
 import Recipe from './recipe'
 import Search from './search_results'
 
-
-const categories = ['Vodka','Tequila', 'Light rum', 'Gin', 'Dark rum', 'Scotch', 'Whiskey', 'Bourbon', 'Mezcal', 'Brandy', 'Champagne', 'Rum', 'Cognac', 'Kahlua', 'Peanut Liqueur', 'Sake', 'Peppermint schnapps', 'Everclear', 'Beer' ]
-
 class Swill extends Component {
 
   renderScene(route, navigator) {

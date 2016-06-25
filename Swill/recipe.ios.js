@@ -117,9 +117,9 @@ console.log("constructor")
     var ingredients = this.pairIngredientsMeasurements(recipe)
     var array = []
     for (var i in ingredients) {
-      array += [ingredients[i].measurement, ingredients[i].ingredient];
+      array += [ingredients[i].measurement, ingredients[i].ingredient].join("")+ "\n";
     }
-    return array
+    return array;
   }
 
   displayInsructions(recipe) {
