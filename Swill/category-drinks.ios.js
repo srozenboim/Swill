@@ -31,6 +31,8 @@ console.log("constructor")
 
   fetchData() {
     var ingredient = this.props.type
+    // console.log(REQUEST_URL + ingredient)
+    console.log(this.props.type)
     fetch(REQUEST_URL + ingredient)
       .then((response) => response.json())
       .then((responseData) => {

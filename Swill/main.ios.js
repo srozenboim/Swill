@@ -63,7 +63,7 @@ class Main extends Component {
   navigate(routeName) {
     this.props.navigator.push({
       name: routeName
-      // passProps: {name: routeName},
+      passProps: {name: routeName},
     });
   }
 
