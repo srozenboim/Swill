@@ -27,7 +27,6 @@ console.log("constructor")
   }
 
   componentDidMount() {
-    console.log("constructor")
     this.fetchData();
   }
 
@@ -37,11 +36,15 @@ console.log("constructor")
       .then((response) => response.json())
       .then((responseData) => {
         console.log(responseData)
-
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.drinks),
-          loaded: true,
-        });
+        if (responseData.drinks == null){
+          this.navigate("error", responseData.drinks)
+        }
+        else {
+          this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(responseData.drinks),
+            loaded: true,
+          })
+        }
       })
       .done();
   }

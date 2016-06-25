@@ -19,6 +19,7 @@ import Main from './main'
 import Category from './category-drinks'
 import Recipe from './recipe'
 import Search from './search_results'
+import Error from './error'
 
 class Swill extends Component {
 
@@ -33,8 +34,17 @@ class Swill extends Component {
       return <Category navigator={navigator} {...route.passProps} />
     }
     else if (route.name === 'search') {
+      if (route.passProps.results == "") {
+        return <Error navigator={navigator} {...route.passProps} />
+      }
+      else {
       return <Search navigator={navigator} {...route.passProps} />
+      }
     }
+    else if (route.name === 'error') {
+      return <Error navigator={navigator} {...route.passProps} />
+    }
+
   }
 
   navigate(routeName) {
