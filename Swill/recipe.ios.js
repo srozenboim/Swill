@@ -154,7 +154,7 @@ console.log("constructor")
           <Text style={styles.header}>Ingredients: </Text>
           <Text style={styles.text}>{this.displayIngredients(recipe)}</Text>
           <Text style={styles.header}>Instructions: </Text>
-          <Text style={styles.text}>{this.displayInsructions(recipe)}</Text>
+          <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
           <Image
             style={styles.drinkImage}
             source={{uri: url}}
@@ -194,6 +194,9 @@ const styles = StyleSheet.create({
   drinkImage: {
     width: 200,
     height: 200,
+    alignItems: 'center',
+    justifyContent: 'center',
+
   },
   header: {
     fontSize: 16,
