@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
-    backgroundColor: 'white',
+    backgroundColor: '#B8D8D8',
     marginTop: 24,
   },
   title: {
@@ -153,21 +153,23 @@ const styles = StyleSheet.create({
     marginRight: 40,
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: 'gray',
+    borderColor: '#FE5F55',
+    backgroundColor: '#EEF5DB'
   },
   search: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: '#FE5F55',
     borderRadius: 10,
     borderWidth: 1,
     padding: 10,
     marginLeft: 10,
     marginRight: 10,
+    backgroundColor: '#EEF5DB'
   },
   listContainer: {
     flex: 1,
     alignItems: 'stretch',
-    backgroundColor: 'white',
+    backgroundColor: '#B8D8D8',
     marginTop: 10,
   }
 });
