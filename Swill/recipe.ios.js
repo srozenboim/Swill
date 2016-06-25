@@ -142,8 +142,6 @@ console.log("constructor")
           }
         }
     return imageURL
-    console.log('hello')
-    console.log(imageURL)
   }
 
 
@@ -189,9 +187,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   drinkImage: {
-    width: 70,
-    height: 70,
-    borderWidth: 5,
+    width: 200,
+    height: 200,
   },
 });
 
