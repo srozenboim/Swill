@@ -20,6 +20,7 @@ import Category from './category-drinks'
 import Search from './search_results'
 
 
+
 const categories = ['Vodka','Tequila', 'Light rum', 'Gin', 'Dark rum', 'Scotch', 'Whiskey', 'Bourbon', 'Mezcal', 'Brandy', 'Champagne', 'Rum', 'Cognac', 'Kahlua', 'Peanut Liqueur', 'Sake', 'Peppermint schnapps', 'Everclear', 'Beer' ]
 
 class Main extends Component {
@@ -86,11 +87,14 @@ class Main extends Component {
             }
           }
         />
+          <Text style={styles.title}>
+            Pick a Category
+          </Text>
+
         <View style={styles.ListView}>
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this.renderCategory.bind(this)}
-            style={styles.ListView}
           />
         </View>
       </View>
@@ -112,7 +116,7 @@ class Main extends Component {
   renderCategory(category) {
     return (
 
-      <View style={styles.container}>
+      <View style={styles.listContainer}>
         <View style={styles.category}>
           <TouchableHighlight
             onPress={this.navigate.bind(this, 'category', category)}
@@ -130,26 +134,41 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'white',
     marginTop: 24,
   },
   title: {
     fontSize: 20,
     marginBottom: 8,
+    marginTop: 8,
     textAlign: 'center',
     fontWeight: 'bold',
   },
   ListView: {
     flex: 1,
-    paddingTop: 10,
   },
   category: {
     flex: 1,
+    marginLeft: 40,
+    marginRight: 40,
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: 'gray',
   },
   search: {
     height: 40,
     borderColor: 'gray',
+    borderRadius: 10,
     borderWidth: 1,
+    padding: 10,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  listContainer: {
+    flex: 1,
+    alignItems: 'stretch',
+    backgroundColor: 'white',
+    marginTop: 10,
   }
 });
 
