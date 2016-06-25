@@ -106,6 +106,7 @@ class Main extends Component {
     );
   }
 
+
   renderCategory(category) {
     return (
 

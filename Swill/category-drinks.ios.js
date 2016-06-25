@@ -37,10 +37,11 @@ console.log("constructor")
         console.log(responseData)
 
         this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData),
+          dataSource: this.state.dataSource.cloneWithRows(responseData.drinks),
           loaded: true,
         });
       })
+      .done();
   }
 
   render() {
@@ -80,7 +81,7 @@ console.log("constructor")
     return (
       <View style={styles.container}>
         <View style={styles.drink}>
-          <Text style={styles.title}>{drink}</Text>
+          <Text style={styles.title}>{drink.strDrink}</Text>
         </View>
       </View>
     );
