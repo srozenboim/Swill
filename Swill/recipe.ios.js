@@ -114,9 +114,12 @@ console.log("constructor")
 
   createJsonObject(recipe) {
     var ingredients = this.pairIngredientsMeasurements(recipe)
-    console.log("*"*100)
-    console.log(ingredients[1].ingredient)
-
+    var array = []
+    for (var i in ingredients) {
+      array += [ingredients[i].measurement, ingredients[i].ingredient];
+    }
+    // return [ingredients[1].measurement, ingredients[1].ingredient]
+    return array
   }
 
   // fetchIngredientsMeasurements(recipe) {
