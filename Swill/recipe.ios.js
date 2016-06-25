@@ -151,8 +151,10 @@ console.log("constructor")
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>{recipe.strDrink}</Text>
-          <Text style={styles.text}>Ingredients: {this.displayIngredients(recipe)}</Text>
-          <Text style={styles.text}>Instructions: {this.displayInsructions(recipe)}</Text>
+          <Text style={styles.header}>Ingredients: </Text>
+          <Text style={styles.text}>{this.displayIngredients(recipe)}</Text>
+          <Text style={styles.header}>Instructions: </Text>
+          <Text style={styles.text}>{this.displayInsructions(recipe)}</Text>
           <Image
             style={styles.drinkImage}
             source={{uri: url}}
@@ -170,11 +172,14 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#F5FCFF',
     marginTop: 24,
+    marginLeft: 8,
+    marginRight: 8,
   },
   title: {
     fontSize: 20,
     marginBottom: 8,
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   ListView: {
     flex: 1,
@@ -184,12 +189,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   text: {
-    fontSize: 20,
+    fontSize: 16,
   },
   drinkImage: {
     width: 200,
     height: 200,
   },
+  header: {
+    fontSize: 16,
+    fontWeight: 'bold'
+  }
 });
 
 export default Recipe;

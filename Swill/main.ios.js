@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 8,
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   ListView: {
     flex: 1,
