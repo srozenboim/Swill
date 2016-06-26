@@ -1,3 +1,5 @@
+import Qty from 'js-quantities';
+
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -54,7 +56,7 @@ class Guide extends Component {
             {this.props.drink.strDrink}
           </Text>
           <Text style={styles.text}>
-            {this.displayIngredients(this.renderGuide, this.props.ingredients)}
+            {this.displayIngredients(this.renderGuide, this.props.ingredients, this.convertToOunce)}
           </Text>
         </View>
       </View>
@@ -71,7 +73,7 @@ class Guide extends Component {
     );
   }
 
-  displayIngredients(callback, ingredients){
+  displayIngredients(callback, ingredients, convertToOunce){
     var keys = Object.keys(ingredients)
     //the total number of pixels in the drink
     //this will be calculated by figuring out
@@ -80,14 +82,72 @@ class Guide extends Component {
     //which is the sum of the volumes of the ingredients in the drink,
     //and using the volume to height calculation we came up with earlier
     var totalPix = 576 //6 inches in px default, this will need to be calculated
+    var total = 0
+    for (key of keys) {
+      amount = convertToOunce(ingredients[key].measurement).scalar
+      total += amount
+    }
+
+    totalPix = totalPix*(total/16)
+    console.log(totalPix);
+    console.log(total)
+
     return(
       <Text style={styles.text}>
       {keys.map(function(key, index){
-         return callback(ingredients[key], key, totalPix/keys.length)
+         amount = convertToOunce(ingredients[key].measurement).scalar;
+         return callback(ingredients[key], key, totalPix*(amount/total))
        })}
        </Text>
      )
   }
+
+  convertToOunce(measurement) {
+    if(measurement){
+      var match = measurement.match(/((\d+\s+)|(\d+(\/)\d+))((\d+(\/)\d+))?(\s*\w+)?/);
+
+      var substitutions = {'shot': 1.5, 'shots': 1.5, 'splash': 0.03125 , 'dash': 0.03125, 'jigger': 1.5, 'scoop': 4, 'scoops': 4}
+
+      if(match){
+        var matchString = match[0];
+
+        if(matchString.match(/(\d+(\/)\d+)/) && matchString.match(/(\d+(\/)\d+)/)[0]){
+          var num = matchString.split(" ")
+          if(num.length <= 2){
+            numeratorDenominator = num[0].split("/")
+            var decimal = parseFloat(numeratorDenominator[0])/parseFloat(numeratorDenominator[1])
+            matchString = decimal +" "+ num[1]
+          }
+          else{
+            numeratorDenominator = num[1].split("/")
+            var decimal = parseFloat(num[0])+ parseFloat(numeratorDenominator[0])/parseFloat(numeratorDenominator[1])
+            matchString = decimal +" "+ num[2]
+          }
+        }
+
+        num = matchString.split(" ")
+        if(num.length>1){
+          if(substitutions[num[1]]){
+            decimal = parseFloat(num[0]) * substitutions[num[1]]
+            matchString = decimal + " floz"
+
+          }
+        }
+
+        var amount = matchString.replace(/\s+oz/, "floz").replace("tsp", "teaspoon").replace("tblsp", "tablespoon")
+
+        try{
+          qty = new Qty(amount);
+          return qty.to('floz');
+        }
+        catch(e){
+
+        }
+      }
+    }
+  }
+
+
 
   renderGuide(ingredient, key, height) {
     var colors = ['blue', 'red', 'yellow', 'grey', 'pink'];
@@ -102,7 +162,7 @@ class Guide extends Component {
               borderWidth: 1
             }]}>
           <Text style={styles.text} key={ key }>
-            {ingredient.measurement} of {ingredient.ingredient}
+            {ingredient.measurement} {ingredient.ingredient}
           </Text>
           </View>
       );
