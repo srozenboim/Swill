@@ -97,24 +97,38 @@ class Guide extends Component {
     if(measurement){
       var match = measurement.match(/((\d+\s+)|(\d+(\/)\d+))((\d+(\/)\d+))?(\s*\w+)?/);
 
+      var substitutions = {'shot': 1.5, 'shots': 1.5, 'splash': 0.03125 , 'dash': 0.03125, 'jigger': 1.5, 'scoop': 4, 'scoops': 4}
+
       if(match){
         var matchString = match[0];
-        // part, parts, shot, shots, splash, dash, jigger, scoops, chunks, swirl, fill, bag
-        if(matchString.match(/(\d+(\/)\d+)/)[0]){
+
+        if(matchString.match(/(\d+(\/)\d+)/) && matchString.match(/(\d+(\/)\d+)/)[0]){
           var num = matchString.split(" ")
           if(num.length <= 2){
             numeratorDenominator = num[0].split("/")
-            matchString = parseFloat(numeratorDenominator[0])/parseFloat(numeratorDenominator[1]) +" "+ num[1]
+            var decimal = parseFloat(numeratorDenominator[0])/parseFloat(numeratorDenominator[1])
+            matchString = decimal +" "+ num[1]
           }
           else{
             numeratorDenominator = num[1].split("/")
-            matchString = (parseFloat(num[0])+ parseFloat(numeratorDenominator[0])/parseFloat(numeratorDenominator[1])) +" "+ num[2]
+            var decimal = parseFloat(num[0])+ parseFloat(numeratorDenominator[0])/parseFloat(numeratorDenominator[1])
+            matchString = decimal +" "+ num[2]
           }
         }
 
-        console.log(matchString)
+        num = matchString.split(" ")
+        if(num.length>1){
+          if(substitutions[num[1]]){
+            decimal = parseFloat(num[0]) * substitutions[num[1]]
+            matchString = decimal + " floz"
 
-        var amount = match[0].replace("oz", "floz").replace("tsp", "teaspoon").replace("tblsp", "tablespoon")
+          }
+        }
+
+        var amount = matchString.replace(/\s+oz/, "floz").replace("tsp", "teaspoon").replace("tblsp", "tablespoon")
+
+        console.log(amount)
+
 
         try{
           qty = new Qty(amount);
