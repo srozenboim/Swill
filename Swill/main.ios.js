@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 
 import Category from './category-drinks'
-import Search from './search_results'
+import Search from './search-results'
 import Error from './error'
 
 
