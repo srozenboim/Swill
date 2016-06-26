@@ -1,3 +1,5 @@
+import Qty from 'js-quantities';
+
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -54,7 +56,7 @@ class Guide extends Component {
             {this.props.drink.strDrink}
           </Text>
           <Text style={styles.text}>
-            {this.displayIngredients(this.renderGuide, this.props.ingredients)}
+            {this.displayIngredients(this.renderGuide, this.props.ingredients, this.convertToOunce)}
           </Text>
         </View>
       </View>
@@ -71,7 +73,7 @@ class Guide extends Component {
     );
   }
 
-  displayIngredients(callback, ingredients){
+  displayIngredients(callback, ingredients, convertToOunce){
     var keys = Object.keys(ingredients)
     //the total number of pixels in the drink
     //this will be calculated by figuring out
@@ -83,17 +85,45 @@ class Guide extends Component {
     return(
       <Text style={styles.text}>
       {keys.map(function(key, index){
+         convertToOunce(ingredients[key].measurement);
          return callback(ingredients[key], key, totalPix/keys.length)
        })}
        </Text>
      )
   }
 
-  convertToOunce(unit) {
-    if (unit==="tablespoon" || 'tblspn' || 'tblsp') {
-      return 0.5;
-    } else if (unit === "oz" || 'ounce' || 'fl oz'){
-      return 1;
+  convertToOunce(measurement) {
+    console.log(measurement)
+    if(measurement){
+      var match = measurement.match(/((\d+\s+)|(\d+(\/)\d+))((\d+(\/)\d+))?(\s*\w+)?/);
+
+      if(match){
+        var matchString = match[0];
+        // part, parts, shot, shots, splash, dash, jigger, scoops, chunks, swirl, fill, bag
+        if(matchString.match(/(\d+(\/)\d+)/)[0]){
+          var num = matchString.split(" ")
+          if(num.length <= 2){
+            numeratorDenominator = num[0].split("/")
+            matchString = parseFloat(numeratorDenominator[0])/parseFloat(numeratorDenominator[1]) +" "+ num[1]
+          }
+          else{
+            numeratorDenominator = num[1].split("/")
+            matchString = (parseFloat(num[0])+ parseFloat(numeratorDenominator[0])/parseFloat(numeratorDenominator[1])) +" "+ num[2]
+          }
+        }
+
+        console.log(matchString)
+
+        var amount = match[0].replace("oz", "floz").replace("tsp", "teaspoon").replace("tblsp", "tablespoon")
+
+        try{
+          qty = new Qty(amount);
+          console.log(qty.to('floz'));
+        }
+        catch(e){
+
+        }
+      }
     }
   }
 
