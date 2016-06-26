@@ -9,8 +9,6 @@ import {
   Image
 } from 'react-native';
 
-var REQUEST_URL = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i="
-
 class Guide extends Component {
   constructor(props) {
     super(props);
@@ -37,16 +35,6 @@ class Guide extends Component {
     this.props.navigator.pop({
       name: routeName,
       passProps: {drinkId: drink}
-    });
-  }
-
-  navigate(routeName, drinkCategory) {
-    this.props.navigator.pop({
-      name: routeName,
-      passProps: {
-        category: drinkCategory,
-        results: drinkCategory
-      }
     });
   }
 
@@ -95,7 +83,7 @@ class Guide extends Component {
     return(
       <Text style={styles.text}>
       {keys.map(function(key, index){
-         return callback(ingredients[key], key, totatPix/keys.length)
+         return callback(ingredients[key], key, totalPix/keys.length)
        })}
        </Text>
      )
