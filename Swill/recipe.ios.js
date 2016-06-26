@@ -56,11 +56,11 @@ console.log("constructor")
     });
   }
 
-  navigate(routeName, drink_id, ingredients) {
+  navigate(routeName, drink, ingredients) {
     this.props.navigator.push({
       name: routeName,
       passProps: {
-        drinkId: drink_id,
+        drink: drink,
         ingredients: ingredients
       }
     });
@@ -103,7 +103,7 @@ console.log("constructor")
   renderPourButton(recipe){
     return(
       <TouchableHighlight
-        onPress={this.navigate.bind(this, 'guide',this.props.drinkId,
+        onPress={this.navigate.bind(this, 'guide',recipe,
          this.pairIngredientsMeasurements(recipe))}
       >
         <Text style={styles.bButton2}> &larr; Pour</Text>

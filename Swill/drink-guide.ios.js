@@ -23,27 +23,21 @@ class Guide extends Component {
   }
 
   componentWillMount() {
-console.log("constructor")
+    console.log("constructor")
   }
 
   componentDidMount() {
     console.log("constructor")
-    //this.fetchData();
+    this.setState({
+      loaded: true,
+    });
   }
 
-  fetchData() {
-    var drink_id = this.props.drinkId
-    fetch(REQUEST_URL + drink_id)
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData)
-
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.drinks),
-          loaded: true,
-        });
-      })
-      .done();
+  back(routeName, drink) {
+    this.props.navigator.pop({
+      name: routeName,
+      passProps: {drinkId: drink}
+    });
   }
 
   navigate(routeName, drinkCategory) {
@@ -63,23 +57,17 @@ console.log("constructor")
     return (
       <View style={styles.container}>
         <View>
+        <TouchableHighlight
+          onPress={this.back.bind(this, 'recipe', this.props.drink.idDrink)}
+        >
+          <Text style={styles.bButton}> &larr; Back</Text>
+        </TouchableHighlight>
           <Text style={styles.title}>
-            {this.props.type}
+            {this.props.drink.strDrink}
           </Text>
-
-          <TouchableHighlight
-            onPress={this.navigate.bind(this, 'recipe', this.props.drinkId)}
-          >
-            <Text style={styles.bButton}> &larr; Back</Text>
-          </TouchableHighlight>
-
-        </View>
-        <View style={styles.ListView}>
-          <ListView
-            dataSource={this.props.ingredients}
-            renderRow={this.renderGuide.bind(this)}
-            style={styles.ListView}
-          />
+          <Text style={styles.text}>
+            {this.displayIngredients(this.renderGuide, this.props.ingredients)}
+          </Text>
         </View>
       </View>
     );
@@ -95,13 +83,25 @@ console.log("constructor")
     );
   }
 
-  renderGuide(ingredient) {
+  displayIngredients(callback, ingredients){
+    console.log("HErro")
+    var keys = Object.keys(ingredients)
+    console.log(keys)
+    return(
+      <Text style={styles.text}>
+      {keys.map(function(key, index){
+         console.log(key)
+         return callback(ingredients[key], key)
+       })}
+       </Text>
+     )
+  }
+
+  renderGuide(ingredient, key) {
     return (
-      <View style={styles.container}>
-        <View>
-          <Text style={styles.text}>{ingredient.measurement} 'of' {ingredient.ingredient}</Text>
-          </View>
-        </View>
+          <Text style={styles.text} key={ key }>
+            {ingredient.measurement} of {ingredient.ingredient}
+          </Text>
       );
   }
 
