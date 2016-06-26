@@ -73,7 +73,7 @@ class Main extends Component {
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>
-            Welcome to Swill!
+            Swill
           </Text>
         </View>
         <TextInput
@@ -88,7 +88,7 @@ class Main extends Component {
             }
           }
         />
-          <Text style={styles.title}>
+          <Text style={styles.titleCategory}>
             Pick a Category
           </Text>
 
@@ -118,11 +118,11 @@ class Main extends Component {
     return (
 
       <View style={styles.listContainer}>
-        <View style={styles.category}>
+        <View >
           <TouchableHighlight
             onPress={this.navigate.bind(this, 'category', category)}
           >
-            <Text style={styles.title}>{category}</Text>
+            <Text style={styles.category}>{category}</Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -139,23 +139,38 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   title: {
+    fontSize: 30,
+    marginBottom: 8,
+    marginTop: 8,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#FE5F55',
+  },
+  titleCategory: {
     fontSize: 20,
     marginBottom: 8,
     marginTop: 8,
     textAlign: 'center',
     fontWeight: 'bold',
+    color: '#EEF5DB',
+
   },
   ListView: {
     flex: 1,
   },
   category: {
     flex: 1,
-    marginLeft: 40,
-    marginRight: 40,
-    borderWidth: 1,
+    fontWeight: 'bold',
+    color: 'white',
+
+    // marginLeft: 40,
+    // marginRight: 40,
+    borderBottomColor: 'gray',
+    // borderWidth: 1,
     borderRadius: 10,
-    borderColor: '#FE5F55',
-    backgroundColor: '#EEF5DB'
+    textAlign: 'center',
+    // borderColor: '#FE5F55',
+    // backgroundColor: '#EEF5DB'
   },
   search: {
     height: 40,
@@ -165,7 +180,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginLeft: 10,
     marginRight: 10,
-    backgroundColor: '#EEF5DB'
+    backgroundColor: 'white'
   },
   listContainer: {
     flex: 1,
