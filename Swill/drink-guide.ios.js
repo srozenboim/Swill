@@ -89,6 +89,14 @@ class Guide extends Component {
      )
   }
 
+  convertToOunce(unit) {
+    if (unit==="tablespoon" || 'tblspn' || 'tblsp') {
+      return 0.5;
+    } else if (unit === "oz" || 'ounce' || 'fl oz'){
+      return 1;
+    }
+  }
+
   renderGuide(ingredient, key, height) {
     var colors = ['blue', 'red', 'yellow', 'grey', 'pink'];
     var rand = Math.floor((Math.random() * colors.length));
@@ -102,7 +110,7 @@ class Guide extends Component {
               borderWidth: 1
             }]}>
           <Text style={styles.text} key={ key }>
-            {ingredient.measurement} of {ingredient.ingredient}
+            {ingredient.measurement} {ingredient.ingredient}
           </Text>
           </View>
       );
