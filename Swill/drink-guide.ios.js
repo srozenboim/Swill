@@ -82,18 +82,27 @@ class Guide extends Component {
     //which is the sum of the volumes of the ingredients in the drink,
     //and using the volume to height calculation we came up with earlier
     var totalPix = 576 //6 inches in px default, this will need to be calculated
+    var total = 0
+    for (key of keys) {
+      amount = convertToOunce(ingredients[key].measurement).scalar
+      total += amount
+    }
+
+    totalPix = totalPix*(total/16)
+    console.log(totalPix);
+    console.log(total)
+
     return(
       <Text style={styles.text}>
       {keys.map(function(key, index){
-         convertToOunce(ingredients[key].measurement);
-         return callback(ingredients[key], key, totalPix/keys.length)
+         amount = convertToOunce(ingredients[key].measurement).scalar;
+         return callback(ingredients[key], key, totalPix*(amount/total))
        })}
        </Text>
      )
   }
 
   convertToOunce(measurement) {
-    console.log(measurement)
     if(measurement){
       var match = measurement.match(/((\d+\s+)|(\d+(\/)\d+))((\d+(\/)\d+))?(\s*\w+)?/);
 
@@ -127,12 +136,9 @@ class Guide extends Component {
 
         var amount = matchString.replace(/\s+oz/, "floz").replace("tsp", "teaspoon").replace("tblsp", "tablespoon")
 
-        console.log(amount)
-
-
         try{
           qty = new Qty(amount);
-          console.log(qty.to('floz'));
+          return qty.to('floz');
         }
         catch(e){
 
@@ -140,6 +146,8 @@ class Guide extends Component {
       }
     }
   }
+
+
 
   renderGuide(ingredient, key, height) {
     var colors = ['blue', 'red', 'yellow', 'grey', 'pink'];
