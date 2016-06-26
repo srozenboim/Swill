@@ -84,24 +84,39 @@ class Guide extends Component {
   }
 
   displayIngredients(callback, ingredients){
-    console.log("HErro")
     var keys = Object.keys(ingredients)
-    console.log(keys)
+    //the total number of pixels in the drink
+    //this will be calculated by figuring out
+    //the total number of inches in the drink
+    //this is done by taking the total volume of the drink,
+    //which is the sum of the volumes of the ingredients in the drink,
+    //and using the volume to height calculation we came up with earlier
+    var totalPix = 576 //6 inches in px default, this will need to be calculated
     return(
       <Text style={styles.text}>
       {keys.map(function(key, index){
-         console.log(key)
-         return callback(ingredients[key], key)
+         return callback(ingredients[key], key, totatPix/keys.length)
        })}
        </Text>
      )
   }
 
-  renderGuide(ingredient, key) {
+  renderGuide(ingredient, key, height) {
+    var colors = ['blue', 'red', 'yellow', 'grey', 'pink'];
+    var rand = Math.floor((Math.random() * colors.length));
     return (
+        <View key={ key } style={[styles.base, {
+              width: 200,
+              height:  height,
+              backgroundColor: colors[rand],
+              flex: 1,
+              alignItems: 'center',
+              borderWidth: 1
+            }]}>
           <Text style={styles.text} key={ key }>
             {ingredient.measurement} of {ingredient.ingredient}
           </Text>
+          </View>
       );
   }
 

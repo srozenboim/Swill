@@ -90,11 +90,6 @@ console.log("constructor")
             renderRow={this.renderRecipe.bind(this)}
             style={styles.ListView}
           />
-          <ListView
-            dataSource={this.state.dataSource}
-            renderRow={this.renderPourButton.bind(this)}
-            style={styles.ListView}
-          />
         </View>
       </View>
     );
@@ -201,6 +196,11 @@ console.log("constructor")
             <Text style={styles.text}>{this.displayIngredients(recipe)}</Text>
             <Text style={styles.header}>Instructions: </Text>
             <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
+            <ListView
+              dataSource={this.state.dataSource}
+              renderRow={this.renderPourButton.bind(this)}
+              style={styles.ListView}
+            />
             </View>
           </View>
         );
@@ -216,6 +216,11 @@ console.log("constructor")
           <Image
             style={styles.drinkImage}
             source={{uri: url}}
+          />
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderPourButton.bind(this)}
+            style={styles.ListView}
           />
         </View>
       </View>
