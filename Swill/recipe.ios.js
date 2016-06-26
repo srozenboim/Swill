@@ -46,12 +46,22 @@ console.log("constructor")
       .done();
   }
 
-  navigate(routeName, drinkCategory) {
+  back(routeName, drinkCategory) {
     this.props.navigator.pop({
       name: routeName,
       passProps: {
         category: drinkCategory,
         results: drinkCategory
+      }
+    });
+  }
+
+  navigate(routeName, drink_id, ingredients) {
+    this.props.navigator.push({
+      name: routeName,
+      passProps: {
+        drinkId: drink_id,
+        ingredients: ingredients
       }
     });
   }
@@ -68,7 +78,7 @@ console.log("constructor")
           </Text>
 
           <TouchableHighlight
-            onPress={this.navigate.bind(this, 'category')}
+            onPress={this.back.bind(this, 'category')}
           >
             <Text style={styles.bButton}> &larr; Back</Text>
           </TouchableHighlight>
@@ -80,9 +90,25 @@ console.log("constructor")
             renderRow={this.renderRecipe.bind(this)}
             style={styles.ListView}
           />
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderPourButton.bind(this)}
+            style={styles.ListView}
+          />
         </View>
       </View>
     );
+  }
+
+  renderPourButton(recipe){
+    return(
+      <TouchableHighlight
+        onPress={this.navigate.bind(this, 'guide',this.props.drinkId,
+         this.pairIngredientsMeasurements(recipe))}
+      >
+        <Text style={styles.bButton2}> &larr; Pour</Text>
+      </TouchableHighlight>
+    )
   }
 
   renderLoadingView() {
@@ -97,6 +123,7 @@ console.log("constructor")
 
   pairIngredientsMeasurements(recipe) {
     var ingredients = {};
+    console.log(recipe)
     for (key of Object.keys(recipe)) {
       if(recipe[key] && recipe[key].trim()){
         if(key.includes("strIngredient")){
@@ -125,7 +152,6 @@ console.log("constructor")
         }
       }
     }
-    // return JSON.stringify(ingredients);
     return ingredients
   }
 
@@ -198,6 +224,8 @@ console.log("constructor")
   }
 
 }
+// <Text style={styles.text}>{this.renderPourButton(recipe)}</Text>
+
 
 const styles = StyleSheet.create({
   container: {
@@ -229,9 +257,7 @@ const styles = StyleSheet.create({
   drinkImage: {
     width: 200,
     height: 200,
-    alignItems: 'center',
-    justifyContent: 'center',
-
+    resizeMode: 'contain',
   },
   header: {
     fontSize: 16,
@@ -243,6 +269,20 @@ const styles = StyleSheet.create({
     padding: 3,
     textAlign: 'left',
     marginLeft: 19,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius:4,
+    width: 85,
+    paddingBottom: 10,
+    fontWeight: 'bold',
+  },
+  bButton2: {
+    backgroundColor: '#FE5F55',
+    color: 'white',
+    padding: 3,
+    textAlign: 'left',
+    marginLeft: 19,
+    marginBottom: 0,
     borderWidth: 1,
     borderColor: 'white',
     borderRadius:4,

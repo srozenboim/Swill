@@ -28,7 +28,7 @@ console.log("constructor")
 
   componentDidMount() {
     console.log("constructor")
-    this.fetchData();
+    //this.fetchData();
   }
 
   fetchData() {
@@ -68,7 +68,7 @@ console.log("constructor")
           </Text>
 
           <TouchableHighlight
-            onPress={this.navigate.bind(this, 'category')}
+            onPress={this.navigate.bind(this, 'recipe', this.props.drinkId)}
           >
             <Text style={styles.bButton}> &larr; Back</Text>
           </TouchableHighlight>
@@ -76,8 +76,8 @@ console.log("constructor")
         </View>
         <View style={styles.ListView}>
           <ListView
-            dataSource={this.state.dataSource}
-            renderRow={this.renderRecipe.bind(this)}
+            dataSource={this.props.ingredients}
+            renderRow={this.renderGuide.bind(this)}
             style={styles.ListView}
           />
         </View>
@@ -95,35 +95,14 @@ console.log("constructor")
     );
   }
 
-  renderGuide(recipe) {
-      return (
-        <View style={styles.container}>
-          <View>
-            <Text style={styles.title}>{recipe.strDrink}</Text>
-            <Text style={styles.header}>Ingredients: </Text>
-            <Text style={styles.text}>{this.displayIngredients(recipe)}</Text>
-            <Text style={styles.header}>Instructions: </Text>
-            <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
-            </View>
-          </View>
-        );
-    } else {
+  renderGuide(ingredient) {
     return (
       <View style={styles.container}>
         <View>
-          <Text style={styles.title}>{recipe.strDrink}</Text>
-          <Text style={styles.header}>Ingredients: </Text>
-          <Text style={styles.text}>{this.displayIngredients(recipe)}</Text>
-          <Text style={styles.header}>Instructions: </Text>
-          <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
-          <Image
-            style={styles.drinkImage}
-            source={{uri: url}}
-          />
+          <Text style={styles.text}>{ingredient.measurement} 'of' {ingredient.ingredient}</Text>
+          </View>
         </View>
-      </View>
-    );
-  }
+      );
   }
 
 }
@@ -179,7 +158,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     fontWeight: 'bold',
   },
-  
+
 });
 
 export default Guide;
