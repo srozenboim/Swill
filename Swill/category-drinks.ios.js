@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
   bButton: {
-    backgroundColor: '#FE5F55',
+    backgroundColor: '#EEF5DB',
     color: 'white',
     padding: 3,
     textAlign: 'left',
