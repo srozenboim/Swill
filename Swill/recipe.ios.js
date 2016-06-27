@@ -149,16 +149,16 @@ console.log("constructor")
     return ingredients
   }
 
-  getMeasurementUnit(recipe) {
-    var ingredients = this.pairIngredientsMeasurements(recipe)
-    var measurements = []
-    for (var i in ingredients) {
-      measurements += ingredients[i].measurement.split(" ")
-    }
-    console.log('hello')
-    console.log(measurements)
-    return measurements
-  }
+  // getMeasurementUnit(recipe) {
+  //   var ingredients = this.pairIngredientsMeasurements(recipe)
+  //   var measurements = []
+  //   for (var i in ingredients) {
+  //     measurements += ingredients[i].measurement.split(" ")
+  //   }
+  //   console.log('hello')
+  //   console.log(measurements)
+  //   return measurements
+  // }
 
   displayIngredients(recipe) {
     var ingredients = this.pairIngredientsMeasurements(recipe)
@@ -205,7 +205,6 @@ console.log("constructor")
             <Text style={styles.title}>{recipe.strDrink}</Text>
             <Text style={styles.header}>Ingredients: </Text>
             <Text style={styles.text}>{this.displayIngredients(recipe)}</Text>
-            <Text style={styles.text}>{this.getMeasurementUnit(recipe)}</Text>
             <Text style={styles.header}>Instructions: </Text>
             <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
             <ListView
