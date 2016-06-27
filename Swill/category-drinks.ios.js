@@ -52,7 +52,6 @@ console.log("constructor")
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
-
     return (
       <View style={styles.container}>
         <View style={styles.nav}>
@@ -62,7 +61,7 @@ console.log("constructor")
           <Text style={styles.bButton}>  &lsaquo; </Text>
         </TouchableHighlight>
         <Text style={styles.navtitle}>
-        Drinks
+        {this.props.category}
         </Text>
         </View>
         <View>
