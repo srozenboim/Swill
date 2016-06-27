@@ -26,11 +26,11 @@ class Error extends Component {
     return (
       <View style={styles.container}>
         <View>
-          <TouchableHighlight
-            onPress={this.back.bind(this, 'recipe')}
-          >
-            <Text style={styles.bButton}>  &larr; Back </Text>
-          </TouchableHighlight>
+        <TouchableHighlight
+          onPress={this.navigate.bind(this, 'main')}
+        >
+          <Text style={styles.title}>Back</Text>
+        </TouchableHighlight>
           <Text style={styles.title}>
             Sorry! No drinks were found.
           </Text>
@@ -40,11 +40,11 @@ class Error extends Component {
   }
 
 
-  navigate(routeName, drink) {
+  navigate(routeName) {
     this.props.navigator.push({
-      name: routeName,
-      passProps: {drinkId: drink}
-    });
+      name: routeName
+      // passProps: {name: routeName},
+    })
   }
 
   back(routeName, drink) {
