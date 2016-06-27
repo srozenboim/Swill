@@ -98,11 +98,6 @@ console.log("constructor")
           >
             <Text style={styles.title}>{drink.strDrink}</Text>
           </TouchableHighlight>
-
-
-
-
-
         </View>
       </View>
     );
