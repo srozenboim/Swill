@@ -46,25 +46,20 @@ class Guide extends Component {
     }
     return (
       <View style={styles.container}>
-      <View style={styles.nav}>
-      <TouchableHighlight
-        onPress={this.back.bind(this, 'recipe')}
-      >
-        <Text style={styles.bButton}>  &lsaquo; </Text>
-      </TouchableHighlight>
-      <Text style={styles.navtitle}>
-        {this.props.drink.strDrink}
-      </Text>
-
-      </View>
-        <View>
-
-          <Text style={styles.title}>
-
+        <View style={styles.nav}>
+          <TouchableHighlight
+            onPress={this.back.bind(this, 'recipe')}
+          >
+            <Text style={styles.bButton}>  &lsaquo; </Text>
+          </TouchableHighlight>
+          <Text style={styles.navtitle}>
+            {this.props.drink.strDrink}
           </Text>
-          <Text style={styles.text}>
+        </View>
+        <View style={styles.ingredients}>
+          <View >
             {this.displayIngredients(this.renderGuide, this.props.ingredients, this.convertToOunce)}
-          </Text>
+          </View>
         </View>
       </View>
     );
@@ -166,6 +161,7 @@ class Guide extends Component {
               alignItems: 'center',
               borderWidth: 1,
               borderColor: 'grey',
+              justifyContent: 'center'
             }]}>
           <Text style={styles.text} key={ key }>
             {ingredient.measurement} {ingredient.ingredient}
@@ -182,35 +178,29 @@ const styles = StyleSheet.create({
     // alignItems: 'stretch',
     backgroundColor: '#B8D8D8',
     marginTop: 24,
-    marginLeft: 8,
-    marginRight: 8,
-    marginBottom: 8,
+    // marginLeft: 8,
+    // marginRight: 8,
+    // marginBottom: 8,
     paddingLeft: 8,
     paddingRight: 8,
     paddingBottom: 8,
+    justifyContent: 'space-between',
   },
   title: {
     fontSize: 20,
     marginBottom: 8,
     textAlign: 'center',
     fontWeight: 'bold',
-    color: '#4F6367'
+    color: '#4F6367',
   },
   ListView: {
     flex: 1,
     paddingTop: 10,
   },
-  category: {
-    flex: 1,
-  },
   text: {
     fontSize: 16,
-  },
-  drinkImage: {
-    width: 200,
-    height: 200,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: 'column',
+    alignSelf: 'center',
   },
   header: {
     fontSize: 16,
@@ -227,12 +217,11 @@ const styles = StyleSheet.create({
     // paddingBottom: 10,
     fontWeight: 'bold',
   },
-  amount: {
-    alignItems: 'flex-end',
-    flexDirection: 'column'
+  ingredients: {
+    justifyContent: 'flex-end',
   },
   nav: {
-      marginLeft: -8,
+    marginLeft: -8,
     justifyContent: 'flex-start',
     width: 378,
     height: 50,
@@ -247,7 +236,6 @@ const styles = StyleSheet.create({
     color: 'white',
 
   },
-
 });
 
 export default Guide;
