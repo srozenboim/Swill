@@ -46,14 +46,21 @@ class Guide extends Component {
     }
     return (
       <View style={styles.container}>
+      <View style={styles.nav}>
+      <TouchableHighlight
+        onPress={this.back.bind(this, 'recipe')}
+      >
+        <Text style={styles.bButton}>  &lsaquo; </Text>
+      </TouchableHighlight>
+      <Text style={styles.navtitle}>
+        {this.props.drink.strDrink}
+      </Text>
+
+      </View>
         <View>
-        <TouchableHighlight
-          onPress={this.back.bind(this, 'recipe', this.props.drink.idDrink)}
-        >
-          <Text style={styles.bButton}> &larr; Back</Text>
-        </TouchableHighlight>
+
           <Text style={styles.title}>
-            {this.props.drink.strDrink}
+
           </Text>
           <Text style={styles.text}>
             {this.displayIngredients(this.renderGuide, this.props.ingredients, this.convertToOunce)}
@@ -176,9 +183,9 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#B8D8D8',
     marginTop: 24,
-    marginLeft: 8,
-    marginRight: 8,
-    marginBottom: 8
+    paddingLeft: 8,
+      paddingRight: 8,
+      paddingBottom: 8,
   },
   title: {
     fontSize: 20,
@@ -211,15 +218,30 @@ const styles = StyleSheet.create({
   bButton: {
     backgroundColor: '#FE5F55',
     color: 'white',
-    padding: 3,
+    // padding: 3,
     textAlign: 'left',
-    marginLeft: 19,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius:4,
-    width: 85,
-    paddingBottom: 10,
+    marginTop: 0,
+    fontSize: 40,
+    width: 55,
+    // paddingBottom: 10,
     fontWeight: 'bold',
+  },
+  nav: {
+      marginLeft: -8,
+    justifyContent: 'flex-start',
+    width: 378,
+    height: 50,
+    backgroundColor: '#FE5F55',
+    // alignItems: 'center',
+    flexDirection: 'row',
+  },
+  navtitle: {
+    
+    marginTop: 18,
+    textAlign: 'center',
+    fontSize: 15,
+    color: 'white',
+
   },
 
 
