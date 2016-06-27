@@ -58,10 +58,6 @@ class Guide extends Component {
 
       </View>
         <View>
-
-          <Text style={styles.title}>
-
-          </Text>
           <Text style={styles.text}>
             {this.displayIngredients(this.renderGuide, this.props.ingredients, this.convertToOunce)}
           </Text>
@@ -113,7 +109,8 @@ class Guide extends Component {
     if(measurement){
       var match = measurement.match(/(((\d?)(\.)?\d+\s+)|(\d+(\/)\d+))((\d+(\/)\d+))?(\s*\w+)?/);
 
-      var substitutions = {'shot': 1.5, 'shots': 1.5, 'splash': 0.03125 , 'dash': 0.03125, 'jigger': 1.5, 'scoop': 4, 'scoops': 4}
+
+      var substitutions = {'shot': 1.5, 'shots': 1.5, 'splash': 0.03125 , 'dash': 0.03125, 'dashes': 0.03125,  'jigger': 1.5, 'scoop': 4, 'scoops': 4}
 
       if(match){
         var matchString = match[0];
@@ -139,6 +136,9 @@ class Guide extends Component {
             matchString = decimal + " floz"
 
           }
+          // else if (!substitutions[num[1]] && !Qty.getUnits('volume')) {
+          //   matchString= 0 + "floz"
+          // }
         }
 
         var amount = matchString.replace(/\s+oz/, "floz").replace("tsp", "teaspoon").replace("tblsp", "tablespoon")
@@ -154,10 +154,8 @@ class Guide extends Component {
     }
   }
 
-
-
   renderGuide(ingredient, key, height) {
-    var colors = ['#FF66E3', '#e1f7d5', '#ffbdbd', '#c9c9ff', '#f1cbff', '#b3d9ff', '#ff9999', '#ffff99', '#99ff99', '#80ffff'];
+    var colors = ['#FF66E3', '#e1f7d5', '#ffbdbd', '#c9c9ff', '#f1cbff', '#b3d9ff', '#ff9999', '#ffff99', '#99ff99', '#80ffff', '#EFA9FE', '#44B4D5', "#FFFF84", "#E4C6A7", "#FFA4A4"];
     var rand = Math.floor((Math.random() * colors.length));
     return (
         <View key={ key } style={[styles.section, {
@@ -167,6 +165,7 @@ class Guide extends Component {
               alignItems: 'center',
               borderWidth: 1,
               borderColor: 'grey',
+              justifyContent: 'center'
             }]}>
           <Text style={styles.text} key={ key }>
             {ingredient.measurement} {ingredient.ingredient}
@@ -180,12 +179,22 @@ class Guide extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'stretch',
+    // alignItems: 'stretch',
     backgroundColor: '#B8D8D8',
     marginTop: 24,
+    // paddingLeft: 8,
+    // paddingRight: 8,
+    // paddingBottom: 8,
     paddingLeft: 8,
+<<<<<<< HEAD
+    paddingRight: 8,
+    paddingBottom: 8,
+    justifyContent: 'space-between',
+=======
       paddingRight: 8,
       paddingBottom: 8,
+      justifyContent: 'space-between',
+>>>>>>> dfb024ec5cfed73731d4dbdbcfe9cf2e90e57fd7
   },
   title: {
     fontSize: 20,
@@ -236,7 +245,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   navtitle: {
-    
+
     marginTop: 18,
     textAlign: 'center',
     fontSize: 15,

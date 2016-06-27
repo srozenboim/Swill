@@ -1,3 +1,4 @@
+import Qty from 'js-quantities'
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -82,10 +83,6 @@ console.log("constructor")
         <Text style={styles.navtitle}>
         Recipe
         </Text>
-
-
-
-
         </View>
         <View style={styles.ListView}>
           <ListView
@@ -99,14 +96,14 @@ console.log("constructor")
   }
 
   renderPourButton(recipe){
-    return(
-      <TouchableHighlight
-        onPress={this.navigate.bind(this, 'guide',recipe,
-         this.pairIngredientsMeasurements(recipe))}
-      >
-        <Text style={styles.bButton2}> &larr; Pour</Text>
-      </TouchableHighlight>
-    )
+      return(
+        <TouchableHighlight
+          onPress={this.navigate.bind(this, 'guide',recipe,
+           this.pairIngredientsMeasurements(recipe))}
+        >
+          <Text style={styles.bButton2}> &larr; Pour</Text>
+        </TouchableHighlight>
+      )
   }
 
   renderLoadingView() {
@@ -143,15 +140,78 @@ console.log("constructor")
             ingredients[key.slice(10)] = {
               measurement: recipe[key]
             }
+            // this.convertToOunce(recipe[key])
           }
           else{
             i.measurement = recipe[key]
+            // this.convertToOunce(recipe[key])
           }
         }
       }
     }
     return ingredients
   }
+
+
+  convertToOunce(measurement) {
+    if(measurement){
+      var match = measurement.match(/(((\d?)(\.)?\d+\s+)|(\d+(\/)\d+))((\d+(\/)\d+))?(\s*\w+)?/);
+
+
+      var substitutions = {'shot': 1.5, 'shots': 1.5, 'splash': 0.03125 , 'dash': 0.03125, 'dashes': 0.03125,  'jigger': 1.5, 'scoop': 4, 'scoops': 4, 'part': 0, 'parts': 0}
+
+      if(match){
+        var matchString = match[0];
+
+        if(matchString.match(/(\d+(\/)\d+)/) && matchString.match(/(\d+(\/)\d+)/)[0]){
+          var num = matchString.split(" ")
+          if(num.length <= 2){
+            numeratorDenominator = num[0].split("/")
+            var decimal = parseFloat(numeratorDenominator[0])/parseFloat(numeratorDenominator[1])
+            matchString = decimal +" "+ num[1]
+          }
+          else{
+            numeratorDenominator = num[1].split("/")
+            var decimal = parseFloat(num[0])+ parseFloat(numeratorDenominator[0])/parseFloat(numeratorDenominator[1])
+            matchString = decimal +" "+ num[2]
+          }
+        }
+
+        num = matchString.split(" ")
+        if(num.length>1){
+          if(substitutions[num[1]]){
+            decimal = parseFloat(num[0]) * substitutions[num[1]]
+            matchString = decimal + " floz"
+
+          }
+          // else if (!substitutions[num[1]] && !Qty.getUnits('volume')) {
+          //   matchString= 0 + "floz"
+          // }
+        }
+
+        var amount = matchString.replace(/\s+oz/, "floz").replace("tsp", "teaspoon").replace("tblsp", "tablespoon")
+        showPourbutton = true
+
+        try{
+          qty = new Qty(amount);
+          return qty.to('floz');
+        }
+        catch(e){
+
+        }
+      }
+    }
+  }
+  // getMeasurementUnit(recipe) {
+  //   var ingredients = this.pairIngredientsMeasurements(recipe)
+  //   var measurements = []
+  //   for (var i in ingredients) {
+  //     measurements += ingredients[i].measurement.split(" ")
+  //   }
+  //   console.log('hello')
+  //   console.log(measurements)
+  //   return measurements
+  // }
 
   displayIngredients(recipe) {
     var ingredients = this.pairIngredientsMeasurements(recipe)
@@ -233,8 +293,6 @@ console.log("constructor")
   }
 
 }
-// <Text style={styles.text}>{this.renderPourButton(recipe)}</Text>
-
 
 const styles = StyleSheet.create({
   container: {
