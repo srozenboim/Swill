@@ -46,15 +46,15 @@ class Guide extends Component {
     }
     return (
       <View style={styles.container}>
-        <View>
         <TouchableHighlight
           onPress={this.back.bind(this, 'recipe', this.props.drink.idDrink)}
         >
           <Text style={styles.bButton}> &larr; Back</Text>
         </TouchableHighlight>
-          <Text style={styles.title}>
-            {this.props.drink.strDrink}
-          </Text>
+        <Text style={styles.title}>
+          {this.props.drink.strDrink}
+        </Text>
+        <View style={styles.amount}>
           <Text style={styles.text}>
             {this.displayIngredients(this.renderGuide, this.props.ingredients, this.convertToOunce)}
           </Text>
@@ -158,7 +158,7 @@ class Guide extends Component {
               backgroundColor: colors[rand],
               flex: 1,
               alignItems: 'center',
-              borderWidth: 1
+              borderWidth: 1,
             }]}>
           <Text style={styles.text} key={ key }>
             {ingredient.measurement} {ingredient.ingredient}
@@ -172,12 +172,12 @@ class Guide extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'stretch',
+    // alignItems: 'stretch',
     backgroundColor: '#B8D8D8',
     marginTop: 24,
     marginLeft: 8,
     marginRight: 8,
-    marginBottom: 8
+    marginBottom: 8,
   },
   title: {
     fontSize: 20,
@@ -201,7 +201,6 @@ const styles = StyleSheet.create({
     height: 200,
     alignItems: 'center',
     justifyContent: 'center',
-
   },
   header: {
     fontSize: 16,
@@ -220,6 +219,10 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     fontWeight: 'bold',
   },
+  amount: {
+    alignItems: 'flex-end',
+    flexDirection: 'column'
+  }
 
 });
 

@@ -69,11 +69,13 @@ console.log("constructor")
           <Text style={styles.bButton}>  &larr; Back </Text>
         </TouchableHighlight>
 
+        <View style={styles.drinks}>
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this.renderDrink.bind(this)}
             style={styles.ListView}
           />
+          </View>
         </View>
       </View>
     );
@@ -98,11 +100,6 @@ console.log("constructor")
           >
             <Text style={styles.title}>{drink.strDrink}</Text>
           </TouchableHighlight>
-
-
-
-
-
         </View>
       </View>
     );
@@ -128,27 +125,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'stretch',
-    backgroundColor: '#B8D8D8',
+    backgroundColor: 'white',
     marginTop: 24,
+    alignItems: 'stretch'
   },
   title: {
     fontSize: 20,
     marginBottom: 8,
     textAlign: 'center',
     fontWeight: 'bold',
+    color: '#B8D8D8',
+
   },
   ListView: {
     flex: 1,
-    paddingTop: 10,
+    paddingTop: 5,
   },
   category: {
     flex: 1,
     marginLeft: 40,
     marginRight: 40,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: '#FE5F55',
-    backgroundColor: '#EEF5DB',
+    backgroundColor: 'white',
     paddingTop: 10,
     paddingBottom: 10
   },
@@ -165,6 +162,9 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     fontWeight: 'bold',
   },
+  drinks: {
+    backgroundColor: "white",
+  }
 });
 
 export default Category;
