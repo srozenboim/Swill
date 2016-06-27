@@ -26,15 +26,22 @@ class Error extends Component {
     return (
       <View style={styles.container}>
         <View>
+
+
+        <View style={styles.nav}>
         <TouchableHighlight
           onPress={this.navigate.bind(this, 'main')}
         >
-          <Text style={styles.title}>Back</Text>
+          <Text style={styles.bButton}>  &lsaquo; </Text>
         </TouchableHighlight>
+
+
+
+          </View>
+          </View>
           <Text style={styles.title}>
             Sorry! No drinks were found.
           </Text>
-        </View>
       </View>
     );
   }
@@ -63,6 +70,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   title: {
+    marginTop: 250,
     fontSize: 20,
     marginBottom: 8,
     textAlign: 'center',
@@ -70,15 +78,29 @@ const styles = StyleSheet.create({
   bButton: {
     backgroundColor: '#FE5F55',
     color: 'white',
-    padding: 3,
+    // padding: 3,
     textAlign: 'left',
-    marginLeft: 19,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius:4,
-    width: 85,
-    paddingBottom: 10,
+    marginTop: 0,
+    fontSize: 40,
+    width: 55,
+    // paddingBottom: 10,
     fontWeight: 'bold',
+  },
+  nav: {
+    justifyContent: 'flex-start',
+    width: 378,
+    height: 50,
+    backgroundColor: '#FE5F55',
+    // alignItems: 'center',
+    flexDirection: 'row',
+  },
+  navtitle: {
+    fontFamily: 'Helvetica',
+    marginTop: 15,
+    marginLeft: 74,
+    fontSize: 20,
+    color: 'white',
+    letterSpacing: 14,
   },
 });
 
