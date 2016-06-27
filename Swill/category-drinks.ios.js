@@ -56,7 +56,7 @@ console.log("constructor")
     return (
       <View style={styles.container}>
         <View style={styles.nav}>
-        <TouchableHighlight
+        <TouchableHighlight underlayColor={'transparent'}
           onPress={this.back.bind(this, 'recipe')}
         >
           <Text style={styles.bButton}>  &lsaquo; </Text>
@@ -99,7 +99,7 @@ console.log("constructor")
     return (
       <View style={styles.container}>
         <View style={styles.category}>
-          <TouchableHighlight
+          <TouchableHighlight underlayColor={'transparent'}
             onPress={this.navigate.bind(this, 'recipe', drink.idDrink)}
           >
             <Text style={styles.title}>{drink.strDrink}</Text>

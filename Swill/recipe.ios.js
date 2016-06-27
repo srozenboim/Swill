@@ -74,7 +74,7 @@ console.log("constructor")
       <View style={styles.container}>
 
         <View style={styles.nav}>
-        <TouchableHighlight
+        <TouchableHighlight underlayColor={'transparent'}
           onPress={this.back.bind(this, 'recipe')}
         >
           <Text style={styles.bButton}>  &lsaquo; </Text>
@@ -100,7 +100,7 @@ console.log("constructor")
 
   renderPourButton(recipe){
     return(
-      <TouchableHighlight
+      <TouchableHighlight underlayColor={'transparent'}
         onPress={this.navigate.bind(this, 'guide',recipe,
          this.pairIngredientsMeasurements(recipe))}
       >
