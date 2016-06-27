@@ -72,16 +72,19 @@ console.log("constructor")
     }
     return (
       <View style={styles.container}>
-        <View>
-          <Text style={styles.title}>
-            {this.props.type}
-          </Text>
 
-          <TouchableHighlight
-            onPress={this.back.bind(this, 'category')}
-          >
-            <Text style={styles.bButton}> &larr; Back</Text>
-          </TouchableHighlight>
+        <View style={styles.nav}>
+        <TouchableHighlight
+          onPress={this.back.bind(this, 'recipe')}
+        >
+          <Text style={styles.bButton}>  &lsaquo; </Text>
+        </TouchableHighlight>
+        <Text style={styles.navtitle}>
+        Recipe
+        </Text>
+
+
+
 
         </View>
         <View style={styles.ListView}>
@@ -190,6 +193,7 @@ console.log("constructor")
     if (url == "") {
       return (
         <View style={styles.container}>
+
           <View>
             <Text style={styles.title}>{recipe.strDrink}</Text>
             <Text style={styles.header}>Ingredients: </Text>
@@ -271,14 +275,12 @@ const styles = StyleSheet.create({
   bButton: {
     backgroundColor: '#FE5F55',
     color: 'white',
-    padding: 3,
+    // padding: 3,
     textAlign: 'left',
-    marginLeft: 19,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius:4,
-    width: 85,
-    paddingBottom: 10,
+    marginTop: 0,
+    fontSize: 40,
+    width: 55,
+    // paddingBottom: 10,
     fontWeight: 'bold',
   },
   bButton2: {
@@ -294,6 +296,21 @@ const styles = StyleSheet.create({
     width: 85,
     paddingBottom: 10,
     fontWeight: 'bold',
+  },
+  navtitle: {
+    marginTop: 15,
+    marginLeft: 74,
+    fontSize: 20,
+    color: 'white',
+    letterSpacing: 14,
+  },
+  nav: {
+    justifyContent: 'flex-start',
+    width: 378,
+    height: 50,
+    backgroundColor: '#FE5F55',
+    // alignItems: 'center',
+    flexDirection: 'row',
   },
 });
 
