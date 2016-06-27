@@ -242,9 +242,10 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#B8D8D8',
     marginTop: 24,
-    marginLeft: 8,
-    marginRight: 8,
-    marginBottom: 8
+  paddingLeft: 8,
+    paddingRight: 8,
+    paddingBottom: 8,
+
   },
   title: {
     fontSize: 20,
@@ -305,8 +306,9 @@ const styles = StyleSheet.create({
     letterSpacing: 14,
   },
   nav: {
+    marginLeft: -8,
     justifyContent: 'flex-start',
-    width: 378,
+    width: 398,
     height: 50,
     backgroundColor: '#FE5F55',
     // alignItems: 'center',
