@@ -82,10 +82,6 @@ console.log("constructor")
         <Text style={styles.navtitle}>
         Recipe
         </Text>
-
-
-
-
         </View>
         <View style={styles.ListView}>
           <ListView
@@ -153,6 +149,17 @@ console.log("constructor")
     return ingredients
   }
 
+  getMeasurementUnit(recipe) {
+    var ingredients = this.pairIngredientsMeasurements(recipe)
+    var measurements = []
+    for (var i in ingredients) {
+      measurements += ingredients[i].measurement.split(" ")
+    }
+    console.log('hello')
+    console.log(measurements)
+    return measurements
+  }
+
   displayIngredients(recipe) {
     var ingredients = this.pairIngredientsMeasurements(recipe)
     var array = []
@@ -198,6 +205,7 @@ console.log("constructor")
             <Text style={styles.title}>{recipe.strDrink}</Text>
             <Text style={styles.header}>Ingredients: </Text>
             <Text style={styles.text}>{this.displayIngredients(recipe)}</Text>
+            <Text style={styles.text}>{this.getMeasurementUnit(recipe)}</Text>
             <Text style={styles.header}>Instructions: </Text>
             <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
             <ListView
@@ -208,7 +216,22 @@ console.log("constructor")
             </View>
           </View>
         );
-    } else {
+    }
+    //  else if (this.getMeasurementUnit(recipe) == undefined && url == "") {
+    //   return (
+    //     <View style={styles.container}>
+    //
+    //       <View>
+    //         <Text style={styles.title}>{recipe.strDrink}</Text>
+    //         <Text style={styles.header}>Ingredients: </Text>
+    //         <Text style={styles.text}>{this.displayIngredients(recipe)}</Text>
+    //         <Text style={styles.header}>Instructions: </Text>
+    //         <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
+    //         </View>
+    //       </View>
+    //     );
+    // }
+    else {
     return (
       <View style={styles.container}>
         <View>
@@ -233,8 +256,6 @@ console.log("constructor")
   }
 
 }
-// <Text style={styles.text}>{this.renderPourButton(recipe)}</Text>
-
 
 const styles = StyleSheet.create({
   container: {

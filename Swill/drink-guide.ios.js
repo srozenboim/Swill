@@ -113,7 +113,7 @@ class Guide extends Component {
     if(measurement){
       var match = measurement.match(/(((\d?)(\.)?\d+\s+)|(\d+(\/)\d+))((\d+(\/)\d+))?(\s*\w+)?/);
 
-      var substitutions = {'shot': 1.5, 'shots': 1.5, 'splash': 0.03125 , 'dash': 0.03125, 'jigger': 1.5, 'scoop': 4, 'scoops': 4}
+      var substitutions = {'shot': 1.5, 'shots': 1.5, 'splash': 0.03125 , 'dash': 0.03125, 'dashes': 0.03125,  'jigger': 1.5, 'scoop': 4, 'scoops': 4}
 
       if(match){
         var matchString = match[0];
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   navtitle: {
-    
+
     marginTop: 18,
     textAlign: 'center',
     fontSize: 15,
