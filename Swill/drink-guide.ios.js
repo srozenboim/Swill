@@ -236,6 +236,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   navtitle: {
+    
     marginTop: 18,
     textAlign: 'center',
     fontSize: 15,

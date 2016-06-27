@@ -129,24 +129,26 @@ console.log("constructor")
   }
 
 }
-
+// 'Avenir'
 const styles = StyleSheet.create({
   container: {
+
     flex: 1,
     alignItems: 'stretch',
     backgroundColor: '#B8D8D8',
     marginTop: 24,
   },
   title: {
+    fontFamily: 'OriyaSangamMN',
     fontSize: 20,
     marginBottom: 8,
     textAlign: 'center',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
 
   },
   ListView: {
     flex: 1,
-  
+
   },
   category: {
     flex: 1,
@@ -179,6 +181,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   navtitle: {
+    fontFamily: 'Helvetica',
     marginTop: 15,
     marginLeft: 74,
     fontSize: 20,
