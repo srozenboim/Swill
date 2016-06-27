@@ -46,15 +46,22 @@ class Guide extends Component {
     }
     return (
       <View style={styles.container}>
-        <TouchableHighlight
-          onPress={this.back.bind(this, 'recipe', this.props.drink.idDrink)}
-        >
-          <Text style={styles.bButton}> &larr; Back</Text>
-        </TouchableHighlight>
-        <Text style={styles.title}>
-          {this.props.drink.strDrink}
-        </Text>
-        <View style={styles.amount}>
+      <View style={styles.nav}>
+      <TouchableHighlight
+        onPress={this.back.bind(this, 'recipe')}
+      >
+        <Text style={styles.bButton}>  &lsaquo; </Text>
+      </TouchableHighlight>
+      <Text style={styles.navtitle}>
+        {this.props.drink.strDrink}
+      </Text>
+
+      </View>
+        <View>
+
+          <Text style={styles.title}>
+
+          </Text>
           <Text style={styles.text}>
             {this.displayIngredients(this.renderGuide, this.props.ingredients, this.convertToOunce)}
           </Text>
@@ -104,7 +111,7 @@ class Guide extends Component {
 
   convertToOunce(measurement) {
     if(measurement){
-      var match = measurement.match(/((\d+\s+)|(\d+(\/)\d+))((\d+(\/)\d+))?(\s*\w+)?/);
+      var match = measurement.match(/(((\d?)(\.)?\d+\s+)|(\d+(\/)\d+))((\d+(\/)\d+))?(\s*\w+)?/);
 
       var substitutions = {'shot': 1.5, 'shots': 1.5, 'splash': 0.03125 , 'dash': 0.03125, 'jigger': 1.5, 'scoop': 4, 'scoops': 4}
 
@@ -149,16 +156,16 @@ class Guide extends Component {
 
 
   renderGuide(ingredient, key, height) {
-    var colors = ['blue', 'red', 'yellow', 'grey', 'pink'];
+    var colors = ['#FF66E3', '#e1f7d5', '#ffbdbd', '#c9c9ff', '#f1cbff', '#b3d9ff', '#ff9999', '#ffff99', '#99ff99', '#80ffff'];
     var rand = Math.floor((Math.random() * colors.length));
     return (
-        <View key={ key } style={[styles.base, {
-              width: 200,
+        <View key={ key } style={[styles.section, {
+              width: 358,
               height:  height,
               backgroundColor: colors[rand],
-              flex: 1,
               alignItems: 'center',
               borderWidth: 1,
+              borderColor: 'grey',
             }]}>
           <Text style={styles.text} key={ key }>
             {ingredient.measurement} {ingredient.ingredient}
@@ -178,6 +185,9 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     marginRight: 8,
     marginBottom: 8,
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingBottom: 8,
   },
   title: {
     fontSize: 20,
@@ -209,20 +219,34 @@ const styles = StyleSheet.create({
   bButton: {
     backgroundColor: '#FE5F55',
     color: 'white',
-    padding: 3,
+    // padding: 3,
     textAlign: 'left',
-    marginLeft: 19,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius:4,
-    width: 85,
-    paddingBottom: 10,
+    marginTop: 0,
+    fontSize: 40,
+    width: 55,
+    // paddingBottom: 10,
     fontWeight: 'bold',
   },
   amount: {
     alignItems: 'flex-end',
     flexDirection: 'column'
-  }
+  },
+  nav: {
+      marginLeft: -8,
+    justifyContent: 'flex-start',
+    width: 378,
+    height: 50,
+    backgroundColor: '#FE5F55',
+    // alignItems: 'center',
+    flexDirection: 'row',
+  },
+  navtitle: {
+    marginTop: 18,
+    textAlign: 'center',
+    fontSize: 15,
+    color: 'white',
+
+  },
 
 });
 
