@@ -47,10 +47,10 @@ class Main extends Component {
   }
 
   fetchData() {
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(categories),
-          loaded: true,
-        });
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(categories),
+      loaded: true,
+    });
   }
 
   navigate(routeName, drinkCategory) {
@@ -73,35 +73,36 @@ class Main extends Component {
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>
-            Welcome to Swill!
+            Swill
           </Text>
         </View>
-        <TextInput
-          style={styles.search}
-          onChangeText={(text) => this.setState({search: text})}
-          placeholder="Search"
-          autoCorrect={false}
-          value={this.state.search}
-          onSubmitEditing={(text) => {
-            this.navigate('search', this.state.search )
-            this.state.search = ""
+        <View style={styles.body}>
+          <TextInput
+            style={styles.search}
+            onChangeText={(text) => this.setState({search: text})}
+            placeholder="Search"
+            autoCorrect={false}
+            value={this.state.search}
+            onSubmitEditing={(text) => {
+              this.navigate('search', this.state.search )
+              this.state.search = ""
+              }
             }
-          }
-        />
-          <Text style={styles.title}>
-            Pick a Category
-          </Text>
-
-        <View style={styles.ListView}>
-          <ListView
-            dataSource={this.state.dataSource}
-            renderRow={this.renderCategory.bind(this)}
           />
+            <Text style={styles.titleCategory}>
+              Pick a Category
+            </Text>
+
+          <View style={styles.ListView}>
+            <ListView
+              dataSource={this.state.dataSource}
+              renderRow={this.renderCategory.bind(this)}
+            />
+          </View>
         </View>
       </View>
     );
   }
-
 
   renderLoadingView() {
     return (
@@ -118,17 +119,16 @@ class Main extends Component {
     return (
 
       <View style={styles.listContainer}>
-        <View style={styles.category}>
+        <View>
           <TouchableHighlight
             onPress={this.navigate.bind(this, 'category', category)}
           >
-            <Text style={styles.title}>{category}</Text>
+            <Text style={styles.category}>{category}</Text>
           </TouchableHighlight>
         </View>
       </View>
     );
   }
-
 }
 
 const styles = StyleSheet.create({
@@ -139,23 +139,33 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   title: {
+    fontSize: 30,
+    marginBottom: 5,
+    marginTop: 5,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#FE5F55',
+  },
+  titleCategory: {
     fontSize: 20,
     marginBottom: 8,
     marginTop: 8,
     textAlign: 'center',
     fontWeight: 'bold',
+    color: '#4F6367',
   },
   ListView: {
     flex: 1,
+    paddingBottom: 10,
   },
   category: {
-    flex: 1,
-    marginLeft: 40,
-    marginRight: 40,
-    borderWidth: 1,
+    flexDirection: 'row',
+    fontWeight: 'bold',
+    color: '#B8D8D8',
+    fontSize: 30,
+    marginLeft: 20,
     borderRadius: 10,
-    borderColor: '#FE5F55',
-    backgroundColor: '#EEF5DB'
+    textAlign: 'left',
   },
   search: {
     height: 40,
@@ -163,18 +173,25 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     padding: 10,
+    marginTop: 10,
     marginLeft: 10,
     marginRight: 10,
-    backgroundColor: '#EEF5DB'
+    backgroundColor: 'white'
   },
   listContainer: {
-    flex: 1,
-    alignItems: 'stretch',
-    backgroundColor: '#B8D8D8',
+    backgroundColor: 'white',
     marginTop: 10,
-  }
+  },
+  body: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  button: {
+    color: '#B8D8D8',
+    fontSize: 30,
+    textAlign: 'right',
+    marginRight: 10,
+  },
 });
 
 export default Main
-
-// AppRegistry.registerComponent('Swill', () => Swill);

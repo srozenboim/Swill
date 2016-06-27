@@ -75,11 +75,13 @@ console.log("constructor")
 
 
 
+        <View style={styles.drinks}>
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this.renderDrink.bind(this)}
             style={styles.ListView}
           />
+          </View>
         </View>
       </View>
     );
@@ -130,49 +132,47 @@ const styles = StyleSheet.create({
 
     flex: 1,
     alignItems: 'stretch',
-    backgroundColor: '#B8D8D8',
+    backgroundColor: 'white',
     marginTop: 24,
+    alignItems: 'stretch'
   },
   title: {
     fontFamily: 'OriyaSangamMN',
     fontSize: 20,
     marginBottom: 8,
     textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#B8D8D8',
     // fontWeight: 'bold',
-
   },
   ListView: {
     flex: 1,
-
+    paddingTop: 5,
   },
   category: {
     flex: 1,
     marginLeft: 40,
     marginRight: 40,
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: '#FE5F55',
-    backgroundColor: '#EEF5DB',
+    backgroundColor: 'white',
     paddingTop: 10,
     paddingBottom: 10
   },
   bButton: {
-    backgroundColor: '#FE5F55',
     color: 'white',
-    // padding: 3,
     textAlign: 'left',
     marginTop: 0,
     fontSize: 40,
     width: 55,
-    // paddingBottom: 10,
     fontWeight: 'bold',
+  },
+  drinks: {
+    backgroundColor: "white",
   },
   nav: {
     justifyContent: 'flex-start',
     width: 378,
     height: 50,
     backgroundColor: '#FE5F55',
-    // alignItems: 'center',
     flexDirection: 'row',
   },
   navtitle: {
