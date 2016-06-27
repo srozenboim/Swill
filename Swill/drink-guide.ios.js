@@ -155,7 +155,7 @@ class Guide extends Component {
   }
 
   renderGuide(ingredient, key, height) {
-    var colors = ['#FF66E3', '#e1f7d5', '#ffbdbd', '#c9c9ff', '#f1cbff', '#b3d9ff', '#ff9999', '#ffff99', '#99ff99', '#80ffff'];
+    var colors = ['#FF66E3', '#e1f7d5', '#ffbdbd', '#c9c9ff', '#f1cbff', '#b3d9ff', '#ff9999', '#ffff99', '#99ff99', '#80ffff', '#EFA9FE', '#44B4D5', "#FFFF84", "#E4C6A7", "#FFA4A4"];
     var rand = Math.floor((Math.random() * colors.length));
     return (
         <View key={ key } style={[styles.section, {
@@ -178,12 +178,16 @@ class Guide extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'stretch',
+    // alignItems: 'stretch',
     backgroundColor: '#B8D8D8',
     marginTop: 24,
+    // paddingLeft: 8,
+    // paddingRight: 8,
+    // paddingBottom: 8,
     paddingLeft: 8,
-      paddingRight: 8,
-      paddingBottom: 8,
+    paddingRight: 8,
+    paddingBottom: 8,
+    justifyContent: 'space-between',
   },
   title: {
     fontSize: 20,
