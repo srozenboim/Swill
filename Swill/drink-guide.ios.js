@@ -47,7 +47,7 @@ class Guide extends Component {
     return (
       <View style={styles.container}>
       <View style={styles.nav}>
-      <TouchableHighlight
+      <TouchableHighlight underlayColor={'transparent'}
         onPress={this.back.bind(this, 'recipe')}
       >
         <Text style={styles.bButton}>  &lsaquo; </Text>
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   navtitle: {
-    
+
     marginTop: 18,
     textAlign: 'center',
     fontSize: 15,

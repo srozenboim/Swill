@@ -26,7 +26,7 @@ class Error extends Component {
     return (
       <View style={styles.container}>
         <View>
-          <TouchableHighlight
+          <TouchableHighlight underlayColor={'transparent'}
             onPress={this.back.bind(this, 'recipe')}
           >
             <Text style={styles.bButton}>  &larr; Back </Text>
