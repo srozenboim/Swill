@@ -104,7 +104,7 @@ class Guide extends Component {
 
   convertToOunce(measurement) {
     if(measurement){
-      var match = measurement.match(/((\d+\s+)|(\d+(\/)\d+))((\d+(\/)\d+))?(\s*\w+)?/);
+      var match = measurement.match(/(((\d?)(\.)?\d+\s+)|(\d+(\/)\d+))((\d+(\/)\d+))?(\s*\w+)?/);
 
       var substitutions = {'shot': 1.5, 'shots': 1.5, 'splash': 0.03125 , 'dash': 0.03125, 'jigger': 1.5, 'scoop': 4, 'scoops': 4}
 
@@ -150,16 +150,16 @@ class Guide extends Component {
 
 
   renderGuide(ingredient, key, height) {
-    var colors = ['blue', 'red', 'yellow', 'grey', 'pink'];
+    var colors = ['#FF66E3', '#e1f7d5', '#ffbdbd', '#c9c9ff', '#f1cbff', '#b3d9ff', '#ff9999', '#ffff99', '#99ff99', '#80ffff'];
     var rand = Math.floor((Math.random() * colors.length));
     return (
-        <View key={ key } style={[styles.base, {
-              width: 200,
+        <View key={ key } style={[styles.section, {
+              width: 358,
               height:  height,
               backgroundColor: colors[rand],
-              flex: 1,
               alignItems: 'center',
-              borderWidth: 1
+              borderWidth: 1,
+              borderColor: 'grey',
             }]}>
           <Text style={styles.text} key={ key }>
             {ingredient.measurement} {ingredient.ingredient}
@@ -221,6 +221,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     fontWeight: 'bold',
   },
+
 
 });
 
