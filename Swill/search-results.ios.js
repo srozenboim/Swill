@@ -63,7 +63,7 @@ console.log("constructor")
           <TouchableHighlight underlayColor={'transparent'}
             onPress={this.back.bind(this, 'recipe')}
           >
-            <Text style={styles.bButton}>  &larr; Back </Text>
+            <Text style={styles.bButton}>  &lsaquo; </Text>
           </TouchableHighlight>
         </View>
         <View style={styles.ListView}>

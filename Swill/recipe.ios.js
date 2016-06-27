@@ -104,7 +104,7 @@ console.log("constructor")
         onPress={this.navigate.bind(this, 'guide',recipe,
          this.pairIngredientsMeasurements(recipe))}
       >
-        <Text style={styles.bButton2}> &larr; Pour</Text>
+        <Text style={styles.bButton2}> Pour</Text>
       </TouchableHighlight>
     )
   }
