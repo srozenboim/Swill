@@ -58,10 +58,6 @@ class Guide extends Component {
 
       </View>
         <View>
-
-          <Text style={styles.title}>
-
-          </Text>
           <Text style={styles.text}>
             {this.displayIngredients(this.renderGuide, this.props.ingredients, this.convertToOunce)}
           </Text>
@@ -113,6 +109,7 @@ class Guide extends Component {
     if(measurement){
       var match = measurement.match(/(((\d?)(\.)?\d+\s+)|(\d+(\/)\d+))((\d+(\/)\d+))?(\s*\w+)?/);
 
+
       var substitutions = {'shot': 1.5, 'shots': 1.5, 'splash': 0.03125 , 'dash': 0.03125, 'dashes': 0.03125,  'jigger': 1.5, 'scoop': 4, 'scoops': 4}
 
       if(match){
@@ -139,6 +136,9 @@ class Guide extends Component {
             matchString = decimal + " floz"
 
           }
+          // else if (!substitutions[num[1]] && !Qty.getUnits('volume')) {
+          //   matchString= 0 + "floz"
+          // }
         }
 
         var amount = matchString.replace(/\s+oz/, "floz").replace("tsp", "teaspoon").replace("tblsp", "tablespoon")
@@ -153,8 +153,6 @@ class Guide extends Component {
       }
     }
   }
-
-
 
   renderGuide(ingredient, key, height) {
     var colors = ['#FF66E3', '#e1f7d5', '#ffbdbd', '#c9c9ff', '#f1cbff', '#b3d9ff', '#ff9999', '#ffff99', '#99ff99', '#80ffff'];
