@@ -167,6 +167,7 @@ class Guide extends Component {
               alignItems: 'center',
               borderWidth: 1,
               borderColor: 'grey',
+              justifyContent: 'center'
             }]}>
           <Text style={styles.text} key={ key }>
             {ingredient.measurement} {ingredient.ingredient}
@@ -186,6 +187,7 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
       paddingRight: 8,
       paddingBottom: 8,
+      justifyContent: 'space-between',
   },
   title: {
     fontSize: 20,
@@ -236,7 +238,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   navtitle: {
-    
+
     marginTop: 18,
     textAlign: 'center',
     fontSize: 15,
