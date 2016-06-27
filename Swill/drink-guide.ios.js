@@ -150,16 +150,16 @@ class Guide extends Component {
 
 
   renderGuide(ingredient, key, height) {
-    var colors = ['blue', 'red', 'yellow', 'grey', 'pink'];
+    var colors = ['#FF66E3', '#e1f7d5', '#ffbdbd', '#c9c9ff', '#f1cbff', '#b3d9ff', '#ff9999', '#ffff99', '#99ff99', '#80ffff'];
     var rand = Math.floor((Math.random() * colors.length));
     return (
         <View key={ key } style={[styles.section, {
-              width: 350,
+              width: 358,
               height:  height,
               backgroundColor: colors[rand],
               alignItems: 'center',
               borderWidth: 1,
-
+              borderColor: 'grey',
             }]}>
           <Text style={styles.text} key={ key }>
             {ingredient.measurement} {ingredient.ingredient}
@@ -221,6 +221,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     fontWeight: 'bold',
   },
+
 
 });
 
