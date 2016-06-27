@@ -61,7 +61,7 @@ console.log("hello")
           <Text style={styles.title}>
             {this.props.type}
           </Text>
-          <TouchableHighlight
+          <TouchableHighlight underlayColor={'transparent'}
             onPress={this.back.bind(this, 'recipe')}
           >
             <Text style={styles.bButton}>  &larr; Back </Text>
@@ -92,7 +92,7 @@ console.log("hello")
     return (
       <View style={styles.container}>
         <View style={styles.category}>
-          <TouchableHighlight
+          <TouchableHighlight underlayColor={'transparent'}
             onPress={this.navigate.bind(this, 'recipe', drink.idDrink)}
           >
             <Text style={styles.title}>{drink.strDrink}</Text>

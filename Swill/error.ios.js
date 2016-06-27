@@ -29,7 +29,7 @@ class Error extends Component {
 
 
         <View style={styles.nav}>
-        <TouchableHighlight
+        <TouchableHighlight underlayColor={'transparent'}
           onPress={this.navigate.bind(this, 'main')}
         >
           <Text style={styles.bButton}>  &lsaquo; </Text>
