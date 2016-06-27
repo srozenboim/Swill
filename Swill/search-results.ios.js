@@ -24,6 +24,7 @@ class Search extends Component {
 
   componentWillMount() {
 console.log("constructor")
+console.log("hello")
   }
 
   componentDidMount() {
