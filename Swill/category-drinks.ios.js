@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   },
   ListView: {
     flex: 1,
-    paddingTop: 10,
+  
   },
   category: {
     flex: 1,
