@@ -47,7 +47,7 @@ class Guide extends Component {
     return (
       <View style={styles.container}>
       <View style={styles.nav}>
-      <TouchableHighlight
+      <TouchableHighlight underlayColor={'transparent'}
         onPress={this.back.bind(this, 'recipe')}
       >
         <Text style={styles.bButton}>  &lsaquo; </Text>
@@ -186,15 +186,9 @@ const styles = StyleSheet.create({
     // paddingRight: 8,
     // paddingBottom: 8,
     paddingLeft: 8,
-<<<<<<< HEAD
     paddingRight: 8,
     paddingBottom: 8,
     justifyContent: 'space-between',
-=======
-      paddingRight: 8,
-      paddingBottom: 8,
-      justifyContent: 'space-between',
->>>>>>> dfb024ec5cfed73731d4dbdbcfe9cf2e90e57fd7
   },
   title: {
     fontSize: 20,

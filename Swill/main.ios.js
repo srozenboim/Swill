@@ -119,7 +119,7 @@ class Main extends Component {
 
       <View style={styles.listContainer}>
         <View style={styles.category}>
-          <TouchableHighlight
+          <TouchableHighlight underlayColor={'transparent'}
             onPress={this.navigate.bind(this, 'category', category)}
           >
             <Text style={styles.title}>{category}</Text>
