@@ -148,7 +148,6 @@ class Guide extends Component {
   }
 
 
-
   renderGuide(ingredient, key, height) {
     var colors = ['blue', 'red', 'yellow', 'grey', 'pink'];
     var rand = Math.floor((Math.random() * colors.length));
