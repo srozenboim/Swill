@@ -15,6 +15,7 @@ var REQUEST_URL = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i="
 class Recipe extends Component {
   constructor(props) {
     super(props);
+    this.props.showPourbutton = true;
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
@@ -42,6 +43,7 @@ console.log("constructor")
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData.drinks),
           loaded: true,
+          showPourbutton: true
         });
       })
       .done();
@@ -96,14 +98,18 @@ console.log("constructor")
   }
 
   renderPourButton(recipe){
+    console.log(this.props)
+    if(this.state.showPourbutton){
       return(
         <TouchableHighlight underlayColor={'transparent'}
           onPress={this.navigate.bind(this, 'guide',recipe,
            this.pairIngredientsMeasurements(recipe))}
         >
-          <Text style={styles.bButton2}> &larr; Pour</Text>
+          <Text style={styles.bButton2}>Pour</Text>
         </TouchableHighlight>
       )
+    }
+    return null;
   }
 
   renderLoadingView() {
@@ -116,7 +122,7 @@ console.log("constructor")
     );
   }
 
-  pairIngredientsMeasurements(recipe) {
+  pairIngredientsMeasurements = recipe => {
     var ingredients = {};
     console.log(recipe)
     for (key of Object.keys(recipe)) {
@@ -134,17 +140,16 @@ console.log("constructor")
           }
         }
         else if(key.includes("strMeasure")){
-
           var i = ingredients[key.slice(10)];
           if(i === undefined){
             ingredients[key.slice(10)] = {
-              measurement: recipe[key]
+              measurement: recipe[key],
+              correctedMeasurement: this.convertToOunce(recipe[key])
             }
-            // this.convertToOunce(recipe[key])
           }
           else{
             i.measurement = recipe[key]
-            // this.convertToOunce(recipe[key])
+            i.correctedMeasurement = this.convertToOunce(recipe[key])
           }
         }
       }
@@ -153,7 +158,7 @@ console.log("constructor")
   }
 
 
-  convertToOunce(measurement) {
+  convertToOunce = measurement => {
     if(measurement){
       var match = measurement.match(/(((\d?)(\.)?\d+\s+)|(\d+(\/)\d+))((\d+(\/)\d+))?(\s*\w+)?/);
 
@@ -190,14 +195,13 @@ console.log("constructor")
         }
 
         var amount = matchString.replace(/\s+oz/, "floz").replace("tsp", "teaspoon").replace("tblsp", "tablespoon")
-        showPourbutton = true
 
         try{
           qty = new Qty(amount);
           return qty.to('floz');
         }
         catch(e){
-
+          // this.state.showPourbutton = false;
         }
       }
     }
