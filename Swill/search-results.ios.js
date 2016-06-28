@@ -24,6 +24,7 @@ class Search extends Component {
 
   componentWillMount() {
 console.log("constructor")
+console.log("hello")
   }
 
   componentDidMount() {
@@ -60,7 +61,7 @@ console.log("constructor")
           <Text style={styles.title}>
             {this.props.type}
           </Text>
-          <TouchableHighlight
+          <TouchableHighlight underlayColor={'transparent'}
             onPress={this.back.bind(this, 'recipe')}
           >
             <Text style={styles.bButton}>  &larr; Back </Text>
@@ -91,7 +92,7 @@ console.log("constructor")
     return (
       <View style={styles.container}>
         <View style={styles.category}>
-          <TouchableHighlight
+          <TouchableHighlight underlayColor={'transparent'}
             onPress={this.navigate.bind(this, 'recipe', drink.idDrink)}
           >
             <Text style={styles.title}>{drink.strDrink}</Text>

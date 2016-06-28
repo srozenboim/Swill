@@ -1,3 +1,4 @@
+import Qty from 'js-quantities'
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -23,7 +24,7 @@ class Recipe extends Component {
   }
 
   componentWillMount() {
-console.log("constructor")
+    console.log("constructor")
   }
 
   componentDidMount() {
@@ -41,6 +42,7 @@ console.log("constructor")
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData.drinks),
           loaded: true,
+          showPourbutton: true
         });
       })
       .done();
@@ -56,12 +58,13 @@ console.log("constructor")
     });
   }
 
-  navigate(routeName, drink, ingredients) {
+  navigate(routeName, drink, ingredients, instructions) {
     this.props.navigator.push({
       name: routeName,
       passProps: {
         drink: drink,
-        ingredients: ingredients
+        ingredients: ingredients,
+        instructions: instructions
       }
     });
   }
@@ -74,7 +77,7 @@ console.log("constructor")
       <View style={styles.container}>
 
         <View style={styles.nav}>
-        <TouchableHighlight
+        <TouchableHighlight underlayColor={'transparent'}
           onPress={this.back.bind(this, 'recipe')}
         >
           <Text style={styles.bButton}>  &lsaquo; </Text>
@@ -82,10 +85,6 @@ console.log("constructor")
         <Text style={styles.navtitle}>
         Recipe
         </Text>
-
-
-
-
         </View>
         <View style={styles.ListView}>
           <ListView
@@ -98,15 +97,18 @@ console.log("constructor")
     );
   }
 
-  renderPourButton(recipe){
-    return(
-      <TouchableHighlight
-        onPress={this.navigate.bind(this, 'guide',recipe,
-         this.pairIngredientsMeasurements(recipe))}
-      >
-        <Text style={styles.bButton2}> &larr; Pour</Text>
-      </TouchableHighlight>
-    )
+  renderPourButton(recipe, ingredients){
+    if(this.state.showPourbutton && !this.blankMeasurements(ingredients)){
+      return(
+        <TouchableHighlight underlayColor={'transparent'}
+          onPress={this.navigate.bind(this, 'guide',recipe,
+           ingredients, this.displayInsructions(recipe))}
+        >
+          <Text style={styles.bButton2}>Pour</Text>
+        </TouchableHighlight>
+      )
+    }
+    return null;
   }
 
   renderLoadingView() {
@@ -119,42 +121,7 @@ console.log("constructor")
     );
   }
 
-  pairIngredientsMeasurements(recipe) {
-    var ingredients = {};
-    console.log(recipe)
-    for (key of Object.keys(recipe)) {
-      if(recipe[key] && recipe[key].trim()){
-        if(key.includes("strIngredient")){
-
-          var i = ingredients[key.slice(13)];
-          if(i === undefined){
-            ingredients[key.slice(13)] = {
-              ingredient: recipe[key]
-            }
-          }
-          else{
-            i.ingredient = recipe[key]
-          }
-        }
-        else if(key.includes("strMeasure")){
-
-          var i = ingredients[key.slice(10)];
-          if(i === undefined){
-            ingredients[key.slice(10)] = {
-              measurement: recipe[key]
-            }
-          }
-          else{
-            i.measurement = recipe[key]
-          }
-        }
-      }
-    }
-    return ingredients
-  }
-
-  displayIngredients(recipe) {
-    var ingredients = this.pairIngredientsMeasurements(recipe)
+  displayIngredients(recipe, ingredients) {
     var array = []
     for (var i in ingredients) {
       array += [ingredients[i].measurement, ingredients[i].ingredient].join("")+ "\n";
@@ -189,6 +156,8 @@ console.log("constructor")
 
 
   renderRecipe(recipe) {
+    var ingredients = this.pairIngredientsMeasurements(recipe)
+    console.log(ingredients)
     var url = this.displayImage(recipe);
     if (url == "") {
       return (
@@ -197,12 +166,12 @@ console.log("constructor")
           <View>
             <Text style={styles.title}>{recipe.strDrink}</Text>
             <Text style={styles.header}>Ingredients: </Text>
-            <Text style={styles.text}>{this.displayIngredients(recipe)}</Text>
+            <Text style={styles.text}>{this.displayIngredients(recipe, ingredients)}</Text>
             <Text style={styles.header}>Instructions: </Text>
             <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
             <ListView
               dataSource={this.state.dataSource}
-              renderRow={this.renderPourButton.bind(this)}
+              renderRow={this.renderPourButton.bind(this, recipe, ingredients)}
               style={styles.ListView}
             />
             </View>
@@ -214,7 +183,7 @@ console.log("constructor")
         <View>
           <Text style={styles.title}>{recipe.strDrink}</Text>
           <Text style={styles.header}>Ingredients: </Text>
-          <Text style={styles.text}>{this.displayIngredients(recipe)}</Text>
+          <Text style={styles.text}>{this.displayIngredients(recipe, ingredients)}</Text>
           <Text style={styles.header}>Instructions: </Text>
           <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
           <Image
@@ -223,7 +192,7 @@ console.log("constructor")
           />
           <ListView
             dataSource={this.state.dataSource}
-            renderRow={this.renderPourButton.bind(this)}
+            renderRow={this.renderPourButton.bind(this, recipe, ingredients)}
             style={styles.ListView}
           />
         </View>
@@ -232,9 +201,118 @@ console.log("constructor")
   }
   }
 
-}
-// <Text style={styles.text}>{this.renderPourButton(recipe)}</Text>
+  pairIngredientsMeasurements = recipe => {
+    var ingredients = {};
+    console.log(recipe)
+    for (key of Object.keys(recipe)) {
+      if(recipe[key] && recipe[key].trim()){
+        if(key.includes("strIngredient")){
 
+          var i = ingredients[key.slice(13)];
+          if(i === undefined){
+            ingredients[key.slice(13)] = {
+              ingredient: recipe[key]
+            }
+          }
+          else{
+            i.ingredient = recipe[key]
+          }
+        }
+        else if(key.includes("strMeasure")){
+          var i = ingredients[key.slice(10)];
+          if(i === undefined){
+            ingredients[key.slice(10)] = {
+              measurement: recipe[key],
+              correctedMeasurement: this.convertToOunce(recipe[key])
+            }
+          }
+          else{
+            i.measurement = recipe[key]
+            i.correctedMeasurement = this.convertToOunce(recipe[key])
+          }
+        }
+      }
+    }
+    return ingredients
+  }
+
+
+  blankMeasurements = ingredients =>{
+    for (key of  Object.keys(ingredients)) {
+      if(!ingredients[key].correctedMeasurement){
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+  convertToOunce = measurement => {
+    if(measurement){
+      var match = measurement.match(/(((\d?)(\.)?\d+\s+)|(\d+(\/)\d+))((\d+(\/)\d+))?(\s*\w+)?/);
+
+
+      var substitutions = {
+        'shot': 1.5, 'shots': 1.5, 'splash': 0.03125 ,
+        'dash': 0.03125, 'dashes': 0.03125,
+        'jigger': 1.5, 'scoop': 4, 'scoops': 4,
+        'part': 0, 'parts': 0, 'fill':0
+      }
+
+      if(match){
+        var matchString = match[0];
+
+        if(matchString.match(/(\d+(\/)\d+)/) && matchString.match(/(\d+(\/)\d+)/)[0]){
+          var num = matchString.split(" ")
+          if(num.length <= 2){
+            numeratorDenominator = num[0].split("/")
+            var decimal = parseFloat(numeratorDenominator[0])/parseFloat(numeratorDenominator[1])
+            matchString = decimal +" "+ num[1]
+          }
+          else{
+            numeratorDenominator = num[1].split("/")
+            var decimal = parseFloat(num[0])+ parseFloat(numeratorDenominator[0])/parseFloat(numeratorDenominator[1])
+            matchString = decimal +" "+ num[2]
+          }
+        }
+
+        num = matchString.split(" ")
+        if(num.length>1){
+          if(substitutions[num[1]]){
+            decimal = parseFloat(num[0]) * substitutions[num[1]]
+            matchString = decimal + " floz"
+
+          }
+          // else if (!substitutions[num[1]] && !Qty.getUnits('volume')) {
+          //   matchString= 0 + "floz"
+          // }
+        }
+
+        var amount = matchString.replace(/\s+oz/, "floz").replace("tsp", "teaspoon").replace("tblsp", "tablespoon")
+
+        try{
+          qty = new Qty(amount);
+          return qty.to('floz').scalar;
+        }
+        catch(e){
+          this.state.showPourbutton = false;
+        }
+      }
+    }
+  }
+  // getMeasurementUnit(recipe) {
+  //   var ingredients = this.pairIngredientsMeasurements(recipe)
+  //   var measurements = []
+  //   for (var i in ingredients) {
+  //     measurements += ingredients[i].measurement.split(" ")
+  //   }
+  //   console.log('hello')
+  //   console.log(measurements)
+  //   return measurements
+  // }
+
+
+}
 
 const styles = StyleSheet.create({
   container: {

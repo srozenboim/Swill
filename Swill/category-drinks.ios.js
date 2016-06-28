@@ -52,17 +52,16 @@ console.log("constructor")
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
-
     return (
       <View style={styles.container}>
         <View style={styles.nav}>
-        <TouchableHighlight
+        <TouchableHighlight underlayColor={'transparent'}
           onPress={this.back.bind(this, 'recipe')}
         >
           <Text style={styles.bButton}>  &lsaquo; </Text>
         </TouchableHighlight>
         <Text style={styles.navtitle}>
-        Drinks
+        {this.props.category}
         </Text>
         </View>
         <View>
@@ -99,7 +98,7 @@ console.log("constructor")
     return (
       <View style={styles.container}>
         <View style={styles.category}>
-          <TouchableHighlight
+          <TouchableHighlight underlayColor={'transparent'}
             onPress={this.navigate.bind(this, 'recipe', drink.idDrink)}
           >
             <Text style={styles.title}>{drink.strDrink}</Text>
