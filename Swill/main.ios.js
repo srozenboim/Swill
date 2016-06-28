@@ -136,6 +136,7 @@ class Main extends Component {
     this.props.navigator.push({
       name: routeName,
       passProps: {
+        accessToken: this.state.accessToken,
         category: drinkCategory,
         results: drinkCategory
       }

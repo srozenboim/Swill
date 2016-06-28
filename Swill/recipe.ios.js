@@ -20,6 +20,7 @@ class Recipe extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
+      favorite: "favorite",
     };
   }
 
@@ -31,6 +32,66 @@ class Recipe extends Component {
     console.log("constructor")
     this.fetchData();
   }
+
+  async onFavoritePressed() {
+    this.setState({showProgress: true})
+    try {
+      let response = await fetch('http://localhost:3000/api/favorites', {
+                              method: 'POST',
+                              headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                              },
+                              body: JSON.stringify({
+                                favorite:{
+                                  accessToken: this.props.accessToken,
+                                  drink_id: this.props.drinkId,
+
+                                }
+                              })
+                            });
+
+      if (response.status >= 200 && response.status < 300) {
+          //Handle success
+
+          this.setState({favorite: "favorited"})
+          //On success we will store the access_token in the AsyncStorage
+
+
+      } else {
+          //Handle error
+          let error = res;
+          throw error;
+      }
+    } catch(errors) {
+      //errors are in JSON form so we must parse them first.
+      let formErrors = JSON.parse(errors);
+      //We will store all the errors in the array.
+      let errorsArray = [];
+      for(var key in formErrors) {
+        //If array is bigger than one we need to split it.
+        if(formErrors[key].length > 1) {
+            formErrors[key].map(error => errorsArray.push(`${key} ${error}`));
+        } else {
+            errorsArray.push(`${key} ${formErrors[key]}`);
+        }
+      }
+      this.setState({errors: errorsArray})
+      this.setState({showProgress: false});
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
   fetchData() {
     var drink_id = this.props.drinkId
@@ -92,7 +153,14 @@ class Recipe extends Component {
             renderRow={this.renderRecipe.bind(this)}
             style={styles.ListView}
           />
+
+
         </View>
+        <TouchableHighlight underlayColor={'transparent'}
+          onPress={this.onFavoritePressed.bind(this)}
+        >
+          <Text>  {this.state.favorite} </Text>
+        </TouchableHighlight>
       </View>
     );
   }

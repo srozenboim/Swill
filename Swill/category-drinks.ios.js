@@ -16,6 +16,7 @@ class Category extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      accessToken: this.props.accessToken,
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
@@ -117,8 +118,9 @@ console.log("constructor")
 
   navigate(routeName, drink) {
     this.props.navigator.push({
+
       name: routeName,
-      passProps: {drinkId: drink}
+      passProps: {drinkId: drink, accessToken: this.state.accessToken}
     });
   }
 
