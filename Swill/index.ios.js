@@ -24,7 +24,7 @@ class Swill extends Component {
 
   renderScene(route, navigator) {
     if (route.name === 'main') {
-      return <Main navigator={navigator} />
+      return <Main navigator={navigator} {...route.passProps} />
     }
     else if(route.name == 'register') {
       return <Register navigator={navigator} />
