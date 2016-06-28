@@ -19,15 +19,11 @@ import Search from './search-results'
 import Error from './error'
 import Register from './register'
 import Login from './login'
-import Root from './root'
 
 class Swill extends Component {
 
   renderScene(route, navigator) {
-    if(route.name == 'root') {
-    return <Root navigator={navigator} />
-    }
-    else if (route.name === 'main') {
+    if (route.name === 'main') {
       return <Main navigator={navigator} {...route.passProps} />
     }
     else if(route.name == 'register') {
