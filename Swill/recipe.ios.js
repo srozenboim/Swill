@@ -15,7 +15,6 @@ var REQUEST_URL = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i="
 class Recipe extends Component {
   constructor(props) {
     super(props);
-    this.props.showPourbutton = true;
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
@@ -25,7 +24,7 @@ class Recipe extends Component {
   }
 
   componentWillMount() {
-console.log("constructor")
+    console.log("constructor")
   }
 
   componentDidMount() {
@@ -97,13 +96,12 @@ console.log("constructor")
     );
   }
 
-  renderPourButton(recipe){
-    console.log(this.props)
-    if(this.state.showPourbutton){
+  renderPourButton(recipe, ingredients){
+    if(this.state.showPourbutton && !this.blankMeasurements(ingredients)){
       return(
         <TouchableHighlight underlayColor={'transparent'}
           onPress={this.navigate.bind(this, 'guide',recipe,
-           this.pairIngredientsMeasurements(recipe))}
+           ingredients)}
         >
           <Text style={styles.bButton2}>Pour</Text>
         </TouchableHighlight>
@@ -120,6 +118,86 @@ console.log("constructor")
         </Text>
       </View>
     );
+  }
+
+  displayIngredients(recipe, ingredients) {
+    var array = []
+    for (var i in ingredients) {
+      array += [ingredients[i].measurement, ingredients[i].ingredient].join("")+ "\n";
+    }
+    return array;
+  }
+
+  displayInsructions(recipe) {
+    var instructions = "";
+    for (key of Object.keys(recipe)) {
+        if(key.includes("strInstructions")){
+              instructions= recipe[key]
+            }
+          }
+    return instructions
+  }
+
+  displayImage(recipe) {
+    var imageURL = "";
+    for (key of Object.keys(recipe)) {
+      if(recipe[key] && recipe[key].trim()){
+        if(key.includes("strDrinkThumb")){
+              imageURL= recipe[key].replace(/http/g, "https")
+            }
+          }
+        else {
+          ""
+        }
+        }
+    return imageURL
+  }
+
+
+  renderRecipe(recipe) {
+    var ingredients = this.pairIngredientsMeasurements(recipe)
+    console.log(ingredients)
+    var url = this.displayImage(recipe);
+    if (url == "") {
+      return (
+        <View style={styles.container}>
+
+          <View>
+            <Text style={styles.title}>{recipe.strDrink}</Text>
+            <Text style={styles.header}>Ingredients: </Text>
+            <Text style={styles.text}>{this.displayIngredients(recipe, ingredients)}</Text>
+            <Text style={styles.header}>Instructions: </Text>
+            <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
+            <ListView
+              dataSource={this.state.dataSource}
+              renderRow={this.renderPourButton.bind(this, recipe, ingredients)}
+              style={styles.ListView}
+            />
+            </View>
+          </View>
+        );
+    } else {
+    return (
+      <View style={styles.container}>
+        <View>
+          <Text style={styles.title}>{recipe.strDrink}</Text>
+          <Text style={styles.header}>Ingredients: </Text>
+          <Text style={styles.text}>{this.displayIngredients(recipe, ingredients)}</Text>
+          <Text style={styles.header}>Instructions: </Text>
+          <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
+          <Image
+            style={styles.drinkImage}
+            source={{uri: url}}
+          />
+          <ListView
+            dataSource={this.state.dataSource}
+            renderRow={this.renderPourButton.bind(this, recipe, ingredients)}
+            style={styles.ListView}
+          />
+        </View>
+      </View>
+    );
+  }
   }
 
   pairIngredientsMeasurements = recipe => {
@@ -158,12 +236,29 @@ console.log("constructor")
   }
 
 
+  blankMeasurements = ingredients =>{
+    console.log(ingredients)
+    for (key of  Object.keys(ingredients)) {
+      if(!ingredients[key].correctedMeasurement){
+        console.log(ingredients[key])
+        return true;
+      }
+    }
+    return false;
+  }
+
+
   convertToOunce = measurement => {
     if(measurement){
       var match = measurement.match(/(((\d?)(\.)?\d+\s+)|(\d+(\/)\d+))((\d+(\/)\d+))?(\s*\w+)?/);
 
 
-      var substitutions = {'shot': 1.5, 'shots': 1.5, 'splash': 0.03125 , 'dash': 0.03125, 'dashes': 0.03125,  'jigger': 1.5, 'scoop': 4, 'scoops': 4, 'part': 0, 'parts': 0}
+      var substitutions = {
+        'shot': 1.5, 'shots': 1.5, 'splash': 0.03125 ,
+        'dash': 0.03125, 'dashes': 0.03125,
+        'jigger': 1.5, 'scoop': 4, 'scoops': 4,
+        'part': 0, 'parts': 0, 'fill':0
+      }
 
       if(match){
         var matchString = match[0];
@@ -198,10 +293,10 @@ console.log("constructor")
 
         try{
           qty = new Qty(amount);
-          return qty.to('floz');
+          return qty.to('floz').scalar;
         }
         catch(e){
-          // this.state.showPourbutton = false;
+          this.state.showPourbutton = false;
         }
       }
     }
@@ -217,84 +312,6 @@ console.log("constructor")
   //   return measurements
   // }
 
-  displayIngredients(recipe) {
-    var ingredients = this.pairIngredientsMeasurements(recipe)
-    var array = []
-    for (var i in ingredients) {
-      array += [ingredients[i].measurement, ingredients[i].ingredient].join("")+ "\n";
-    }
-    return array;
-  }
-
-  displayInsructions(recipe) {
-    var instructions = "";
-    for (key of Object.keys(recipe)) {
-        if(key.includes("strInstructions")){
-              instructions= recipe[key]
-            }
-          }
-    return instructions
-  }
-
-  displayImage(recipe) {
-    var imageURL = "";
-    for (key of Object.keys(recipe)) {
-      if(recipe[key] && recipe[key].trim()){
-        if(key.includes("strDrinkThumb")){
-              imageURL= recipe[key].replace(/http/g, "https")
-            }
-          }
-        else {
-          ""
-        }
-        }
-    return imageURL
-  }
-
-
-  renderRecipe(recipe) {
-    var url = this.displayImage(recipe);
-    if (url == "") {
-      return (
-        <View style={styles.container}>
-
-          <View>
-            <Text style={styles.title}>{recipe.strDrink}</Text>
-            <Text style={styles.header}>Ingredients: </Text>
-            <Text style={styles.text}>{this.displayIngredients(recipe)}</Text>
-            <Text style={styles.header}>Instructions: </Text>
-            <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
-            <ListView
-              dataSource={this.state.dataSource}
-              renderRow={this.renderPourButton.bind(this)}
-              style={styles.ListView}
-            />
-            </View>
-          </View>
-        );
-    } else {
-    return (
-      <View style={styles.container}>
-        <View>
-          <Text style={styles.title}>{recipe.strDrink}</Text>
-          <Text style={styles.header}>Ingredients: </Text>
-          <Text style={styles.text}>{this.displayIngredients(recipe)}</Text>
-          <Text style={styles.header}>Instructions: </Text>
-          <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
-          <Image
-            style={styles.drinkImage}
-            source={{uri: url}}
-          />
-          <ListView
-            dataSource={this.state.dataSource}
-            renderRow={this.renderPourButton.bind(this)}
-            style={styles.ListView}
-          />
-        </View>
-      </View>
-    );
-  }
-  }
 
 }
 
