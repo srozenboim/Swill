@@ -161,15 +161,6 @@ redirect(routeName){
       <View style={styles.container}>
       {flashMessage}
 
-     <Text style={styles.text}> Your new token is {this.state.accessToken} </Text>
-
-
-       <TouchableHighlight onPress={this.onLogout.bind(this)} style={styles.button}>
-         <Text style={styles.buttonText}>
-           Logout
-         </Text>
-       </TouchableHighlight>
-
         <View>
           <Text style={styles.title}>
             Welcome to Swill!
