@@ -1,8 +1,8 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+* Sample React Native App
+* https://github.com/facebook/react-native
+* @flow
+*/
 
 import React, { Component } from 'react';
 import {
@@ -57,7 +57,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
-     this.getToken();
+    this.getToken();
     console.log("constructor")
     this.fetchData();
   }
@@ -66,26 +66,26 @@ class Main extends Component {
     try {
       let accessToken = await AsyncStorage.getItem(ACCESS_TOKEN);
       if(!accessToken) {
-          // this.redirect('login');
+        // this.redirect('login');
       } else {
-          this.setState({accessToken: accessToken})
+        this.setState({accessToken: accessToken})
       }
     } catch(error) {
-        console.log("Something went wrong");
-        this.redirect('login');
+      console.log("Something went wrong");
+      this.redirect('login');
     }
   }
 
   async deleteToken() {
-  try {
+    try {
       await AsyncStorage.removeItem(ACCESS_TOKEN)
       this.redirect('root');
-  } catch(error) {
+    } catch(error) {
       console.log("Something went wrong");
+    }
   }
-}
 
-redirect(routeName){
+  redirect(routeName){
     this.props.navigator.push({
       name: routeName,
       passProps: {
@@ -109,27 +109,27 @@ redirect(routeName){
     let access_token = this.state.accessToken
     try {
       let response = await fetch('https://afternoon-beyond-22141.herokuapp.com/api/users/'+access_token,{
-                              method: 'DELETE',
-                            });
-        let res = await response.text();
-        if (response.status >= 200 && response.status < 300) {
-          console.log("success sir: " + res)
-          this.redirect('root');
-        } else {
-          let error = res;
-          throw error;
-        }
+        method: 'DELETE',
+      });
+      let res = await response.text();
+      if (response.status >= 200 && response.status < 300) {
+        console.log("success sir: " + res)
+        this.redirect('root');
+      } else {
+        let error = res;
+        throw error;
+      }
     } catch(error) {
-        console.log("error: " + error)
+      console.log("error: " + error)
     }
   }
 
 
   fetchData() {
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(categories),
-          loaded: true,
-        });
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(categories),
+      loaded: true,
+    });
   }
 
   navigate(routeName, drinkCategory) {
@@ -146,9 +146,9 @@ redirect(routeName){
     //We check to se if there is a flash message. It will be passed in user update.
     let flashMessage;
     if (this.props.flash) {
-       flashMessage = <Text style={styles.flash}>{this.props.flash}</Text>
+      flashMessage = <Text style={styles.flash}>{this.props.flash}</Text>
     } else {
-       flashMessage = null
+      flashMessage = null
     }
 
 
@@ -161,80 +161,93 @@ redirect(routeName){
       <View style={styles.container}>
       {flashMessage}
 
-        <View>
-          <Text style={styles.title}>
-            Welcome to Swill!
-          </Text>
-           <TouchableHighlight
-          onPress={this.navigate.bind(this, 'register')}
-        >
-          <Text style={styles.title}>Register</Text>
-        </TouchableHighlight>
-
-         <TouchableHighlight
-          onPress={this.navigate.bind(this, 'login')}
-        >
-          <Text style={styles.title}>Login</Text>
-        </TouchableHighlight>
-        </View>
-
-
-
-        <TextInput
-          style={styles.search}
-          onChangeText={(text) => this.setState({search: text})}
-          placeholder="Search"
-          autoCorrect={false}
-          value={this.state.search}
-          onSubmitEditing={(text) => {
-            this.navigate('search', this.state.search )
-            this.state.search = ""
-            }
-          }
-        />
-          <Text style={styles.title}>
-            Pick a Category
-          </Text>
-
-        <View style={styles.ListView}>
-          <ListView
-            dataSource={this.state.dataSource}
-            renderRow={this.renderCategory.bind(this)}
-          />
-        </View>
+      <View>
+      <Text style={styles.title}>
+      Welcome to Swill!
+      </Text>
+      <View>
+      {this.renderUserButton()}
       </View>
-    );
-  }
+      </View>
 
 
-  renderLoadingView() {
+
+      <TextInput
+      style={styles.search}
+      onChangeText={(text) => this.setState({search: text})}
+      placeholder="Search"
+      autoCorrect={false}
+      value={this.state.search}
+      onSubmitEditing={(text) => {
+        this.navigate('search', this.state.search )
+        this.state.search = ""
+      }
+    }
+    />
+    <Text style={styles.title}>
+    Pick a Category
+    </Text>
+
+    <View style={styles.ListView}>
+    <ListView
+    dataSource={this.state.dataSource}
+    renderRow={this.renderCategory.bind(this)}
+    />
+    </View>
+    </View>
+  );
+}
+
+
+renderLoadingView() {
+  return (
+    <View style={styles.container}>
+    <Text>
+    Loading categories...
+    </Text>
+    </View>
+  );
+}
+
+
+renderCategory(category) {
+  return (
+
+    <View style={styles.listContainer}>
+    <View style={styles.category}>
+
+    <TouchableHighlight underlayColor={'transparent'}
+
+    onPress={this.navigate.bind(this, 'category', category)}
+    >
+    <Text style={styles.title}>{category}</Text>
+    </TouchableHighlight>
+    </View>
+    </View>
+  );
+}
+
+
+renderUserButton() {
+  if(!this.state.accessToken) {
     return (
-      <View style={styles.container}>
-        <Text>
-          Loading categories...
-        </Text>
+      <View>
+      <TouchableHighlight
+      onPress={this.navigate.bind(this, 'register')}
+      >
+      <Text style={styles.title}>Register</Text>
+      </TouchableHighlight>
+
+      <TouchableHighlight
+      onPress={this.navigate.bind(this, 'login')}
+      >
+      <Text style={styles.title}>Login</Text>
+      </TouchableHighlight>
       </View>
     );
   }
-
-
-  renderCategory(category) {
-    return (
-
-      <View style={styles.listContainer}>
-        <View style={styles.category}>
-
-          <TouchableHighlight underlayColor={'transparent'}
-
-            onPress={this.navigate.bind(this, 'category', category)}
-          >
-            <Text style={styles.title}>{category}</Text>
-          </TouchableHighlight>
-        </View>
-      </View>
-    );
-  }
-
+  return null;
+}
 }
 
 const styles = StyleSheet.create({
