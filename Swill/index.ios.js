@@ -1,8 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+
 
 import React, { Component } from 'react';
 import {
@@ -21,12 +17,20 @@ import Recipe from './recipe'
 import Guide from './drink-guide'
 import Search from './search-results'
 import Error from './error'
+import Register from './register'
+import Login from './login'
 
 class Swill extends Component {
 
   renderScene(route, navigator) {
     if (route.name === 'main') {
       return <Main navigator={navigator} />
+    }
+    else if(route.name == 'register') {
+      return <Register navigator={navigator} />
+    }
+    else if(route.name == 'login') {
+      return <Login navigator={navigator} />
     }
     else if (route.name === 'recipe') {
       return <Recipe navigator={navigator} {...route.passProps} />

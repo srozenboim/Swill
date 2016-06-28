@@ -16,14 +16,20 @@ import {
   TextInput,
 } from 'react-native';
 
+const ACCESS_TOKEN = 'access_token';
+
 import Category from './category-drinks'
 import Search from './search-results'
 import Error from './error'
-
+import Register from './register'
 
 const categories = ['Vodka','Tequila', 'Light rum', 'Gin', 'Dark rum', 'Scotch', 'Whiskey', 'Bourbon', 'Mezcal', 'Brandy', 'Champagne', 'Rum', 'Cognac', 'Kahlua', 'Peanut Liqueur', 'Sake', 'Peppermint schnapps', 'Everclear', 'Beer' ]
 
 class Main extends Component {
+
+  componentWillMount() {
+    this.getToken();
+  }
 
   constructor(props) {
     console.log("constructor")
@@ -71,11 +77,27 @@ class Main extends Component {
     return (
 
       <View style={styles.container}>
+
+
         <View>
           <Text style={styles.title}>
             Welcome to Swill!
           </Text>
+           <TouchableHighlight
+          onPress={this.navigate.bind(this, 'register')}
+        >
+          <Text style={styles.title}>Register</Text>
+        </TouchableHighlight>
+
+         <TouchableHighlight
+          onPress={this.navigate.bind(this, 'login')}
+        >
+          <Text style={styles.title}>Login</Text>
+        </TouchableHighlight>
         </View>
+
+
+
         <TextInput
           style={styles.search}
           onChangeText={(text) => this.setState({search: text})}
@@ -119,6 +141,7 @@ class Main extends Component {
 
       <View style={styles.listContainer}>
         <View style={styles.category}>
+
           <TouchableHighlight
             onPress={this.navigate.bind(this, 'category', category)}
           >
