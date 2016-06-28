@@ -47,15 +47,20 @@ class Guide extends Component {
     return (
       <View style={styles.container}>
       <View style={styles.nav}>
-      <TouchableHighlight underlayColor={'transparent'}
-        onPress={this.back.bind(this, 'recipe')}
-      >
-        <Text style={styles.bButton}>  &lsaquo; </Text>
-      </TouchableHighlight>
-      <Text style={styles.navtitle}>
-        {this.props.drink.strDrink}
-      </Text>
+        <TouchableHighlight underlayColor={'transparent'}
+          onPress={this.back.bind(this, 'recipe')}
+        >
+          <Text style={styles.bButton}>  &lsaquo; </Text>
+        </TouchableHighlight>
+        <Text style={styles.navtitle}>
+          {this.props.drink.strDrink}
+        </Text>
 
+      </View>
+      <View>
+        <Text style={styles.instructions}>
+          Directions: {this.props.instructions}
+        </Text>
       </View>
         <View>
           <Text style={styles.text}>
@@ -197,6 +202,11 @@ const styles = StyleSheet.create({
     color: 'white',
 
   },
+  instructions: {
+    fontSize: 16,
+    justifyContent: 'flex-start',
+    paddingBottom: 15,
+  }
 
 
 });

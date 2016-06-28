@@ -58,12 +58,13 @@ class Recipe extends Component {
     });
   }
 
-  navigate(routeName, drink, ingredients) {
+  navigate(routeName, drink, ingredients, instructions) {
     this.props.navigator.push({
       name: routeName,
       passProps: {
         drink: drink,
-        ingredients: ingredients
+        ingredients: ingredients,
+        instructions: instructions
       }
     });
   }
@@ -101,7 +102,7 @@ class Recipe extends Component {
       return(
         <TouchableHighlight underlayColor={'transparent'}
           onPress={this.navigate.bind(this, 'guide',recipe,
-           ingredients)}
+           ingredients, this.displayInsructions(recipe))}
         >
           <Text style={styles.bButton2}>Pour</Text>
         </TouchableHighlight>
@@ -237,10 +238,8 @@ class Recipe extends Component {
 
 
   blankMeasurements = ingredients =>{
-    console.log(ingredients)
     for (key of  Object.keys(ingredients)) {
       if(!ingredients[key].correctedMeasurement){
-        console.log(ingredients[key])
         return true;
       }
     }
