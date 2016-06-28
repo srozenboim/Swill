@@ -79,7 +79,7 @@ class Main extends Component {
   async deleteToken() {
     try {
       await AsyncStorage.removeItem(ACCESS_TOKEN)
-      this.redirect('root');
+      this.redirect('main');
     } catch(error) {
       console.log("Something went wrong");
     }
@@ -114,7 +114,7 @@ class Main extends Component {
       let res = await response.text();
       if (response.status >= 200 && response.status < 300) {
         console.log("success sir: " + res)
-        this.redirect('root');
+        this.redirect('main');
       } else {
         let error = res;
         throw error;
@@ -246,7 +246,17 @@ renderUserButton() {
       </View>
     );
   }
-  return null;
+  return (
+    <View>
+    <TouchableHighlight onPress={this.onLogout.bind(this)} style={styles.button}>
+          <Text style={styles.buttonText}>
+            Logout
+          </Text>
+        </TouchableHighlight>
+    </View>
+
+
+  );
 }
 }
 
