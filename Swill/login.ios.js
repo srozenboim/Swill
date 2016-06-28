@@ -28,6 +28,14 @@ class Login extends Component {
       name: routeName
     });
   }
+
+  navigate(routeName) {
+    this.props.navigator.push({
+      name: routeName
+      // passProps: {name: routeName},
+    })
+  }
+
   storeToken(responseData){
     AsyncStorage.setItem(ACCESS_TOKEN, responseData, (err)=> {
       if(err){
@@ -62,6 +70,7 @@ class Login extends Component {
           console.log(accessToken);
           //On success we will store the access_token in the AsyncStorage
           this.storeToken(accessToken);
+
           this.redirect('main');
       } else {
           //Handle error
@@ -97,11 +106,25 @@ class Login extends Component {
           </Text>
         </TouchableHighlight>
 
+
         <Text style={styles.error}>
           {this.state.error}
         </Text>
 
+
+      
+
+
+
+
+
       </View>
+
+
+
+
+
+
     );
   }
 }

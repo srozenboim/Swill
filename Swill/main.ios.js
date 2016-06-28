@@ -28,45 +28,16 @@ const categories = ['Vodka','Tequila', 'Light rum', 'Gin', 'Dark rum', 'Scotch',
 
 class Main extends Component {
 
-  componentWillMount() {
-    this.getToken();
-  }
-
-  async getToken() {
-    try {
-      let accessToken = await AsyncStorage.getItem(ACCESS_TOKEN);
-      if(!accessToken) {
-          console.log("Token not set");
-      } else {
-          this.verifyToken(accessToken)
-      }
-    } catch(error) {
-        console.log("Something went wrong");
-    }
-  }
 
   //If token is verified we will redirect the user to the home page
- async verifyToken(token) {
-   let accessToken = token
 
-   try {
-     let response = await fetch('http://localhost:3000/api/verify?session%5Baccess_token%5D='+accessToken);
-     let res = await response.text();
-     if (response.status >= 200 && response.status < 300) {
-       console.log("res is:" + res);
-       //Verified token means user is loggen in to we redirect to home.
-       this.navigate('home');
-     } else {
-         //Handle error
-         let error = res;
-         throw error;
-     }
-   } catch(error) {
-       console.log("error response: " + error);
-   }
- }
 
   constructor(props) {
+
+
+
+
+
     console.log("constructor")
     super(props);
     this.state = {
@@ -75,6 +46,9 @@ class Main extends Component {
       }),
       loaded: false,
       search: "",
+      isLoggenIn: "",
+      showProgress: false,
+      accessToken: "",
     };
   }
 
@@ -83,9 +57,73 @@ class Main extends Component {
   }
 
   componentDidMount() {
+     this.getToken();
     console.log("constructor")
     this.fetchData();
   }
+
+  async getToken() {
+    try {
+      let accessToken = await AsyncStorage.getItem(ACCESS_TOKEN);
+      if(!accessToken) {
+          // this.redirect('login');
+      } else {
+          this.setState({accessToken: accessToken})
+      }
+    } catch(error) {
+        console.log("Something went wrong");
+        this.redirect('login');
+    }
+  }
+
+  async deleteToken() {
+  try {
+      await AsyncStorage.removeItem(ACCESS_TOKEN)
+      this.redirect('root');
+  } catch(error) {
+      console.log("Something went wrong");
+  }
+}
+
+redirect(routeName){
+    this.props.navigator.push({
+      name: routeName,
+      passProps: {
+        accessToken: this.state.accessToken
+      }
+    });
+  }
+  onLogout(){
+    this.setState({showProgress: true})
+    this.deleteToken();
+  }
+
+  confirmDelete() {
+    AlertIOS.alert("Are you sure?", "This action cannot be undone", [
+      {text: 'Cancel'}, {text: 'Delete', onPress: () => this.onDelete()}
+    ]);
+  }
+
+
+  async onDelete(){
+    let access_token = this.state.accessToken
+    try {
+      let response = await fetch('https://afternoon-beyond-22141.herokuapp.com/api/users/'+access_token,{
+                              method: 'DELETE',
+                            });
+        let res = await response.text();
+        if (response.status >= 200 && response.status < 300) {
+          console.log("success sir: " + res)
+          this.redirect('root');
+        } else {
+          let error = res;
+          throw error;
+        }
+    } catch(error) {
+        console.log("error: " + error)
+    }
+  }
+
 
   fetchData() {
         this.setState({
@@ -105,6 +143,15 @@ class Main extends Component {
   }
 
   render() {
+    //We check to se if there is a flash message. It will be passed in user update.
+    let flashMessage;
+    if (this.props.flash) {
+       flashMessage = <Text style={styles.flash}>{this.props.flash}</Text>
+    } else {
+       flashMessage = null
+    }
+
+
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
@@ -112,7 +159,16 @@ class Main extends Component {
     return (
 
       <View style={styles.container}>
+      {flashMessage}
 
+     <Text style={styles.text}> Your new token is {this.state.accessToken} </Text>
+
+
+       <TouchableHighlight onPress={this.onLogout.bind(this)} style={styles.button}>
+         <Text style={styles.buttonText}>
+           Logout
+         </Text>
+       </TouchableHighlight>
 
         <View>
           <Text style={styles.title}>
