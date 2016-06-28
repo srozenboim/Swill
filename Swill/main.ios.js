@@ -249,7 +249,7 @@ renderUserButton() {
   return (
     <View>
     <TouchableHighlight onPress={this.onLogout.bind(this)} style={styles.button}>
-          <Text style={styles.buttonText}>
+          <Text style={styles.title}>
             Logout
           </Text>
         </TouchableHighlight>

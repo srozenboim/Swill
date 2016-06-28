@@ -36,6 +36,13 @@ class Login extends Component {
     })
   }
 
+  back(routeName, drink) {
+    this.props.navigator.pop({
+      name: routeName,
+      passProps: {drinkId: drink}
+    });
+  }
+
   storeToken(responseData){
     AsyncStorage.setItem(ACCESS_TOKEN, responseData, (err)=> {
       if(err){
@@ -87,6 +94,13 @@ class Login extends Component {
 
     return (
       <View style={styles.container}>
+      <View style={styles.nav}>
+      <TouchableHighlight underlayColor={'transparent'}
+        onPress={this.back.bind(this, 'recipe')}
+      >
+        <Text style={styles.bButton}>  &lsaquo; Back </Text>
+      </TouchableHighlight>
+      </View>
         <Text style={styles.heading}>
           Login
         </Text>
@@ -112,7 +126,7 @@ class Login extends Component {
         </Text>
 
 
-      
+
 
 
 

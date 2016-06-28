@@ -33,6 +33,13 @@ class Register extends Component {
     });
   }
 
+  back(routeName, drink) {
+    this.props.navigator.pop({
+      name: routeName,
+      passProps: {drinkId: drink}
+    });
+  }
+
   async storeToken(accessToken) {
     try {
         await AsyncStorage.setItem(ACCESS_TOKEN, accessToken);
@@ -91,7 +98,15 @@ class Register extends Component {
   }
   render() {
     return (
+
       <View style={styles.container}>
+      <View style={styles.nav}>
+      <TouchableHighlight underlayColor={'transparent'}
+        onPress={this.back.bind(this, 'recipe')}
+      >
+        <Text style={styles.bButton}>  &lsaquo; Back </Text>
+      </TouchableHighlight>
+      </View>
         <Text style={styles.heading}>
           Join Swill
         </Text>
