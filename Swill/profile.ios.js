@@ -135,7 +135,7 @@ parseFavorites(){
       <View style={styles.container}>
         <View style={styles.category}>
           <TouchableHighlight underlayColor={'transparent'}
-            onPress={this.navigate.bind(this, 'recipe', drink.idDrink, drink.strDrink)}
+            onPress={this.navigate.bind(this, 'recipe', drink.id, drink.name)}
           >
             <Text style={styles.title}>{drink.name}</Text>
           </TouchableHighlight>
@@ -169,11 +169,11 @@ parseFavorites(){
 
 
 
-  navigate(routeName, drink) {
+  navigate(routeName, drink, name) {
     this.props.navigator.push({
 
       name: routeName,
-      passProps: {drinkId: drink, accessToken: this.state.accessToken}
+      passProps: {drinkId: drink, accessToken: this.state.accessToken, drinkName: name }
     });
   }
 

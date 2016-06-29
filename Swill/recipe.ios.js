@@ -33,10 +33,8 @@ class Recipe extends Component {
     this.fetchData();
   }
 
-  async onFavoritePressed() {
-    this.setState({showProgress: true})
-    try {
-      let response = await fetch('http://localhost:3000/api/favorites', {
+onFavoritePressed() {
+   fetch('http://localhost:3000/api/favorites', {
                               method: 'POST',
                               headers: {
                                 'Accept': 'application/json',
@@ -49,37 +47,41 @@ class Recipe extends Component {
                                   drink_name: this.props.drinkName
                                 }
                               })
-                            });
+                            }).then((data) => {
+                                      this.setState({favorite: "favorited"})
+                                    console.log(data)
+                            })
+                            .catch((err) => console.log(err));
+                          }
 
-      if (response.status >= 200 && response.status < 300) {
           //Handle success
 
-          this.setState({favorite: "favorited"})
+
           //On success we will store the access_token in the AsyncStorage
 
-
-      } else {
-          //Handle error
-          let error = res;
-          throw error;
-      }
-    } catch(errors) {
-      //errors are in JSON form so we must parse them first.
-      let formErrors = JSON.parse(errors);
-      //We will store all the errors in the array.
-      let errorsArray = [];
-      for(var key in formErrors) {
-        //If array is bigger than one we need to split it.
-        if(formErrors[key].length > 1) {
-            formErrors[key].map(error => errorsArray.push(`${key} ${error}`));
-        } else {
-            errorsArray.push(`${key} ${formErrors[key]}`);
-        }
-      }
-      this.setState({errors: errorsArray})
-      this.setState({showProgress: false});
-    }
-  }
+  //
+  //     } else {
+  //         //Handle error
+  //         let error = res;
+  //         throw error;
+  //     }
+  //   } catch(errors) {
+  //     //errors are in JSON form so we must parse them first.
+  //     let formErrors = JSON.parse(errors);
+  //     //We will store all the errors in the array.
+  //     let errorsArray = [];
+  //     for(var key in formErrors) {
+  //       //If array is bigger than one we need to split it.
+  //       if(formErrors[key].length > 1) {
+  //           formErrors[key].map(error => errorsArray.push(`${key} ${error}`));
+  //       } else {
+  //           errorsArray.push(`${key} ${formErrors[key]}`);
+  //       }
+  //     }
+  //     this.setState({errors: errorsArray})
+  //     this.setState({showProgress: false});
+  //   }
+  // }
 
 
 
