@@ -21,6 +21,7 @@ class Recipe extends Component {
       }),
       loaded: false,
       favorite: "favorite",
+      unfavorite: ""
     };
   }
 
@@ -48,7 +49,28 @@ onFavoritePressed() {
                                 }
                               })
                             }).then((data) => {
-                                      this.setState({favorite: "favorited"})
+                                      this.setState({favorite: "", unfavorite: "unfavorite"})
+                                    console.log(data)
+                            })
+                            .catch((err) => console.log(err));
+                          }
+
+unfavoritePressed() {
+   fetch('http://localhost:3000/api/favorites', {
+                              method: 'DELETE',
+                              headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                              },
+                              body: JSON.stringify({
+                                favorite:{
+                                  accessToken: this.props.accessToken,
+                                  drink_id: this.props.drinkId,
+                                  drink_name: this.props.drinkName
+                                }
+                              })
+                            }).then((data) => {
+                                      this.setState({favorite: "favorite", unfavorite: ""})
                                     console.log(data)
                             })
                             .catch((err) => console.log(err));
@@ -163,6 +185,14 @@ onFavoritePressed() {
         >
           <Text>  {this.state.favorite} </Text>
         </TouchableHighlight>
+
+
+        <TouchableHighlight underlayColor={'transparent'}
+          onPress={this.unfavoritePressed.bind(this)}
+        >
+          <Text>  {this.state.unfavorite} </Text>
+        </TouchableHighlight>
+
       </View>
     );
   }
@@ -190,6 +220,12 @@ onFavoritePressed() {
       </View>
     );
   }
+
+
+
+
+
+
 
   displayIngredients(recipe, ingredients) {
     var array = []
