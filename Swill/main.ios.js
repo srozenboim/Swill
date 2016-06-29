@@ -131,6 +131,7 @@ class Main extends Component {
     );
   }
 
+
 }
 
 const styles = StyleSheet.create({
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
     width: 300,
     marginTop: 10,
     marginLeft: 25
-  }
+  },
 });
 
 export default Main
