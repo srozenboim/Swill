@@ -21,18 +21,45 @@ class Recipe extends Component {
       }),
       loaded: false,
       favorite: "favorite",
-      unfavorite: ""
+      unfavorite: "unfavorite"
     };
   }
 
   componentWillMount() {
     console.log("constructor")
+    this.getFavorites();
   }
 
   componentDidMount() {
     console.log("constructor")
     this.fetchData();
+
   }
+
+  getFavorites() {
+     fetch('http://localhost:3000/api/checknames', {
+                                method: 'POST',
+                                headers: {
+                                  'Accept': 'application/json',
+                                  'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                  favorite:{
+                                    accessToken: this.props.accessToken,
+                                    drink_id: this.props.drinkId,
+                                    drink_name: this.props.drinkName
+                                  }
+                                })
+                              }).then((data) => data.json())
+                                .then((data) => {
+                                  userCurrentFavorites = data
+                                      console.log(data)
+                                        console.log("hellohello")
+
+                              })
+                              .catch((err) => console.log(err));
+                            }
+
 
 onFavoritePressed() {
    fetch('http://localhost:3000/api/favorites', {
@@ -48,9 +75,11 @@ onFavoritePressed() {
                                   drink_name: this.props.drinkName
                                 }
                               })
-                            }).then((data) => {
-                                      this.setState({favorite: "", unfavorite: "unfavorite"})
-                                    console.log(data)
+                            }).then((data) => data.json())
+                              .then((data) => {
+                                      this.setState({})
+
+
                             })
                             .catch((err) => console.log(err));
                           }
@@ -70,7 +99,7 @@ unfavoritePressed() {
                                 }
                               })
                             }).then((data) => {
-                                      this.setState({favorite: "favorite", unfavorite: ""})
+                                      this.setState({})
                                     console.log(data)
                             })
                             .catch((err) => console.log(err));
@@ -171,6 +200,7 @@ unfavoritePressed() {
         Recipe
         </Text>
         </View>
+
         <View style={styles.ListView}>
           <ListView
             dataSource={this.state.dataSource}
@@ -178,24 +208,38 @@ unfavoritePressed() {
             style={styles.ListView}
           />
 
-
         </View>
-        <TouchableHighlight underlayColor={'transparent'}
-          onPress={this.onFavoritePressed.bind(this)}
-        >
-          <Text>  {this.state.favorite} </Text>
-        </TouchableHighlight>
 
-
-        <TouchableHighlight underlayColor={'transparent'}
-          onPress={this.unfavoritePressed.bind(this)}
-        >
-          <Text>  {this.state.unfavorite} </Text>
-        </TouchableHighlight>
 
       </View>
     );
   }
+
+  renderFavorite(recipe, data) {
+    if(data.includes(recipe.strDrink)){
+
+    return (
+      <TouchableHighlight underlayColor={'transparent'}
+        onPress={this.unfavoritePressed.bind(this)}
+      >
+        <Text>  {this.state.unfavorite} </Text>
+      </TouchableHighlight>
+  );
+  } else {
+
+    return (
+      <TouchableHighlight underlayColor={'transparent'}
+        onPress={this.onFavoritePressed.bind(this)}
+      >
+        <Text>  {this.state.favorite} </Text>
+      </TouchableHighlight>
+  
+  );
+
+        }
+      }
+
+
 
   renderPourButton(recipe, ingredients){
     if(this.state.showPourbutton && !this.blankMeasurements(ingredients)){
@@ -292,6 +336,7 @@ unfavoritePressed() {
           <Text style={styles.text}>{this.displayIngredients(recipe, ingredients)}</Text>
           <Text style={styles.header}>Instructions: </Text>
           <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
+          {this.renderFavorite(recipe, userCurrentFavorites)}
           <Image
             style={styles.drinkImage}
             source={{uri: url}}
@@ -301,6 +346,7 @@ unfavoritePressed() {
             renderRow={this.renderPourButton.bind(this, recipe, ingredients)}
             style={styles.ListView}
           />
+
         </View>
       </View>
     );

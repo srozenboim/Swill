@@ -23,12 +23,47 @@ class Profile extends Component {
     };
   }
 
+  componentWillReceiveProps() {
+    this.setState({loaded: false})
+    this.render();
+    fetch('http://localhost:3000/api/userfavorites', {
+       method: 'POST',
+       headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         favorite:{
+           accessToken: this.props.accessToken,
+           drink_id: this.props.drinkId,
+         }
+       })
+     }).then((res) => res.json())
+       .then((res) => {
+
+         var favorite = res
+         // var favorite = [Object.values(res)]
+         console.log(favorite)
+         this.setState({
+           dataSource: this.state.dataSource.cloneWithRows(favorite),
+           loaded: true,
+         })
+         this.render();
+
+       })
+       .catch((err) => console.log(err));
+    console.log(this.state);
+    console.log("dsafsgfjashhk")
+
+  }
+
   componentWillMount() {
-console.log("constructor")
+  //  console.log("it will mount!!!!!!")
   }
 
   componentDidMount() {
-    console.log("constructor")
+    // console.log("constructor")
+    console.log("it will mount!!!!!!")
      this.fetchData();
 
   }
