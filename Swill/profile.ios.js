@@ -29,88 +29,82 @@ console.log("constructor")
 
   componentDidMount() {
     console.log("constructor")
-    this.fetchData();
+     this.fetchData();
 
   }
 
-  fetchData() {
-    var ingredient = this.props.category
-    fetch(REQUEST_URL + ingredient)
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData)
-
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.drinks),
-          loaded: true,
-        });
-      })
-      .done();
-  }
 
 
-
-
-  async fetchData() {
-    try {
-      let response = await fetch('http://localhost:3000/api/favorites', {
-                              method: 'get',
-                              headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                              },
-                              body: JSON.stringify({
-                                favorite:{
-                                  accessToken: this.props.accessToken,
-                                  drink_id: this.props.drinkId,
-
-                                }
-                              })
-                            });
-
-      if (response.status >= 200 && response.status < 300) {
-          //Handle success
-
-          this.setState({favorite: "favorited"})
-          //On success we will store the access_token in the AsyncStorage
-
-
-      } else {
-          //Handle error
-          let error = res;
-          throw error;
-      }
-    } catch(errors) {
-      //errors are in JSON form so we must parse them first.
-      let formErrors = JSON.parse(errors);
-      //We will store all the errors in the array.
-      let errorsArray = [];
-      for(var key in formErrors) {
-        //If array is bigger than one we need to split it.
-        if(formErrors[key].length > 1) {
-            formErrors[key].map(error => errorsArray.push(`${key} ${error}`));
-        } else {
-            errorsArray.push(`${key} ${formErrors[key]}`);
+ fetchData() {
+   fetch('http://localhost:3000/api/userfavorites', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        favorite:{
+          accessToken: this.props.accessToken,
+          drink_id: this.props.drinkId,
         }
-      }
-      this.setState({errors: errorsArray})
-      this.setState({showProgress: false});
-    }
-  }
+      })
+    }).then((res) => res.json())
+      .then((res) => {
+
+
+        var favorite = [Object.values(res)]
+        console.log(favorite)
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(favorite),
+          loaded: true,
+        })
+
+
+      })
+      .catch((err) => console.log(err));
+
+ }
+
+          // this.setState({
+          //   dataSource: this.state.dataSource.cloneWithRows(favorites),
+          //   loaded: true,
+          // })
+          // console.log(favorites[11])
+          // //On success we will store the access_token in the AsyncStorage
+          // console.log(res)
+
+  //     } else {
+  //         //Handle error
+  //         let error = res;
+  //         throw error;
+  //     }
+  //   } catch(errors) {
+  //     //errors are in JSON form so we must parse them first.
+  //     let formErrors = JSON.parse(errors);
+  //     //We will store all the errors in the array.
+  //     let errorsArray = [];
+  //     for(var key in formErrors) {
+  //       //If array is bigger than one we need to split it.
+  //       if(formErrors[key].length > 1) {
+  //           formErrors[key].map(error => errorsArray.push(`${key} ${error}`));
+  //       } else {
+  //           errorsArray.push(`${key} ${formErrors[key]}`);
+  //       }
+  //     }
+  //     this.setState({errors: errorsArray})
+  //     this.setState({showProgress: false});
+  //   }
+  // }
 
 
 
 
 
 
-
-
-
-
-
-
-
-
+parseFavorites(){
+  var favoritesObj = JSON.parse(favorites)
+    console.log(favoritesObj[14029])
+}
 
 
 
@@ -122,7 +116,9 @@ console.log("constructor")
       return this.renderLoadingView();
     }
     return (
+
       <View style={styles.container}>
+
         <View style={styles.ListView}>
           <ListView
             dataSource={this.state.dataSource}
@@ -134,6 +130,22 @@ console.log("constructor")
     );
   }
 
+  renderDrink(drink) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.category}>
+          <TouchableHighlight underlayColor={'transparent'}
+            onPress={this.navigate.bind(this, 'recipe', drink.idDrink, drink.strDrink)}
+          >
+            <Text style={styles.title}>blah</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
+    );
+  }
+
+
+
   renderLoadingView() {
     return (
       <View style={styles.container}>
@@ -144,19 +156,8 @@ console.log("constructor")
     );
   }
 
-  renderDrink(drink) {
-    return (
-      <View style={styles.container}>
-        <View style={styles.category}>
-          <TouchableHighlight underlayColor={'transparent'}
-            onPress={this.navigate.bind(this, 'recipe', drink.idDrink)}
-          >
-            <Text style={styles.title}>{drink.strDrink}</Text>
-          </TouchableHighlight>
-        </View>
-      </View>
-    );
-  }
+
+
 
   back(routeName, drink) {
     this.props.navigator.pop({
@@ -164,6 +165,9 @@ console.log("constructor")
       passProps: {drinkId: drink}
     });
   }
+
+
+
 
   navigate(routeName, drink) {
     this.props.navigator.push({

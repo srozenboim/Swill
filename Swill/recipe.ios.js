@@ -46,7 +46,7 @@ class Recipe extends Component {
                                 favorite:{
                                   accessToken: this.props.accessToken,
                                   drink_id: this.props.drinkId,
-
+                                  drink_name: this.props.drinkName
                                 }
                               })
                             });
