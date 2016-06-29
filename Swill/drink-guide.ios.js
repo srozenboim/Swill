@@ -63,13 +63,13 @@ class Guide extends Component {
           Directions: {this.props.instructions}
         </Text>
       </View>
-      <ScrollView>
+
         <View>
           <Text style={styles.text}>
             {this.displayIngredients(this.renderGuide, this.props.ingredients)}
           </Text>
         </View>
-      </ScrollView>
+
       </View>
     );
   }
@@ -163,22 +163,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#4F6367'
   },
-  ListView: {
-    flex: 1,
-    paddingTop: 10,
-  },
-  category: {
-    flex: 1,
-  },
   text: {
     fontSize: 16,
-  },
-  drinkImage: {
-    width: 200,
-    height: 200,
-    alignItems: 'center',
-    justifyContent: 'center',
-
   },
   header: {
     fontSize: 16,
@@ -196,7 +182,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   nav: {
-      marginLeft: -8,
+    marginLeft: -8,
     justifyContent: 'flex-start',
     width: 378,
     height: 50,
@@ -205,24 +191,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   navtitle: {
-
     marginTop: 18,
     textAlign: 'center',
     fontSize: 15,
     color: 'white',
-
   },
   instructions: {
     fontSize: 16,
     justifyContent: 'flex-start',
     paddingBottom: 15,
   },
-  scrollView: {
-    flex: 1,
-  },
-  contentContainerStyle: {
-    flex: 1,
-	},
+  scrollview: {
+    height: 400,
+    justifyContent: 'space-between'
+  }
+
 });
 
 export default Guide;
