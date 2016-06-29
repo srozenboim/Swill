@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     marginLeft: 74,
     fontSize: 20,
     color: 'white',
-    letterSpacing: 14,
+    letterSpacing: 2,
   },
 });
 
