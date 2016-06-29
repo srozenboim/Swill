@@ -19,6 +19,7 @@ import Search from './search-results'
 import Error from './error'
 import Register from './register'
 import Login from './login'
+import Profile from './profile'
 
 class Swill extends Component {
 
@@ -28,6 +29,9 @@ class Swill extends Component {
     }
     else if(route.name == 'register') {
       return <Register navigator={navigator} />
+    }
+    else if(route.name == 'profile') {
+      return <Profile navigator={navigator} {...route.passProps}/>
     }
     else if(route.name == 'login') {
       return <Login navigator={navigator} />

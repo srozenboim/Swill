@@ -23,6 +23,7 @@ import Category from './category-drinks'
 import Search from './search-results'
 import Error from './error'
 import Register from './register'
+import Profile from './profile'
 
 const categories = ['Vodka','Tequila', 'Light rum', 'Gin', 'Dark rum', 'Scotch', 'Whiskey', 'Bourbon', 'Mezcal', 'Brandy', 'Champagne', 'Rum', 'Cognac', 'Kahlua', 'Peanut Liqueur', 'Sake', 'Peppermint schnapps', 'Everclear', 'Beer' ]
 
@@ -254,7 +255,16 @@ renderUserButton() {
             Logout
           </Text>
         </TouchableHighlight>
+    <TouchableHighlight onPress={this.navigate.bind(this, 'profile')} style={styles.button}>
+              <Text style={styles.title}>
+                Profile
+              </Text>
+      </TouchableHighlight>
+
+
+
     </View>
+
 
 
   );
