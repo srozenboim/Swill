@@ -51,8 +51,8 @@ console.log("constructor")
     }).then((res) => res.json())
       .then((res) => {
 
-
-        var favorite = [Object.values(res)]
+        var favorite = res
+        // var favorite = [Object.values(res)]
         console.log(favorite)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(favorite),
@@ -137,7 +137,7 @@ parseFavorites(){
           <TouchableHighlight underlayColor={'transparent'}
             onPress={this.navigate.bind(this, 'recipe', drink.idDrink, drink.strDrink)}
           >
-            <Text style={styles.title}>blah</Text>
+            <Text style={styles.title}>{drink.name}</Text>
           </TouchableHighlight>
         </View>
       </View>
