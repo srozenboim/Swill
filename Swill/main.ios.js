@@ -14,6 +14,7 @@ import {
   TouchableHighlight,
   Navigator,
   TextInput,
+  Image
 } from 'react-native';
 
 import Category from './category-drinks'
@@ -72,9 +73,10 @@ class Main extends Component {
 
       <View style={styles.container}>
         <View>
-          <Text style={styles.title}>
-            Welcome to Swill!
-          </Text>
+          <Image
+            style={styles.logo}
+            source={require('./Swill2.png')}
+          />
         </View>
         <TextInput
           style={styles.search}
@@ -172,6 +174,12 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#B8D8D8',
     marginTop: 10,
+  },
+  logo: {
+    height: 100,
+    width: 300,
+    marginTop: 10,
+    marginLeft: 25
   }
 });
 
