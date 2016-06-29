@@ -8,7 +8,8 @@ import {
   ListView,
   Navigator,
   TouchableHighlight,
-  Image
+  Image,
+  ScrollView
 } from 'react-native';
 
 class Guide extends Component {
@@ -110,6 +111,11 @@ class Guide extends Component {
      )
   }
 
+  // allowScroll() {
+  //   return scrollEnabled= true
+  //   this.setState({ scrollEnabled: scrollEnabled })
+  // }
+
   renderGuide(ingredient, key, height) {
     var colors = ['#FF66E3', '#e1f7d5', '#ffbdbd', '#c9c9ff', '#f1cbff', '#b3d9ff', '#ff9999', '#ffff99', '#99ff99', '#80ffff', '#EFA9FE', '#44B4D5', "#FFFF84", "#E4C6A7", "#FFA4A4"];
     var rand = Math.floor((Math.random() * colors.length));
@@ -206,9 +212,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     justifyContent: 'flex-start',
     paddingBottom: 15,
-  }
-
-
+  },
+  scrollView: {
+    flex: 1,
+  },
+  contentContainerStyle: {
+    flex: 1,
+	},
 });
 
 export default Guide;

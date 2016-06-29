@@ -14,6 +14,7 @@ import {
   TouchableHighlight,
   Navigator,
   TextInput,
+  Image
 } from 'react-native';
 
 import Category from './category-drinks'
@@ -72,9 +73,10 @@ class Main extends Component {
 
       <View style={styles.container}>
         <View>
-          <Text style={styles.title}>
-            Welcome to Swill!
-          </Text>
+          <Image
+            style={styles.logo}
+            source={require('./Swill2.png')}
+          />
         </View>
         <TextInput
           style={styles.search}
@@ -129,6 +131,7 @@ class Main extends Component {
     );
   }
 
+
 }
 
 const styles = StyleSheet.create({
@@ -152,7 +155,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 40,
     marginRight: 40,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 10,
     borderColor: '#FE5F55',
     backgroundColor: '#EEF5DB'
@@ -161,7 +164,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: '#FE5F55',
     borderRadius: 10,
-    borderWidth: 1,
+    borderWidth: 2,
     padding: 10,
     marginLeft: 10,
     marginRight: 10,
@@ -172,7 +175,13 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: '#B8D8D8',
     marginTop: 10,
-  }
+  },
+  logo: {
+    height: 100,
+    width: 300,
+    marginTop: 10,
+    marginLeft: 25
+  },
 });
 
 export default Main

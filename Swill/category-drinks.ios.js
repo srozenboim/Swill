@@ -71,9 +71,6 @@ console.log("constructor")
           </Text>
         </View>
         <View style={styles.ListView}>
-
-
-
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this.renderDrink.bind(this)}
@@ -180,7 +177,7 @@ const styles = StyleSheet.create({
     marginLeft: 74,
     fontSize: 20,
     color: 'white',
-    letterSpacing: 14,
+    letterSpacing: 2,
   },
 });
 
