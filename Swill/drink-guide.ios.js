@@ -63,11 +63,13 @@ class Guide extends Component {
           Directions: {this.props.instructions}
         </Text>
       </View>
+      <ScrollView>
         <View>
           <Text style={styles.text}>
             {this.displayIngredients(this.renderGuide, this.props.ingredients)}
           </Text>
         </View>
+      </ScrollView>
       </View>
     );
   }
@@ -120,6 +122,7 @@ class Guide extends Component {
     var colors = ['#FF66E3', '#e1f7d5', '#ffbdbd', '#c9c9ff', '#f1cbff', '#b3d9ff', '#ff9999', '#ffff99', '#99ff99', '#80ffff', '#EFA9FE', '#44B4D5', "#FFFF84", "#E4C6A7", "#FFA4A4"];
     var rand = Math.floor((Math.random() * colors.length));
     return (
+      // <ScrollView>
         <View key={ key } style={[styles.section, {
               width: 358,
               height:  height,
@@ -133,6 +136,7 @@ class Guide extends Component {
             {ingredient.measurement} {ingredient.ingredient}
           </Text>
           </View>
+          // </ScrollView>
       );
   }
 
