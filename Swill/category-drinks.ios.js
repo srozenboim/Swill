@@ -71,9 +71,6 @@ console.log("constructor")
           </Text>
         </View>
         <View style={styles.ListView}>
-
-
-
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this.renderDrink.bind(this)}
