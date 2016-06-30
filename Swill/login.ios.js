@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 
 const ACCESS_TOKEN = 'access_token';
+var API_URL = "https://swill-backend.herokuapp.com/"
+
 
 class Login extends Component {
   constructor(){
@@ -57,19 +59,19 @@ class Login extends Component {
   async onLoginPressed() {
     this.setState({showProgress: true})
     try {
-      let response = await fetch('http://localhost:3000/api/login', {
-                              method: 'POST',
-                              headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                              },
-                              body: JSON.stringify({
-                                session:{
-                                  email: this.state.email,
-                                  password: this.state.password,
-                                }
-                              })
-                            });
+      let response = await fetch(API_URL+'api/login', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          session:{
+            email: this.state.email,
+            password: this.state.password,
+          }
+        })
+      });
       let res = await response.text();
       if (response.status >= 200 && response.status < 300) {
           //Handle success
@@ -124,21 +126,7 @@ class Login extends Component {
         <Text style={styles.error}>
           {this.state.error}
         </Text>
-
-
-
-
-
-
-
-
       </View>
-
-
-
-
-
-
     );
   }
 }

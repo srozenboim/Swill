@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 
 var REQUEST_URL = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i="
+var API_URL = "https://swill-backend.herokuapp.com/"
 
 class Recipe extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class Recipe extends Component {
   }
 
   getFavorites() {
-     fetch('http://localhost:3000/api/checknames', {
+     fetch(API_URL+'api/checknames', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -73,7 +74,7 @@ onFavoritePressed() {
 
   // this.render();
 
-   fetch('http://localhost:3000/api/favorites', {
+   fetch(API_URL+'api/favorites', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -99,7 +100,7 @@ onFavoritePressed() {
   }
 
 unfavoritePressed() {
-   fetch('http://localhost:3000/api/favorites', {
+   fetch(API_URL+'api/favorites', {
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',

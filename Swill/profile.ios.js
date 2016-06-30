@@ -10,6 +10,7 @@ import {
 
 
 var REQUEST_URL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="
+var API_URL = "https://swill-backend.herokuapp.com/"
 
 class Profile extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class Profile extends Component {
   componentWillReceiveProps() {
     this.setState({loaded: false})
     this.render();
-    fetch('http://localhost:3000/api/userfavorites', {
+    fetch(API_URL+'api/userfavorites', {
        method: 'POST',
        headers: {
          'Accept': 'application/json',
@@ -45,7 +46,7 @@ class Profile extends Component {
          // var favorite = [Object.values(res)]
          console.log(favorite)
          this.setState({
-           dataSource: this.state.dataSource.cloneWithRows(favorite.favorites),
+           dataSource: this.state.dataSource.cloneWithRows(favorite),
            loaded: true,
          })
          this.render();
@@ -71,7 +72,7 @@ class Profile extends Component {
 
 
  fetchData() {
-   fetch('http://localhost:3000/api/userfavorites', {
+   fetch(API_URL+'api/userfavorites', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

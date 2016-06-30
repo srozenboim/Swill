@@ -27,6 +27,7 @@ import Register from './register'
 import Profile from './profile'
 
 const categories = ['Vodka','Tequila', 'Light rum', 'Gin', 'Dark rum', 'Scotch', 'Whiskey', 'Bourbon', 'Mezcal', 'Brandy', 'Champagne', 'Rum', 'Cognac', 'Kahlua', 'Peanut Liqueur', 'Sake', 'Peppermint schnapps', 'Everclear', 'Beer' ]
+var API_URL = "https://swill-backend.herokuapp.com/"
 
 class Main extends Component {
 
@@ -110,7 +111,7 @@ class Main extends Component {
   async onDelete(){
     let access_token = this.state.accessToken
     try {
-      let response = await fetch('https://afternoon-beyond-22141.herokuapp.com/api/users/'+access_token,{
+      let response = await fetch(API_URL+'api/users/'+access_token,{
         method: 'DELETE',
       });
       let res = await response.text();

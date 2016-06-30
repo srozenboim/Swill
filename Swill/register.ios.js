@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 const ACCESS_TOKEN = 'access_token';
+var API_URL = "https://swill-backend.herokuapp.com/"
 
 class Register extends Component {
   constructor(){
@@ -51,21 +52,21 @@ class Register extends Component {
   async onRegisterPressed() {
     this.setState({showProgress: true})
     try {
-      let response = await fetch('http://localhost:3000/api/users', {
-                              method: 'POST',
-                              headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json',
-                              },
-                              body: JSON.stringify({
-                                user:{
-                                  name: this.state.name,
-                                  email: this.state.email,
-                                  password: this.state.password,
-                                  password_confirmation: this.state.password_confirmation,
-                                }
-                              })
-                            });
+      let response = await fetch(API_URL+'api/users', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            user:{
+              name: this.state.name,
+              email: this.state.email,
+              password: this.state.password,
+              password_confirmation: this.state.password_confirmation,
+            }
+          })
+        });
       let res = await response.text();
       if (response.status >= 200 && response.status < 300) {
           //Handle success
