@@ -57,16 +57,16 @@ console.log("hello")
 
     return (
       <View style={styles.container}>
-        <View>
-          <Text style={styles.title}>
-            {this.props.type}
-          </Text>
+        <View style={styles.nav}>
           <TouchableHighlight underlayColor={'transparent'}
             onPress={this.back.bind(this, 'recipe')}
           >
-            <Text style={styles.bButton}>  &larr; Back </Text>
+            <Text style={styles.bButton}>  &lsaquo; </Text>
           </TouchableHighlight>
-        </View>
+        <Text style={styles.navtitle}>
+          {this.props.category}
+        </Text>
+      </View>
         <View style={styles.ListView}>
           <ListView
             dataSource={this.state.dataSource}
@@ -126,9 +126,12 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   title: {
+    fontFamily: 'OriyaSangamMN',
     fontSize: 20,
-    marginBottom: 8,
+    marginBottom: 1,
     textAlign: 'center',
+    // fontWeight: 'bold',
+
   },
   ListView: {
     flex: 1,
@@ -138,26 +141,42 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 40,
     marginRight: 40,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 10,
-    borderColor: '#FE5F55',
-    backgroundColor: '#EEF5DB',
-    paddingTop: 8,
-    paddingBottom: 8
+    borderColor: '#668cff',
+    backgroundColor: 'white',
+    paddingTop: 5,
+    paddingBottom: 5
   },
   bButton: {
-    backgroundColor: '#FE5F55',
+    backgroundColor: '#007399',
     color: 'white',
-    padding: 3,
+    // padding: 3,
     textAlign: 'left',
-    marginLeft: 19,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius:4,
-    width: 85,
-    paddingBottom: 10,
+    marginTop: 0,
+    fontSize: 40,
+    width: 55,
+    // paddingBottom: 10,
     fontWeight: 'bold',
   },
+  nav: {
+    justifyContent: 'flex-start',
+    width: 378,
+    height: 50,
+    backgroundColor: '#007399',
+    // alignItems: 'center',
+    flexDirection: 'row',
+  },
+  navtitle: {
+    fontFamily: 'Helvetica',
+    marginTop: 15,
+    marginLeft: 74,
+    fontSize: 20,
+    color: 'white',
+    letterSpacing: 2,
+    fontWeight: 'bold',
+  },
+
 });
 
 export default Search;
