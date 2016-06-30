@@ -57,3 +57,6 @@ n v4.1.2
 # Verify the Node version
 node -v
 ```
+
+#### Packages
+[JS-quantities](https://github.com/gentooboontoo/js-quantities)
