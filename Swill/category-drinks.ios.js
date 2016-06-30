@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: 'OriyaSangamMN',
     fontSize: 20,
-    marginBottom: 8,
+    marginBottom: 1,
     textAlign: 'center',
     // fontWeight: 'bold',
 
@@ -145,15 +145,15 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 40,
     marginRight: 40,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 10,
-    borderColor: '#FE5F55',
-    backgroundColor: '#EEF5DB',
-    paddingTop: 10,
-    paddingBottom: 10
+    borderColor: '#668cff',
+    backgroundColor: 'white',
+    paddingTop: 5,
+    paddingBottom: 5
   },
   bButton: {
-    backgroundColor: '#FE5F55',
+    backgroundColor: '#007399',
     color: 'white',
     // padding: 3,
     textAlign: 'left',
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     width: 378,
     height: 50,
-    backgroundColor: '#FE5F55',
+    backgroundColor: '#007399',
     // alignItems: 'center',
     flexDirection: 'row',
   },
@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     letterSpacing: 2,
+    fontWeight: 'bold',
   },
 });
 

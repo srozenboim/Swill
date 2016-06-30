@@ -63,8 +63,11 @@ class Guide extends Component {
 
       </View>
       <View>
+        <Text style={styles.header}>
+          Instructions:
+        </Text>
         <Text style={styles.instructions}>
-          Directions: {this.props.instructions}
+          {this.props.instructions}
         </Text>
       </View>
 
@@ -135,12 +138,16 @@ class Guide extends Component {
   // }
 
   renderGuide(ingredient, key, height) {
-    var colors = ['#FF66E3', '#e1f7d5', '#ffbdbd', '#c9c9ff', '#f1cbff', '#b3d9ff', '#ff9999', '#ffff99', '#99ff99', '#80ffff', '#EFA9FE', '#44B4D5', "#FFFF84", "#E4C6A7", "#FFA4A4"];
+    var colors = ['#FF66E3', '#e1f7d5', '#ffbdbd', '#c9c9ff', '#f1cbff', '#b3d9ff',
+                  '#ff9999', '#ffff99', '#99ff99', '#80ffff', '#EFA9FE', '#44B4D5',
+                  "#FFFF84", "#E4C6A7", "#FFA4A4", '#ffb3e6', '#d9b3ff', '#9999ff',
+                  '#99ccff', '#00e6e6', '#99ff99', '#ffffcc', '#ffb399', '#ff4d4d',
+                  '#ff80bf', '#80ffff', '#ffccff'];
     var rand = Math.floor((Math.random() * colors.length));
     return (
       // <ScrollView>
         <View key={ key } style={[styles.section, {
-              width: 358,
+              width: 340,
               height:  height,
               backgroundColor: colors[rand],
               alignItems: 'center',
@@ -187,7 +194,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   bButton: {
-    backgroundColor: '#FE5F55',
+    backgroundColor: '#007399',
     color: 'white',
     // padding: 3,
     textAlign: 'left',
@@ -202,24 +209,32 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     width: 378,
     height: 50,
-    backgroundColor: '#FE5F55',
+    backgroundColor: '#007399',
     // alignItems: 'center',
     flexDirection: 'row',
   },
   navtitle: {
-    marginTop: 18,
+    marginTop: 15,
     textAlign: 'center',
-    fontSize: 15,
+    fontSize: 18,
     color: 'white',
+    fontWeight: 'bold',
+
   },
   instructions: {
     fontSize: 16,
     justifyContent: 'flex-start',
     paddingBottom: 15,
+    paddingTop: 5
   },
   scrollview: {
     height: 400,
     justifyContent: 'space-between'
+  },
+  header: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    paddingTop: 10
   }
 
 });
