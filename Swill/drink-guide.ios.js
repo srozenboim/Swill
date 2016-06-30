@@ -9,8 +9,12 @@ import {
   Navigator,
   TouchableHighlight,
   Image,
-  ScrollView
+  ScrollView,
+  UIManager,
+  findNodeHandle
 } from 'react-native';
+
+import InvertibleScrollView from 'react-native-invertible-scroll-view';
 
 class Guide extends Component {
   constructor(props) {
@@ -64,15 +68,35 @@ class Guide extends Component {
         </Text>
       </View>
 
-        <View>
+    <View style={styles.container} ref='container'>
+      <InvertibleScrollView>
+          {this.state.scrollViewPadding ? <View style={{height: this.state.scrollViewPadding}} /> : null}
+          <View onLayout={this._adjustPadding.bind(this)}>
           <Text style={styles.text}>
             {this.displayIngredients(this.renderGuide, this.props.ingredients)}
           </Text>
-        </View>
-
+          </View>
+      </InvertibleScrollView>
       </View>
+    </View>
     );
   }
+
+  _adjustPadding({nativeEvent}) {
+    let height = nativeEvent.layout.height;
+    let container = this.refs.container;
+    UIManager.measure(findNodeHandle(container), (x, y, width, containerHeight) => {
+        this.setState({scrollViewPadding: Math.max(containerHeight - height, 0)});
+    });
+  }
+
+  // <ScrollView>
+  //   <View>
+  //     <Text style={styles.text}>
+  //       {this.displayIngredients(this.renderGuide, this.props.ingredients)}
+  //     </Text>
+  //   </View>
+  // </ScrollView>
 
   renderLoadingView() {
     return (
