@@ -1,5 +1,6 @@
-# Swill
-The mobile bartender
+![Swill](/Swill/Swill2.png)
+## The mobile bartender
+Swill let's a user browse through hundreds of cocktail drink recipes to make in the safety of their own home. The app comes with a guide to show approximately how much of each liquid to pour into a standard pint glass. Browse by category or search for a particular drink. Remember, please drink responsibly!
 
 
 User stories:
@@ -12,10 +13,10 @@ User stories:
 
 ## Screen shots
 
-![Home page](./Home-page.png)
-![Category page](./Category-page.png)
-![Recipe page](./Recipe-page.png)
-![Drink Guide](./Pour-guide.png)
+![Home page](/Home-page.png)
+![Category page](/Category-page.png)
+![Recipe page](/Recipe-page.png)
+![Drink Guide](/Pour-guide.png)
 
 ## Installation (MAC OS X)
 
