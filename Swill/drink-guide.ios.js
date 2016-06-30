@@ -90,14 +90,6 @@ class Guide extends Component {
     });
   }
 
-  // <ScrollView>
-  //   <View>
-  //     <Text style={styles.text}>
-  //       {this.displayIngredients(this.renderGuide, this.props.ingredients)}
-  //     </Text>
-  //   </View>
-  // </ScrollView>
-
   renderLoadingView() {
     return (
       <View style={styles.container}>
