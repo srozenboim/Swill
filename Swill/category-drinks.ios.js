@@ -174,11 +174,12 @@ const styles = StyleSheet.create({
   navtitle: {
     fontFamily: 'Helvetica',
     marginTop: 15,
-    marginLeft: 74,
+    // marginLeft: 74,
     fontSize: 20,
     color: 'white',
     letterSpacing: 2,
     fontWeight: 'bold',
+    alignItems: 'center',
   },
 });
 

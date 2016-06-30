@@ -253,7 +253,7 @@ class Recipe extends Component {
 
 
       var substitutions = {
-        'shot': 1.5, 'shots': 1.5, 'splash': 0.03125 ,
+        'shot': 1.5, 'shots': 1.5, 'splash': 0.03125, 'splashes': 0.03125,
         'dash': 0.03125, 'dashes': 0.03125,
         'jigger': 1.5, 'scoop': 4, 'scoops': 4,
         'part': 0, 'parts': 0, 'fill':0
@@ -384,12 +384,14 @@ const styles = StyleSheet.create({
     // borderRadius: 10,
   },
   navtitle: {
+    fontFamily: 'Helvetica',
     marginTop: 15,
-    marginLeft: 74,
+    // marginLeft: 74,
     fontSize: 20,
     color: 'white',
-    letterSpacing: 14,
+    letterSpacing: 2,
     fontWeight: 'bold',
+    alignItems: 'center'
   },
   nav: {
     marginLeft: -8,
