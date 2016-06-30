@@ -13,10 +13,10 @@ User stories:
 
 ## Screen shots
 
-![Home page](/Home-page.png)
-![Category page](/Category-page.png)
-![Recipe page](/Recipe-page.png)
-![Drink Guide](/Pour-guide.png)
+![Home page](/Swill/Home-page.png)
+![Category page](/Swill/Category-page.png)
+![Recipe page](/Swill/Recipe-page.png)
+![Drink Guide](/Swill/Pour-guide.png)
 
 ## Installation (MAC OS X)
 
