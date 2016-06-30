@@ -21,7 +21,9 @@ class Recipe extends Component {
       }),
       loaded: false,
       favorite: "favorite",
-      unfavorite: "unfavorite"
+      unfavorite: "unfavorite",
+      favoriteButtonText: "",
+      userCurrentFavorites: [],
     };
   }
 
@@ -52,16 +54,28 @@ class Recipe extends Component {
                                 })
                               }).then((data) => data.json())
                                 .then((data) => {
-                                  userCurrentFavorites = data
-                                      console.log(data)
-                                        console.log("hellohello")
-
+                                  this.setState({userCurrentFavorites: data})
+                                  console.log("##################")
                               })
                               .catch((err) => console.log(err));
                             }
 
 
 onFavoritePressed() {
+
+  this.state = {
+    dataSource: new ListView.DataSource({
+      rowHasChanged: (row1, row2) => row1 !== row2,
+    }),
+    loaded: false,
+    favorite: "blah",
+    unfavorite: "blah"
+  };
+  this.render();
+
+    console.log(this.state)
+
+
    fetch('http://localhost:3000/api/favorites', {
                               method: 'POST',
                               headers: {
@@ -77,7 +91,7 @@ onFavoritePressed() {
                               })
                             }).then((data) => data.json())
                               .then((data) => {
-                                      this.setState({})
+                                  this.render();
 
 
                             })
@@ -99,49 +113,14 @@ unfavoritePressed() {
                                 }
                               })
                             }).then((data) => {
-                                      this.setState({})
-                                    console.log(data)
+                              // this.setState({unfavorite: "", favorite: "favorite"})
+                              console.log("sdjkfhsdkjfhkjsdahfflsdafjsdhfjksh")
+                              this.getFavorites.bind(this);
+
+                                    // console.log(data)
                             })
                             .catch((err) => console.log(err));
                           }
-
-          //Handle success
-
-
-          //On success we will store the access_token in the AsyncStorage
-
-  //
-  //     } else {
-  //         //Handle error
-  //         let error = res;
-  //         throw error;
-  //     }
-  //   } catch(errors) {
-  //     //errors are in JSON form so we must parse them first.
-  //     let formErrors = JSON.parse(errors);
-  //     //We will store all the errors in the array.
-  //     let errorsArray = [];
-  //     for(var key in formErrors) {
-  //       //If array is bigger than one we need to split it.
-  //       if(formErrors[key].length > 1) {
-  //           formErrors[key].map(error => errorsArray.push(`${key} ${error}`));
-  //       } else {
-  //           errorsArray.push(`${key} ${formErrors[key]}`);
-  //       }
-  //     }
-  //     this.setState({errors: errorsArray})
-  //     this.setState({showProgress: false});
-  //   }
-  // }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -183,6 +162,16 @@ unfavoritePressed() {
     });
   }
 
+  navigateToProfile(routeName) {
+    this.props.navigator.push({
+      name: routeName,
+      passProps: {
+        accessToken: this.state.accessToken,
+      }
+    });
+  }
+
+
   render() {
     if (!this.state.loaded) {
       return this.renderLoadingView();
@@ -221,19 +210,22 @@ unfavoritePressed() {
     return (
       <TouchableHighlight underlayColor={'transparent'}
         onPress={this.unfavoritePressed.bind(this)}
+        onPress={this.navigateToProfile.bind(this, 'profile')}
       >
+
         <Text>  {this.state.unfavorite} </Text>
       </TouchableHighlight>
   );
-  } else {
+} else if(!data.includes(recipe.strDrink)) {
 
     return (
       <TouchableHighlight underlayColor={'transparent'}
         onPress={this.onFavoritePressed.bind(this)}
+        onPress={this.navigateToProfile.bind(this, 'profile')}
       >
         <Text>  {this.state.favorite} </Text>
       </TouchableHighlight>
-  
+
   );
 
         }
@@ -324,6 +316,7 @@ unfavoritePressed() {
               renderRow={this.renderPourButton.bind(this, recipe, ingredients)}
               style={styles.ListView}
             />
+            {this.renderFavorite(recipe, this.state.userCurrentFavorites)}
             </View>
           </View>
         );
@@ -336,7 +329,7 @@ unfavoritePressed() {
           <Text style={styles.text}>{this.displayIngredients(recipe, ingredients)}</Text>
           <Text style={styles.header}>Instructions: </Text>
           <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
-          {this.renderFavorite(recipe, userCurrentFavorites)}
+          {this.renderFavorite(recipe, this.state.userCurrentFavorites)}
           <Image
             style={styles.drinkImage}
             source={{uri: url}}
