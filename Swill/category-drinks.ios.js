@@ -16,6 +16,7 @@ class Category extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      accessToken: this.props.accessToken,
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
@@ -39,6 +40,7 @@ console.log("constructor")
       .then((response) => response.json())
       .then((responseData) => {
         console.log(responseData)
+        console.log(responseData.drinks)
 
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData.drinks),
@@ -81,6 +83,20 @@ console.log("constructor")
     );
   }
 
+  renderDrink(drink) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.category}>
+          <TouchableHighlight underlayColor={'transparent'}
+            onPress={this.navigate.bind(this, 'recipe', drink.idDrink, drink.strDrink)}
+          >
+            <Text style={styles.title}>{drink.strDrink}</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
+    );
+  }
+  
   renderLoadingView() {
     return (
       <View style={styles.container}>
@@ -91,19 +107,7 @@ console.log("constructor")
     );
   }
 
-  renderDrink(drink) {
-    return (
-      <View style={styles.container}>
-        <View style={styles.category}>
-          <TouchableHighlight underlayColor={'transparent'}
-            onPress={this.navigate.bind(this, 'recipe', drink.idDrink)}
-          >
-            <Text style={styles.title}>{drink.strDrink}</Text>
-          </TouchableHighlight>
-        </View>
-      </View>
-    );
-  }
+
 
   back(routeName, drink) {
     this.props.navigator.pop({
@@ -112,10 +116,11 @@ console.log("constructor")
     });
   }
 
-  navigate(routeName, drink) {
+  navigate(routeName, drink, name) {
     this.props.navigator.push({
+
       name: routeName,
-      passProps: {drinkId: drink}
+      passProps: {drinkId: drink, accessToken: this.state.accessToken, drinkName: name }
     });
   }
 

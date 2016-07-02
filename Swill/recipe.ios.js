@@ -20,17 +20,110 @@ class Recipe extends Component {
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
       loaded: false,
+      favorite: "favorite",
+      unfavorite: "unfavorite",
+      favoriteButtonText: "",
+      userCurrentFavorites: [],
     };
   }
 
   componentWillMount() {
     console.log("constructor")
+    this.getFavorites();
   }
 
   componentDidMount() {
     console.log("constructor")
     this.fetchData();
+
   }
+
+  getFavorites() {
+     fetch('http://localhost:3000/api/checknames', {
+                                method: 'POST',
+                                headers: {
+                                  'Accept': 'application/json',
+                                  'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                  favorite:{
+                                    accessToken: this.props.accessToken,
+                                    drink_id: this.props.drinkId,
+                                    drink_name: this.props.drinkName
+                                  }
+                                })
+                              }).then((data) => data.json())
+                                .then((data) => {
+                                  this.setState({userCurrentFavorites: data})
+                                  console.log("##################")
+                              })
+                              .catch((err) => console.log(err));
+                            }
+
+
+onFavoritePressed() {
+
+  this.state = {
+    dataSource: new ListView.DataSource({
+      rowHasChanged: (row1, row2) => row1 !== row2,
+    }),
+    loaded: false,
+    favorite: "blah",
+    unfavorite: "blah"
+  };
+  this.render();
+
+    console.log(this.state)
+
+
+   fetch('http://localhost:3000/api/favorites', {
+                              method: 'POST',
+                              headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                              },
+                              body: JSON.stringify({
+                                favorite:{
+                                  accessToken: this.props.accessToken,
+                                  drink_id: this.props.drinkId,
+                                  drink_name: this.props.drinkName
+                                }
+                              })
+                            }).then((data) => data.json())
+                              .then((data) => {
+                                  this.render();
+
+
+                            })
+                            .catch((err) => console.log(err));
+                          }
+
+unfavoritePressed() {
+   fetch('http://localhost:3000/api/favorites', {
+                              method: 'DELETE',
+                              headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json',
+                              },
+                              body: JSON.stringify({
+                                favorite:{
+                                  accessToken: this.props.accessToken,
+                                  drink_id: this.props.drinkId,
+                                  drink_name: this.props.drinkName
+                                }
+                              })
+                            }).then((data) => {
+                              // this.setState({unfavorite: "", favorite: "favorite"})
+                              console.log("sdjkfhsdkjfhkjsdahfflsdafjsdhfjksh")
+                              this.getFavorites.bind(this);
+
+                                    // console.log(data)
+                            })
+                            .catch((err) => console.log(err));
+                          }
+
+
+
 
   fetchData() {
     var drink_id = this.props.drinkId
@@ -69,6 +162,16 @@ class Recipe extends Component {
     });
   }
 
+  navigateToProfile(routeName) {
+    this.props.navigator.push({
+      name: routeName,
+      passProps: {
+        accessToken: this.state.accessToken,
+      }
+    });
+  }
+
+
   render() {
     if (!this.state.loaded) {
       return this.renderLoadingView();
@@ -86,16 +189,49 @@ class Recipe extends Component {
         Recipe
         </Text>
         </View>
+
         <View style={styles.ListView}>
           <ListView
             dataSource={this.state.dataSource}
             renderRow={this.renderRecipe.bind(this)}
             style={styles.ListView}
           />
+
         </View>
+
+
       </View>
     );
   }
+
+  renderFavorite(recipe, data) {
+    if(data.includes(recipe.strDrink)){
+
+    return (
+      <TouchableHighlight underlayColor={'transparent'}
+        onPress={this.unfavoritePressed.bind(this)}
+        onPress={this.navigateToProfile.bind(this, 'profile')}
+      >
+
+        <Text>  {this.state.unfavorite} </Text>
+      </TouchableHighlight>
+  );
+} else if(!data.includes(recipe.strDrink)) {
+
+    return (
+      <TouchableHighlight underlayColor={'transparent'}
+        onPress={this.onFavoritePressed.bind(this)}
+        onPress={this.navigateToProfile.bind(this, 'profile')}
+      >
+        <Text>  {this.state.favorite} </Text>
+      </TouchableHighlight>
+
+  );
+
+        }
+      }
+
+
 
   renderPourButton(recipe, ingredients){
     if(this.state.showPourbutton && !this.blankMeasurements(ingredients)){
@@ -120,6 +256,12 @@ class Recipe extends Component {
       </View>
     );
   }
+
+
+
+
+
+
 
   displayIngredients(recipe, ingredients) {
     var array = []
@@ -174,6 +316,7 @@ class Recipe extends Component {
               renderRow={this.renderPourButton.bind(this, recipe, ingredients)}
               style={styles.ListView}
             />
+            {this.renderFavorite(recipe, this.state.userCurrentFavorites)}
             </View>
           </View>
         );
@@ -186,6 +329,7 @@ class Recipe extends Component {
           <Text style={styles.text}>{this.displayIngredients(recipe, ingredients)}</Text>
           <Text style={styles.header}>Instructions: </Text>
           <Text style={styles.text}>{this.displayInsructions(recipe)}{"\n"}</Text>
+          {this.renderFavorite(recipe, this.state.userCurrentFavorites)}
           <Image
             style={styles.drinkImage}
             source={{uri: url}}
@@ -195,6 +339,7 @@ class Recipe extends Component {
             renderRow={this.renderPourButton.bind(this, recipe, ingredients)}
             style={styles.ListView}
           />
+
         </View>
       </View>
     );
