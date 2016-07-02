@@ -8,8 +8,13 @@ import {
   ListView,
   Navigator,
   TouchableHighlight,
-  Image
+  Image,
+  ScrollView,
+  UIManager,
+  findNodeHandle
 } from 'react-native';
+
+import InvertibleScrollView from 'react-native-invertible-scroll-view';
 
 class Guide extends Component {
   constructor(props) {
@@ -58,17 +63,34 @@ class Guide extends Component {
 
       </View>
       <View>
+        <Text style={styles.header}>
+          Instructions:
+        </Text>
         <Text style={styles.instructions}>
-          Directions: {this.props.instructions}
+          {this.props.instructions}
         </Text>
       </View>
-        <View>
+
+    <View style={styles.container} ref='container'>
+      <InvertibleScrollView>
+          {this.state.scrollViewPadding ? <View style={{height: this.state.scrollViewPadding}} /> : null}
+          <View onLayout={this._adjustPadding.bind(this)}>
           <Text style={styles.text}>
             {this.displayIngredients(this.renderGuide, this.props.ingredients)}
           </Text>
-        </View>
+          </View>
+      </InvertibleScrollView>
       </View>
+    </View>
     );
+  }
+
+  _adjustPadding({nativeEvent}) {
+    let height = nativeEvent.layout.height;
+    let container = this.refs.container;
+    UIManager.measure(findNodeHandle(container), (x, y, width, containerHeight) => {
+        this.setState({scrollViewPadding: Math.max(containerHeight - height, 0)});
+    });
   }
 
   renderLoadingView() {
@@ -110,12 +132,22 @@ class Guide extends Component {
      )
   }
 
+  // allowScroll() {
+  //   return scrollEnabled= true
+  //   this.setState({ scrollEnabled: scrollEnabled })
+  // }
+
   renderGuide(ingredient, key, height) {
-    var colors = ['#FF66E3', '#e1f7d5', '#ffbdbd', '#c9c9ff', '#f1cbff', '#b3d9ff', '#ff9999', '#ffff99', '#99ff99', '#80ffff', '#EFA9FE', '#44B4D5', "#FFFF84", "#E4C6A7", "#FFA4A4"];
+    var colors = ['#FF66E3', '#e1f7d5', '#ffbdbd', '#c9c9ff', '#f1cbff', '#b3d9ff',
+                  '#ff9999', '#ffff99', '#99ff99', '#80ffff', '#EFA9FE', '#44B4D5',
+                  "#FFFF84", "#E4C6A7", "#FFA4A4", '#ffb3e6', '#d9b3ff', '#9999ff',
+                  '#99ccff', '#00e6e6', '#99ff99', '#ffffcc', '#ffb399', '#ff4d4d',
+                  '#ff80bf', '#80ffff', '#ffccff'];
     var rand = Math.floor((Math.random() * colors.length));
     return (
+      // <ScrollView>
         <View key={ key } style={[styles.section, {
-              width: 358,
+              width: 340,
               height:  height,
               backgroundColor: colors[rand],
               alignItems: 'center',
@@ -127,6 +159,7 @@ class Guide extends Component {
             {ingredient.measurement} {ingredient.ingredient}
           </Text>
           </View>
+          // </ScrollView>
       );
   }
 
@@ -153,29 +186,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#4F6367'
   },
-  ListView: {
-    flex: 1,
-    paddingTop: 10,
-  },
-  category: {
-    flex: 1,
-  },
   text: {
     fontSize: 16,
-  },
-  drinkImage: {
-    width: 200,
-    height: 200,
-    alignItems: 'center',
-    justifyContent: 'center',
-
   },
   header: {
     fontSize: 16,
     fontWeight: 'bold'
   },
   bButton: {
-    backgroundColor: '#FE5F55',
+    backgroundColor: '#007399',
     color: 'white',
     // padding: 3,
     textAlign: 'left',
@@ -186,28 +205,39 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   nav: {
-      marginLeft: -8,
+    marginLeft: -8,
     justifyContent: 'flex-start',
     width: 378,
     height: 50,
-    backgroundColor: '#FE5F55',
+    backgroundColor: '#007399',
     // alignItems: 'center',
     flexDirection: 'row',
   },
   navtitle: {
-
-    marginTop: 18,
-    textAlign: 'center',
-    fontSize: 15,
+    fontFamily: 'Helvetica',
+    marginTop: 15,
+    // marginLeft: 74,
+    fontSize: 20,
     color: 'white',
-
+    letterSpacing: 2,
+    fontWeight: 'bold',
+    alignItems: 'center',
   },
   instructions: {
     fontSize: 16,
     justifyContent: 'flex-start',
     paddingBottom: 15,
+    paddingTop: 5
+  },
+  scrollview: {
+    height: 400,
+    justifyContent: 'space-between'
+  },
+  header: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    paddingTop: 10
   }
-
 
 });
 

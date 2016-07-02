@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   bButton: {
-    backgroundColor: '#FE5F55',
+    backgroundColor: '#007399',
     color: 'white',
     // padding: 3,
     textAlign: 'left',
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     width: 378,
     height: 50,
-    backgroundColor: '#FE5F55',
+    backgroundColor: '#007399',
     // alignItems: 'center',
     flexDirection: 'row',
   },

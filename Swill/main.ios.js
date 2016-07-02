@@ -15,6 +15,7 @@ import {
   AsyncStorage,
   Navigator,
   TextInput,
+  Image
 } from 'react-native';
 
 const ACCESS_TOKEN = 'access_token';
@@ -161,7 +162,31 @@ class Main extends Component {
     return (
 
       <View style={styles.container}>
+
       {flashMessage}
+
+        <View>
+          <Image
+            style={styles.logo}
+            source={require('./Swill2.png')}
+          />
+        </View>
+        <TextInput
+          style={styles.search}
+          onChangeText={(text) => this.setState({search: text})}
+          placeholder="Search"
+          autoCorrect={false}
+          value={this.state.search}
+          onSubmitEditing={(text) => {
+            this.navigate('search', this.state.search )
+            this.state.search = ""
+            }
+          }
+        />
+          <Text style={styles.title}>
+            Pick a Category
+          </Text>
+
 
       <View>
       <Text style={styles.title}>
@@ -269,6 +294,7 @@ renderUserButton() {
 
   );
 }
+
 }
 
 const styles = StyleSheet.create({
@@ -283,7 +309,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 8,
     textAlign: 'center',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
   },
   ListView: {
     flex: 1,
@@ -292,27 +318,33 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 40,
     marginRight: 40,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 10,
-    borderColor: '#FE5F55',
-    backgroundColor: '#EEF5DB'
+    borderColor: '#668cff',
+    backgroundColor: 'white'
   },
   search: {
     height: 40,
-    borderColor: '#FE5F55',
+    // borderColor: '#4F6367',
     borderRadius: 10,
-    borderWidth: 1,
+    // borderWidth: 2,
     padding: 10,
     marginLeft: 10,
     marginRight: 10,
-    backgroundColor: '#EEF5DB'
+    backgroundColor: 'white'
   },
   listContainer: {
     flex: 1,
     alignItems: 'stretch',
     backgroundColor: '#B8D8D8',
     marginTop: 10,
-  }
+  },
+  logo: {
+    height: 150,
+    width: 300,
+    marginTop: 10,
+    marginLeft: 25
+  },
 });
 
 export default Main
