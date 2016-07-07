@@ -163,6 +163,9 @@ class Main extends Component {
     return (
 
       <View style={styles.container}>
+
+      {flashMessage}
+
         <View>
         {flashMessage}
         <View>
@@ -188,7 +191,6 @@ class Main extends Component {
         <Text style={styles.title}>
           Pick a Category
         </Text>
-
       <View style={styles.ListView}>
         <ListView
         dataSource={this.state.dataSource}
@@ -276,7 +278,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 8,
     textAlign: 'center',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
   },
   ListView: {
     flex: 1,
@@ -287,18 +289,18 @@ const styles = StyleSheet.create({
     marginRight: 40,
     borderWidth: 2,
     borderRadius: 10,
-    borderColor: '#FE5F55',
-    backgroundColor: '#EEF5DB'
+    borderColor: '#668cff',
+    backgroundColor: 'white'
   },
   search: {
     height: 40,
-    borderColor: '#FE5F55',
+    // borderColor: '#4F6367',
     borderRadius: 10,
-    borderWidth: 2,
+    // borderWidth: 2,
     padding: 10,
     marginLeft: 10,
     marginRight: 10,
-    backgroundColor: '#EEF5DB'
+    backgroundColor: 'white'
   },
   listContainer: {
     flex: 1,
@@ -307,7 +309,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   logo: {
-    height: 100,
+    height: 150,
     width: 300,
     marginTop: 10,
     marginLeft: 25

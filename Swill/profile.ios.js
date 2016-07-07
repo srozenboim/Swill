@@ -102,9 +102,44 @@ class Profile extends Component {
 
  }
 
+          // this.setState({
+          //   dataSource: this.state.dataSource.cloneWithRows(favorites),
+          //   loaded: true,
+          // })
+          // console.log(favorites[11])
+          // //On success we will store the access_token in the AsyncStorage
+          // console.log(res)
+
+  //     } else {
+  //         //Handle error
+  //         let error = res;
+  //         throw error;
+  //     }
+  //   } catch(errors) {
+  //     //errors are in JSON form so we must parse them first.
+  //     let formErrors = JSON.parse(errors);
+  //     //We will store all the errors in the array.
+  //     let errorsArray = [];
+  //     for(var key in formErrors) {
+  //       //If array is bigger than one we need to split it.
+  //       if(formErrors[key].length > 1) {
+  //           formErrors[key].map(error => errorsArray.push(`${key} ${error}`));
+  //       } else {
+  //           errorsArray.push(`${key} ${formErrors[key]}`);
+  //       }
+  //     }
+  //     this.setState({errors: errorsArray})
+  //     this.setState({showProgress: false});
+  //   }
+  // }
+
+
+
+
+
+
 parseFavorites(){
   var favoritesObj = JSON.parse(favorites)
-    console.log(favoritesObj[14029])
 }
 
   render() {
@@ -114,7 +149,6 @@ parseFavorites(){
     return (
 
       <View style={styles.container}>
-
         <View style={styles.nav}>
         <TouchableHighlight underlayColor={'transparent'}
           onPress={this.back.bind(this)}
@@ -125,6 +159,7 @@ parseFavorites(){
         {this.state.username}
         </Text>
         </View>
+
         <View style={styles.ListView}>
           <ListView
             dataSource={this.state.dataSource}

@@ -126,8 +126,6 @@ unfavoritePressed() {
     }
 
 
-
-
   fetchData() {
     var drink_id = this.props.drinkId
     fetch(REQUEST_URL + drink_id)
@@ -208,7 +206,6 @@ unfavoritePressed() {
   }
 
   renderFavorite(recipe, data) {
-    console.log(data)
     if(data.includes(recipe.strDrink)){
 
     return (
@@ -232,7 +229,6 @@ unfavoritePressed() {
 
         }
       }
-      // onPress={this.navigateToProfile.bind(this, 'profile')}
 
 
 
@@ -401,7 +397,7 @@ unfavoritePressed() {
 
 
       var substitutions = {
-        'shot': 1.5, 'shots': 1.5, 'splash': 0.03125 ,
+        'shot': 1.5, 'shots': 1.5, 'splash': 0.03125, 'splashes': 0.03125,
         'dash': 0.03125, 'dashes': 0.03125,
         'jigger': 1.5, 'scoop': 4, 'scoops': 4,
         'part': 0, 'parts': 0, 'fill':0
@@ -494,13 +490,14 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     resizeMode: 'contain',
+    alignSelf: 'center'
   },
   header: {
     fontSize: 16,
     fontWeight: 'bold'
   },
   bButton: {
-    backgroundColor: '#FE5F55',
+    backgroundColor: '#007399',
     color: 'white',
     // padding: 3,
     textAlign: 'left',
@@ -511,32 +508,41 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   bButton2: {
-    backgroundColor: '#FE5F55',
+    backgroundColor: '#007399',
     color: 'white',
-    padding: 3,
-    textAlign: 'left',
-    marginLeft: 19,
+    textAlign: 'center',
+    // marginLeft: 19,
     marginBottom: 0,
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: 'white',
-    borderRadius:4,
-    width: 85,
-    paddingBottom: 10,
+    // borderRadius:4,
+    // width: 85,
     fontWeight: 'bold',
+    marginTop: 10,
+    padding: 10,
+    flex: 1,
+    marginLeft: 40,
+    marginRight: 40,
+    borderWidth: 2,
+    fontSize: 20
+    // borderRadius: 10,
   },
   navtitle: {
+    fontFamily: 'Helvetica',
     marginTop: 15,
-    marginLeft: 74,
+    // marginLeft: 74,
     fontSize: 20,
     color: 'white',
-    letterSpacing: 14,
+    letterSpacing: 2,
+    fontWeight: 'bold',
+    alignItems: 'center'
   },
   nav: {
     marginLeft: -8,
     justifyContent: 'flex-start',
     width: 398,
     height: 50,
-    backgroundColor: '#FE5F55',
+    backgroundColor: '#007399',
     // alignItems: 'center',
     flexDirection: 'row',
   },

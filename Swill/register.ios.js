@@ -67,6 +67,7 @@ class Register extends Component {
             }
           })
         });
+
       let res = await response.text();
       if (response.status >= 200 && response.status < 300) {
           //Handle success
