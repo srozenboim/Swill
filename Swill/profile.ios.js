@@ -8,11 +8,11 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
-import Recipe from './recipe'
 
 var REQUEST_URL = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="
+var API_URL = "https://swill-backend.herokuapp.com/"
 
-class Category extends Component {
+class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,53 +24,106 @@ class Category extends Component {
     };
   }
 
+  componentWillReceiveProps() {
+    this.setState({loaded: false})
+    this.render();
+    fetch(API_URL+'api/userfavorites', {
+       method: 'POST',
+       headers: {
+         'Accept': 'application/json',
+         'Content-Type': 'application/json',
+       },
+       body: JSON.stringify({
+         favorite:{
+           accessToken: this.props.accessToken,
+           drink_id: this.props.drinkId,
+         }
+       })
+     }).then((res) => res.json())
+       .then((res) => {
+
+         var favorite = res
+         // var favorite = [Object.values(res)]
+         console.log(favorite)
+         this.setState({
+           dataSource: this.state.dataSource.cloneWithRows(favorite),
+           loaded: true,
+         })
+         this.render();
+
+       })
+       .catch((err) => console.log(err));
+    console.log(this.state);
+    console.log("dsafsgfjashhk")
+
+  }
+
   componentWillMount() {
-console.log("constructor")
+  //  console.log("it will mount!!!!!!")
   }
 
   componentDidMount() {
-    console.log("constructor")
-    this.fetchData();
+    // console.log("constructor")
+    console.log("it will mount!!!!!!")
+     this.fetchData();
 
   }
 
-  fetchData() {
-    var ingredient = this.props.category
-    fetch(REQUEST_URL + ingredient)
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log(responseData)
-        console.log(responseData.drinks)
 
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.drinks),
-          loaded: true,
-        });
+
+ fetchData() {
+   fetch(API_URL+'api/userfavorites', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        favorite:{
+          accessToken: this.props.accessToken,
+          drink_id: this.props.drinkId,
+        }
       })
-      .done();
-  }
+    }).then((res) => res.json())
+      .then((res) => {
+
+        var favorite = res
+        // var favorite = [Object.values(res)]
+        console.log(favorite)
+        this.setState({
+          dataSource: this.state.dataSource.cloneWithRows(favorite.favorites),
+          username: favorite.username,
+          loaded: true,
+        })
+
+
+      })
+      .catch((err) => console.log(err));
+
+ }
+
+parseFavorites(){
+  var favoritesObj = JSON.parse(favorites)
+    console.log(favoritesObj[14029])
+}
 
   render() {
     if (!this.state.loaded) {
       return this.renderLoadingView();
     }
     return (
+
       <View style={styles.container}>
+
         <View style={styles.nav}>
         <TouchableHighlight underlayColor={'transparent'}
-          onPress={this.back.bind(this, 'recipe')}
+          onPress={this.back.bind(this)}
         >
           <Text style={styles.bButton}>  &lsaquo; </Text>
         </TouchableHighlight>
         <Text style={styles.navtitle}>
-        {this.props.category}
+        {this.state.username}
         </Text>
-        </View>
-        <View>
-
-          <Text style={styles.title}>
-            {this.props.type}
-          </Text>
         </View>
         <View style={styles.ListView}>
           <ListView
@@ -88,15 +141,15 @@ console.log("constructor")
       <View style={styles.container}>
         <View style={styles.category}>
           <TouchableHighlight underlayColor={'transparent'}
-            onPress={this.navigate.bind(this, 'recipe', drink.idDrink, drink.strDrink)}
+            onPress={this.navigate.bind(this, 'recipe', drink.id, drink.name)}
           >
-            <Text style={styles.title}>{drink.strDrink}</Text>
+            <Text style={styles.title}>{drink.name}</Text>
           </TouchableHighlight>
         </View>
       </View>
     );
   }
-  
+
   renderLoadingView() {
     return (
       <View style={styles.container}>
@@ -107,13 +160,8 @@ console.log("constructor")
     );
   }
 
-
-
-  back(routeName, drink) {
-    this.props.navigator.pop({
-      name: routeName,
-      passProps: {drinkId: drink}
-    });
+  back(routeName) {
+    this.props.navigator.pop();
   }
 
   navigate(routeName, drink, name) {
@@ -182,8 +230,8 @@ const styles = StyleSheet.create({
     marginLeft: 74,
     fontSize: 20,
     color: 'white',
-    letterSpacing: 2,
+    letterSpacing: 14,
   },
 });
 
-export default Category;
+export default Profile;
